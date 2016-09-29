@@ -5,22 +5,24 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 public class GameModel {
-	private ArrayList<ArrayList<WordModel>> quizWords = new ArrayList<>();
+	private ArrayList<LevelModel> _quizWords = new ArrayList<>();
 	
 	public GameModel(String wordList) throws IOException {
 		WordListReader wlr = new WordListReader(wordList);
 		ArrayList<ArrayList<String>> words = wlr.readWords();
 		ArrayList<String> levels = wlr.getLevelNames();
 		
-		for (int i = 0; i < levels.size(); i++){
-			quizWords.add(new ArrayList<WordModel>());
+		for (int i = 0; i < words.size(); i++){
+			//each level
+			_quizWords.add(new LevelModel(levels.get(i)));
 			for (String word: words.get(i)) {
-				quizWords.get(i).add(new WordModel(word, levels.get(i)));
+				_quizWords.get(i).addWord(word);
 			}
 		}
 	}
 	
-	public ArrayList<WordModel> getWordsFromCategory(int categoryID) {
-		return quizWords.get(categoryID);
+	public ArrayList<WordModel> getWordsFromLevel(int levelID) {
+		return _quizWords.get(levelID).getWords();
 	}
+	
 }

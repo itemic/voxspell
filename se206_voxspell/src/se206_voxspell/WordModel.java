@@ -20,4 +20,5 @@ public class WordModel {
 		_userRating = 5; //middle ground for new words (neutral)
 		_experience = word.length(); //experience proportional to word length
 	}
+		
 }
