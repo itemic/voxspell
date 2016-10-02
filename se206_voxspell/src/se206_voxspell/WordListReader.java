@@ -27,7 +27,7 @@ public class WordListReader {
 		String w;
 		while ((w = _fileReader.readLine()) != null) {
 			if (w.startsWith("%")) {
-				System.out.println(w.substring(1));
+//				System.out.println(w.substring(1));
 				_levelNames.add(w.substring(1));
 				
 				words.add(new ArrayList<String>());

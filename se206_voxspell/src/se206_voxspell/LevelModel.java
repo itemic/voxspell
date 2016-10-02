@@ -24,4 +24,8 @@ public class LevelModel {
 		return _levelName;
 	}
 	
+	public String toString() {
+		return "" + _levelName;
+	}
+	
 }

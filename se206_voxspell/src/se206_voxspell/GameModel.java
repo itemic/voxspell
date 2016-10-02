@@ -6,6 +6,7 @@ import java.util.ArrayList;
 
 public class GameModel {
 	private ArrayList<LevelModel> _quizWords = new ArrayList<>();
+
 	
 	public GameModel(String wordList) throws IOException {
 		WordListReader wlr = new WordListReader(wordList);
@@ -23,6 +24,10 @@ public class GameModel {
 	
 	public ArrayList<WordModel> getWordsFromLevel(int levelID) {
 		return _quizWords.get(levelID).getWords();
+	}
+	
+	public ArrayList<LevelModel> getLevels() {
+		return _quizWords;
 	}
 	
 }

@@ -8,7 +8,7 @@ public class WordModel {
 	private int _attempts; //logically incorrect would be a-c
 	private String _category; //level if you will
 	private Date _lastTried; //to be considered (NOT IN CONSTRUCTORS YET)
-	private int _userRating; // 1-9 based on user's performance
+	private int _wordScore; // 0-100 based on user's performance
 	private int _experience; // experience points earned
 	
 	public WordModel(String word, String category) {
@@ -17,8 +17,63 @@ public class WordModel {
 		_attempts = 0;
 		_category = category;
 //		_lastTried = null
-		_userRating = 5; //middle ground for new words (neutral)
+		_wordScore = 50; //middle ground for new words (neutral)
 		_experience = word.length(); //experience proportional to word length
 	}
+	
+	public boolean isCorrect(String input) {
+		//checks if a word is correct and alters stats based on it
+		boolean userCorrect = (input.equals(_word.toLowerCase()));
+		if (userCorrect) {
+			_correct++;
+			_attempts++;
+			if (_wordScore < 50) {
+				_wordScore += 10;
+			} else if (_wordScore < 75) {
+				_wordScore += 15;
+			} else if (_wordScore < 100) {
+				_wordScore += 20;
+			}
+			
+			if (_wordScore > 100) {
+				_wordScore = 100;
+			}
+		} else {
+			_attempts++;
+			if (_wordScore > 75) {
+				_wordScore -= 30;
+			} else if (_wordScore > 50) {
+				_wordScore -= 20;
+			} else if (_wordScore > 0) {
+				_wordScore -= 15;
+			}
+			
+			if (_wordScore < 0) {
+				_wordScore = 0;
+			}
+		}
+		return userCorrect;
+	}
+	
+	public String getWord() {
+		return _word;
+	}
+	
+	public int getTimesCorrect() {
+		return _correct;
+	}
+	
+	public int getTotalAttempts() {
+		return _attempts;
+	}
+	
+	public int getWordScore() {
+		return _wordScore;
+	}
+	
+	public String toString() {
+		return _word;
+	}
+	
 		
 }
