@@ -64,7 +64,7 @@ public class QuizModel {
 		guess = guess.toLowerCase();
 		WordModel word = _quizWords.get(_wordPosition);
 		boolean isCorrect = word.isCorrect(guess);
-		if (isCorrect) { //ensure case insensitivity
+		if (isCorrect) { //ensure case insensitivitys
 			TextToSpeech.access().speak("You spelled it right.");
 			_correct++;
 			_attempts++;
