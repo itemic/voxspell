@@ -37,12 +37,23 @@ public class HomeMenuController {
     
     @FXML
     void goToStats(ActionEvent event) {
-
+    	
     }
 
     @FXML
     void goToSettings(ActionEvent event) {
-
+    	try {
+    		FXMLLoader loader = new FXMLLoader();
+    		loader.setLocation(MainApp.class.getResource("SettingsMenu.fxml"));
+    		BorderPane settings = (BorderPane)loader.load();
+    		SettingsMenuController controller = loader.<SettingsMenuController>getController();
+    		controller.setUpSettings(); //code to initialize 
+    		
+    		BorderPane root = MainApp.getRoot();
+    		root.setCenter(settings);
+    	} catch (IOException e) {
+    		e.printStackTrace();
+    	}
     }
 
 }

@@ -6,16 +6,16 @@ public class WordModel {
 	public String _word;
 	private int _correct;
 	private int _attempts; //logically incorrect would be a-c
-	private String _category; //level if you will
+	private LevelModel _level; //level if you will
 	private Date _lastTried; //to be considered (NOT IN CONSTRUCTORS YET)
 	private int _wordScore; // 0-100 based on user's performance
 	private int _experience; // experience points earned
 	
-	public WordModel(String word, String category) {
+	public WordModel(String word, LevelModel level) {
 		_word = word;
 		_correct = 0;
 		_attempts = 0;
-		_category = category;
+		_level = level;
 //		_lastTried = null
 		_wordScore = 50; //middle ground for new words (neutral)
 		_experience = word.length(); //experience proportional to word length
@@ -27,6 +27,7 @@ public class WordModel {
 		if (userCorrect) {
 			_correct++;
 			_attempts++;
+			_level.isCorrect();
 			if (_wordScore < 50) {
 				_wordScore += 10;
 			} else if (_wordScore < 75) {
@@ -40,6 +41,7 @@ public class WordModel {
 			}
 		} else {
 			_attempts++;
+			_level.isIncorrect();
 			if (_wordScore > 75) {
 				_wordScore -= 30;
 			} else if (_wordScore > 50) {

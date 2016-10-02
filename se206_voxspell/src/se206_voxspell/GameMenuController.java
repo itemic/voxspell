@@ -18,8 +18,14 @@ public class GameMenuController {
     private Label levelLabel;
 
     @FXML
-    private Label allTimeLabel; //temporaily use as progress (current game percentage)
+    private Label allTimeLabel; // this level's accuracy
 
+    @FXML
+    private Label progressLabel;
+    
+    @FXML
+    private Label levelAccuracyLabel; // this current game's accuracy
+    
     @FXML
     private TextField inputField;
 
@@ -67,16 +73,16 @@ public class GameMenuController {
     }
 
     void loadGame(LevelModel level) {
-    	System.out.println("Starting game: " + level);
     	_quiz = new QuizModel(level);
-    	System.out.println("Generating words: " + _quiz.generateQuizWords());
     	update();
     	//used to pass in necessary stuff
     }
     
     void update() {
     	levelLabel.setText(_quiz.getLevel().toString());
-    	allTimeLabel.setText(_quiz.quizAccuracy());
+    	levelAccuracyLabel.setText(_quiz.quizAccuracy());
+    	allTimeLabel.setText(_quiz.getLevel().levelAccuracy());
+    	progressLabel.setText(_quiz.getCurrentWordPosition() + "/" + _quiz.getQuizSize());
     }
 
 }

@@ -46,17 +46,24 @@ public class QuizModel {
 		return generatedWords;
 	}
 	
+	public int getQuizSize() {
+		return quizSize;
+	}
+	
+	public int getCurrentWordPosition() {
+		return _wordPosition;
+	}
 	public ArrayList<WordModel> getQuizWords() {
 		return _quizWords;
 	}
 	
 	public String quizAccuracy() {
 		if (_attempts == 0) {
-			return "-- %"; // no value yet
+			return "--%"; // no value yet
 		} else {
 			//REFERENCE: http://stackoverflow.com/questions/2808535/round-a-double-to-2-decimal-places
 			double percentage = new BigDecimal((double)((double)_correct / (double)_attempts) * 100).setScale(2, RoundingMode.CEILING).doubleValue();
-			return percentage + " %";
+			return percentage + "%";
 		}
 	}
 	
