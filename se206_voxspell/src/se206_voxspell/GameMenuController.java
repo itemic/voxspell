@@ -45,7 +45,8 @@ public class GameMenuController {
 
     @FXML
     void replayPressed(ActionEvent event) {
-
+    	boolean canReplay = _quiz.canReplay();
+    	replayBtn.setDisable(true);
     }
 
     @FXML
@@ -66,7 +67,9 @@ public class GameMenuController {
         	} catch (IOException e) {
         		e.printStackTrace();
         	}
-    	} 
+    	} else {
+    		replayBtn.setDisable(false);
+    	}
 
     	//TEMP CODE TO TEST DUMMY
     	

@@ -12,6 +12,7 @@ public class QuizModel {
 	private int _correct;
 	private int _attempts;
 	private int _wordPosition; // where in the list has the user gotten to?
+	private boolean _canReplay; //can the user replay?
 	
 	public enum QuizState {
 		NEW
@@ -28,6 +29,7 @@ public class QuizModel {
 		_allWords = level.getWords();
 		_quizWords = generateQuizWords();
 		_wordPosition = 0;
+		_canReplay = true;
 		TextToSpeech.access().speak("Round starting: spell " + _quizWords.get(_wordPosition));
 	}
 	
@@ -49,6 +51,19 @@ public class QuizModel {
 	public int getQuizSize() {
 		return quizSize;
 	}
+	
+	public boolean canReplay() {
+		if (_canReplay) {
+			TextToSpeech.access().speak("Listen carefully, spell " + _quizWords.get(_wordPosition));
+			_canReplay = false;
+		}
+		return _canReplay;
+	}
+	
+	public void setReplayable(boolean b) {
+		_canReplay = b;
+	}
+	
 	
 	public int getCurrentWordPosition() {
 		return _wordPosition;
@@ -75,7 +90,6 @@ public class QuizModel {
 			TextToSpeech.access().speak("You spelled it right.");
 			_correct++;
 			_attempts++;
-			System.out.println(_correct + " " + _attempts);
 		} else {
 			TextToSpeech.access().speak("Incorrect spelling.");
 			_attempts++;
@@ -92,6 +106,7 @@ public class QuizModel {
 			return false;
 		} else {
 			TextToSpeech.access().speak("Spell " + _quizWords.get(_wordPosition).toString());
+			_canReplay = true; //
 			return true;
 		}
 	}
