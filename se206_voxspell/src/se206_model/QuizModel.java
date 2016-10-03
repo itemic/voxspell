@@ -5,6 +5,7 @@ import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.concurrent.ThreadLocalRandom;
 
 import se206_util.TextToSpeech;
 
@@ -42,7 +43,7 @@ public class QuizModel implements Serializable {
 		TextToSpeech.access().speak("Round starting: spell " + _quizWords.get(_wordPosition));
 	}
 	
-	public ArrayList<WordModel> generateQuizWords() {
+	public ArrayList<WordModel> generateQuizxWords() {
 		// TODO: Take into account of weighting
 		ArrayList<WordModel> generatedWords = new ArrayList<>();
 		Collections.shuffle(_allWords);
@@ -55,6 +56,50 @@ public class QuizModel implements Serializable {
 			}
 		}
 		return generatedWords;
+	}
+	
+	public ArrayList<WordModel> generateQuizWords() {
+		ArrayList<WordModel> generatedWords = new ArrayList<>();
+		int bias = 0;
+		for (WordModel w: _allWords){
+			bias += (100 - w.getWordScore());
+		}
+		
+		Collections.shuffle(_allWords);
+		if (_allWords.size() < quizSize) {
+			generatedWords.addAll(_allWords);
+			quizSize = _allWords.size(); //update wordcount
+		} else {
+			for (int i = 0; i < quizSize; i++) {
+				int chosen = ThreadLocalRandom.current().nextInt(0, bias);
+				int selectedWord = (int) (((double)chosen/bias) * (_allWords.size()-1));
+				WordModel candidate = _allWords.get(selectedWord);
+				if (!generatedWords.contains(candidate)) {
+					generatedWords.add(candidate);
+				} else {
+					i--;
+				}
+			}
+		}
+			
+		
+		return generatedWords;
+	}
+	// REF: http://gamedev.stackexchange.com/questions/54551/using-random-numbers-with-a-bias
+	public WordModel getBiasedWord(int bias) {
+		if (bias > 0) {
+			int random = (int)(Math.random() * bias);
+			System.out.println(random);
+			for (WordModel w: _allWords) {
+				if (random < w.getWordScore()) {
+					System.out.println("Adding:" + w);
+					return w;
+				} else {
+					bias -= w.getWordScore();
+				}
+			}
+		}
+		return null;
 	}
 	
 	public int getQuizSize() {
@@ -128,4 +173,10 @@ public class QuizModel implements Serializable {
 	public LevelModel getLevel() {
 		return _level;
 	}
+	
+	public int getCorrect() {
+		return _correct;
+	}
 }
+
+

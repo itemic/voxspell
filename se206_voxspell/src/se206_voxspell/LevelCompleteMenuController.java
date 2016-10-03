@@ -8,6 +8,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.BorderPane;
+import se206_model.QuizModel;
 
 public class LevelCompleteMenuController {
 
@@ -39,6 +40,12 @@ public class LevelCompleteMenuController {
     	} catch (IOException e) {
     		e.printStackTrace();
     	}
+    }
+    
+    
+    public void init(QuizModel quiz) {
+    	xpLabel.setText("+" + quiz.xpEarnedThisQuiz() + " XP");
+    	scoreLabel.setText(quiz.getCorrect() + "/" + quiz.getQuizSize());
     }
 
     @FXML
