@@ -58,6 +58,8 @@ public class GameMenuController {
     	boolean levelHasMore = _quiz.loadNext();
     	if (!levelHasMore) {
     		try {
+    			int quizXP = _quiz.xpEarnedThisQuiz();
+    			MainApp.instance().getUser().gainExperience(quizXP);
         		FXMLLoader loader = new FXMLLoader();
         		loader.setLocation(MainApp.class.getResource("LevelCompleteMenu.fxml"));
         		BorderPane levelSelectPane = (BorderPane)loader.load();

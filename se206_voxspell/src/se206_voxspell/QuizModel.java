@@ -13,6 +13,7 @@ public class QuizModel {
 	private int _attempts;
 	private int _wordPosition; // where in the list has the user gotten to?
 	private boolean _canReplay; //can the user replay?
+	private int _quizXP; //how much the user gained in XP this game.
 	
 	public enum QuizState {
 		NEW
@@ -30,6 +31,7 @@ public class QuizModel {
 		_quizWords = generateQuizWords();
 		_wordPosition = 0;
 		_canReplay = true;
+		_quizXP = 0;
 		TextToSpeech.access().speak("Round starting: spell " + _quizWords.get(_wordPosition));
 	}
 	
@@ -90,6 +92,7 @@ public class QuizModel {
 			TextToSpeech.access().speak("You spelled it right.");
 			_correct++;
 			_attempts++;
+			_quizXP += word.getXP();
 		} else {
 			TextToSpeech.access().speak("Incorrect spelling.");
 			_attempts++;
@@ -109,6 +112,10 @@ public class QuizModel {
 			_canReplay = true; //
 			return true;
 		}
+	}
+	
+	public int xpEarnedThisQuiz() {
+		return _quizXP;
 	}
 	
 	public LevelModel getLevel() {

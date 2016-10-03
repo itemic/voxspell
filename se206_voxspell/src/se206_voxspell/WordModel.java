@@ -77,5 +77,8 @@ public class WordModel {
 		return _word;
 	}
 	
+	public int getXP() {
+		return _experience;
+	}
 		
 }

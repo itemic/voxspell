@@ -15,19 +15,29 @@ public class MainApp extends Application {
 	private static BorderPane _root = new BorderPane();
 	private static MainApp _instance;
 	private Stage _primaryStage;
-	private GameModel _game;
+//	private GameModel _game;
+	private UserModel _user;
+	private StatusHUDController _hud;
 	
-	public GameModel getGame() {
-		return _game;
+//	public GameModel getGame() {
+//		return _game;
+//	}
+	
+	public StatusHUDController getHUD() {
+		return _hud;
+	}
+	public UserModel getUser() {
+		return _user;
 	}
 	
 	public static MainApp instance() {
 		return _instance;
 	}
+
 	
 	public void start(Stage primaryStage) throws Exception {
 		_instance = this;
-		_game = new GameModel("resources/nzcer-wordlist.txt");
+		_user = new UserModel("tkro003");
 		this._primaryStage = primaryStage;
 		this._primaryStage.setTitle("VOXSpell β");
 		setLayout();
@@ -47,6 +57,7 @@ public class MainApp extends Application {
 			BorderPane status = (BorderPane)loader.load();
 			_root.setCenter(menu);
 			_root.setTop(status);
+    		_hud = loader.<StatusHUDController>getController();
 			Scene scene = new Scene(_root, 800, 600);
 			scene.getStylesheets().add(getClass().getResource("voxstyle.css").toExternalForm());
 			_primaryStage.setScene(scene);

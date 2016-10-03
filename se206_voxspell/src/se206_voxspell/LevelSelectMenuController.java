@@ -75,7 +75,7 @@ public class LevelSelectMenuController {
     }
     
     void fromMenu() {
-    	for (LevelModel level: MainApp.instance().getGame().getLevels()) {
+    	for (LevelModel level: MainApp.instance().getUser().getGame().getLevels()) {
     		_levels.add(level.getName());
     		_lvModel.add(level);
     	}
