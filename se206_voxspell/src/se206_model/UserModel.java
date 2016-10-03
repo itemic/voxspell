@@ -58,7 +58,7 @@ public class UserModel implements Serializable {
 	}
 	
 	public void update() {
-		if (checkIfLevelUp()) {
+		while (checkIfLevelUp()) {
 			levelUp();
 		}
 		// coupling :( fix later
