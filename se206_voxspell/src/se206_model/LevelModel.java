@@ -1,10 +1,16 @@
-package se206_voxspell;
+package se206_model;
 
+import java.io.Serializable;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.util.ArrayList;
 
-public class LevelModel {
+public class LevelModel implements Serializable {
+	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 8876244034319084689L;
 	private String _levelName;
 	private ArrayList<WordModel> _levelWords;
 	private int _correct;

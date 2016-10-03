@@ -1,10 +1,17 @@
-package se206_voxspell;
+package se206_model;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class GameModel {
+import se206_util.WordListReader;
+
+public class GameModel implements Serializable {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 8437363611385886849L;
 	private ArrayList<LevelModel> _quizWords = new ArrayList<>();
 
 	

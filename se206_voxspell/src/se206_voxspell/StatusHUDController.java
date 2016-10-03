@@ -8,6 +8,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
 import javafx.scene.control.ProgressBar;
 import javafx.scene.control.Tooltip;
+import se206_model.UserModel;
 
 public class StatusHUDController implements Initializable{
 

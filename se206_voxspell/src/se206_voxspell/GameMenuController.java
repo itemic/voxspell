@@ -9,6 +9,8 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.BorderPane;
+import se206_model.LevelModel;
+import se206_model.QuizModel;
 
 public class GameMenuController {
 
@@ -56,6 +58,7 @@ public class GameMenuController {
     	update();
     	inputField.clear();
     	boolean levelHasMore = _quiz.loadNext();
+    	MainApp.instance().saveUser(); //save on every click?
     	if (!levelHasMore) {
     		try {
     			int quizXP = _quiz.xpEarnedThisQuiz();

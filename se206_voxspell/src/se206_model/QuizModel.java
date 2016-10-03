@@ -1,11 +1,18 @@
-package se206_voxspell;
+package se206_model;
 
+import java.io.Serializable;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.util.ArrayList;
 import java.util.Collections;
 
-public class QuizModel {
+import se206_util.TextToSpeech;
+
+public class QuizModel implements Serializable {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -1958232043783152292L;
 	public static int quizSize = 5; ///words in a level
 	private static double passThreshold = 0.9; // accuracy needed to pass
 	private LevelModel _level;

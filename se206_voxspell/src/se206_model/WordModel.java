@@ -1,8 +1,13 @@
-package se206_voxspell;
+package se206_model;
 
+import java.io.Serializable;
 import java.util.Date;
 
-public class WordModel {
+public class WordModel implements Serializable {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 6323087623510671956L;
 	public String _word;
 	private int _correct;
 	private int _attempts; //logically incorrect would be a-c

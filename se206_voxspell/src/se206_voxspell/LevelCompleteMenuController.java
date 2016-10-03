@@ -29,6 +29,7 @@ public class LevelCompleteMenuController {
     @FXML
     void backToMenu(ActionEvent event) {
     	try {
+    		MainApp.instance().saveUser();
     		FXMLLoader loader = new FXMLLoader();
     		loader.setLocation(MainApp.class.getResource("HomeMenu.fxml"));
     		BorderPane levelSelectPane = (BorderPane)loader.load();

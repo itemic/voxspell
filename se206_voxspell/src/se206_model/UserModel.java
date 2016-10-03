@@ -1,13 +1,21 @@
-package se206_voxspell;
+package se206_model;
 
 import java.io.IOException;
+import java.io.Serializable;
 
-public class UserModel {
+import se206_voxspell.MainApp;
+
+public class UserModel implements Serializable {
+	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 7934526701176815705L;
 	private String _name;
 	private int _level;
 	private int _experience;
 	private int _xpToNextLevel;
-	private final int base = 100;
+	private final int base = 20;
 	private final double modifier = 1.2; // how much to next level
 	private GameModel _game;
 	
@@ -63,6 +71,10 @@ public class UserModel {
 	
 	public int getNextXP() {
 		return _xpToNextLevel;
+	}
+	
+	public String toString() {
+		return _name;
 	}
 
 	

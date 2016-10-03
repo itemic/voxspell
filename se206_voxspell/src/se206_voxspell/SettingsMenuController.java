@@ -10,6 +10,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.layout.BorderPane;
+import se206_util.TextToSpeech;
 
 public class SettingsMenuController {
 	
@@ -29,6 +30,7 @@ public class SettingsMenuController {
 
     @FXML
     void backToMenu(ActionEvent event) {
+    	MainApp.instance().saveUser();
     	try {
     		FXMLLoader loader = new FXMLLoader();
     		loader.setLocation(MainApp.class.getResource("HomeMenu.fxml"));

@@ -1,4 +1,4 @@
-package se206_voxspell;
+package se206_util;
 
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;

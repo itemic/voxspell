@@ -1,5 +1,6 @@
 package se206_voxspell;
 
+import java.io.FileNotFoundException;
 import java.io.IOException;
 
 import javafx.application.Application;
@@ -10,6 +11,8 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
+import se206_model.UserModel;
+import se206_util.SaveGame;
 
 public class MainApp extends Application {
 	private static BorderPane _root = new BorderPane();
@@ -18,6 +21,7 @@ public class MainApp extends Application {
 //	private GameModel _game;
 	private UserModel _user;
 	private StatusHUDController _hud;
+	private SaveGame _save;
 	
 //	public GameModel getGame() {
 //		return _game;
@@ -34,10 +38,25 @@ public class MainApp extends Application {
 		return _instance;
 	}
 
+	public boolean loadUser() {
+		_save = new SaveGame();
+		try {
+			_user = _save.load();
+			return true;
+		} catch (FileNotFoundException e) {
+			//resetUser();
+			return false;
+		}
+	}
+	
+	public void saveUser() {
+		_save.save();
+	}
+	
+	
 	
 	public void start(Stage primaryStage) throws Exception {
 		_instance = this;
-		_user = new UserModel("tkro003");
 		this._primaryStage = primaryStage;
 		this._primaryStage.setTitle("VOXSpell β");
 		setLayout();
@@ -49,6 +68,14 @@ public class MainApp extends Application {
 	
 	public void setLayout() {
 		try {
+			
+			if (loadUser() && _user != null) {
+			} else {
+				_user = new UserModel("tkro003");
+				_save = new SaveGame(_user);
+			}
+			
+			saveUser();
 			FXMLLoader loader = new FXMLLoader();			
 			loader.setLocation(MainApp.class.getResource("HomeMenu.fxml"));
 			BorderPane menu = (BorderPane) loader.load();
