@@ -37,7 +37,7 @@ public class SaveGame {
 	 */
 	public static final String EXTENSION = ".vxs";
 	
-	public static final String DIR = "profiles/";
+	public static final String DIR = "profile/";
 	private String _filename;
 	private UserModel _user;
 
@@ -57,8 +57,9 @@ public class SaveGame {
 	 *            The game to be saved
 	 */
 	public SaveGame(UserModel user) {
-		this(DEFAULTFILENAME, user);
+		this("save", user);
 	}
+	
 
 	/**
 	 * This constructor allows definition of the save file name and the game to
@@ -112,6 +113,7 @@ public class SaveGame {
 			_user = (UserModel) in.readObject();
 			in.close();
 			file.close();
+			System.out.println("SUCCESSFUL LOAD + " + _user);
 			return _user;
 		} catch (FileNotFoundException e) {
 			throw e;

@@ -32,7 +32,7 @@
                <children>
                   <Label text="Load Profile" />
                   <ChoiceBox fx:id="loadProfileComboBox" prefWidth="150.0" />
-                  <Button fx:id="loadUserPlayBtn" mnemonicParsing="false" text="Load and Play" />
+                  <Button fx:id="loadUserPlayBtn" mnemonicParsing="false" onAction="#load" text="Load and Play" />
                </children>
                <padding>
                   <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
