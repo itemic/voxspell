@@ -36,6 +36,8 @@ public class SaveGame {
 	 * Default file extension
 	 */
 	public static final String EXTENSION = ".vxs";
+	
+	public static final String DIR = "profiles/";
 	private String _filename;
 	private UserModel _user;
 
@@ -68,7 +70,8 @@ public class SaveGame {
 	 *            The game to be saved
 	 */
 	public SaveGame(String filename, UserModel user) {
-		_filename = filename + EXTENSION;
+		makeDirectoryIfNotExist();
+		_filename = DIR + filename + EXTENSION;
 		_user = user;
 	}
 
@@ -141,5 +144,17 @@ public class SaveGame {
 	 */
 	public boolean saveExists() {
 		return (new File(_filename).isFile());
+	}
+	
+	public boolean makeDirectoryIfNotExist() {
+		File dir = new File(DIR);
+		boolean doesExist = dir.exists();
+		if (doesExist) {
+			return true;
+		} else {
+			dir.mkdir();
+			return true;
+			
+		}
 	}
 }
