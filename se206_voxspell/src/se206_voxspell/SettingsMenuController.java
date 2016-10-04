@@ -30,7 +30,7 @@ public class SettingsMenuController {
 
     @FXML
     void backToMenu(ActionEvent event) {
-    	MainApp.instance().saveUser();
+    	MainApp.instance().save();
     	try {
     		FXMLLoader loader = new FXMLLoader();
     		loader.setLocation(MainApp.class.getResource("HomeMenu.fxml"));

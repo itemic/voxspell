@@ -20,11 +20,15 @@ public class StatusHUDController implements Initializable{
     
     @FXML
     private Tooltip xpToolTip;
+    
+    @FXML
+    private Label usernameLabel;
 
     public void update() {
     	UserModel user = MainApp.instance().getUser();
     	levelProgressBar.setProgress(user.levelProgress());
     	levelLabel.setText("Level: " + user.getLevel());
+    	usernameLabel.setText(user.toString());
     	xpToolTip.setText(user.getXP() + "/" + user.getNextXP());
     }
 

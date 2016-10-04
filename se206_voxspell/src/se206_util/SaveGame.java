@@ -87,6 +87,7 @@ public class SaveGame {
 			out.writeObject(_user);
 			out.close();
 			file.close();
+			System.out.println("save: "+ _user.toString());
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -158,5 +159,8 @@ public class SaveGame {
 			return true;
 			
 		}
+	}
+	public UserModel getUser() {
+		return _user;
 	}
 }

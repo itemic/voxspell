@@ -14,6 +14,7 @@ import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import se206_model.UserModel;
+import se206_util.Save;
 import se206_util.SaveGame;
 import se206_util.SaveHelper;
 
@@ -23,12 +24,16 @@ public class MainApp extends Application {
 	private Stage _primaryStage;
 	private UserModel _user;
 	private StatusHUDController _hud;
-	private SaveGame _save;
+//	private SaveGame _save;
 	private ArrayList<File> _profiles = SaveHelper.getInstance().findFiles();
-
+	private Save _s;
+	
 	public ArrayList<File> getProfiles() {
 		return _profiles;
 	}
+	
+	
+	
 	
 	public StatusHUDController getHUD() {
 		return _hud;
@@ -41,31 +46,50 @@ public class MainApp extends Application {
 		return _instance;
 	}
 
-	public boolean loadUser() {
-		_save = new SaveGame();
+//	public boolean loadUser() {
+//		_save = new SaveGame();
+//		try {
+//			_user = _save.load();
+//			return true;
+//		} catch (FileNotFoundException e) {
+//			//resetUser();
+//			return false;
+//		}
+//	}
+	
+//	public boolean loadUser(SaveGame save) {
+//		_save = save;
+//		try {
+//			_user = _save.load();
+//			return true;
+//		} catch (FileNotFoundException e) {
+//			return false;
+//		}
+//	}
+	
+//	public void saveUser() {
+//		_save.save();
+//	}
+//	
+	public void save() {
+		_s.save();
+	}
+	
+	public void save(Save s) {
+		_s = s;
+		save();
+	}
+	
+	
+	public boolean load(Save s){
+		_s = s;
 		try {
-			_user = _save.load();
+			_user = _s.load();
 			return true;
 		} catch (FileNotFoundException e) {
-			//resetUser();
 			return false;
 		}
 	}
-	
-	public boolean loadUser(SaveGame save) {
-		_save = save;
-		try {
-			_user = _save.load();
-			return true;
-		} catch (FileNotFoundException e) {
-			return false;
-		}
-	}
-	
-	public void saveUser() {
-		_save.save();
-	}
-	
 	
 	
 	public void start(Stage primaryStage) throws Exception {
@@ -93,21 +117,12 @@ public class MainApp extends Application {
 		}
 	}
 	
-	public void setSave(SaveGame sg) {
-		_save = sg;
-	}
+//	public void setSave(SaveGame sg) {
+//		_save = sg;
+//	}
 	
-	public void setLayout() {
+	public void startApp() {
 		try {
-			
-			if (loadUser() && _user != null) {
-				System.out.println("bheoahge");
-			} else {
-				_user = new UserModel("tkro003");
-				_save = new SaveGame(_user);
-			}
-			System.out.print("called");
-			saveUser();
 			FXMLLoader loader = new FXMLLoader();			
 			loader.setLocation(MainApp.class.getResource("HomeMenu.fxml"));
 			BorderPane menu = (BorderPane) loader.load();

@@ -58,7 +58,7 @@ public class GameMenuController {
     	update();
     	inputField.clear();
     	boolean levelHasMore = _quiz.loadNext();
-    	MainApp.instance().saveUser(); //save on every click?
+    	MainApp.instance().save(); //save on every click?
     	if (!levelHasMore) {
     		try {
     			int quizXP = _quiz.xpEarnedThisQuiz();
