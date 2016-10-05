@@ -92,7 +92,7 @@ public class UserSelectionMenuController implements Initializable {
     	MainApp.instance().startApp();
     }
     
-    //TODO don't let it overwrite
+    //TODO further file validation
     
     @FXML
     void add() throws IOException {
@@ -131,9 +131,12 @@ public class UserSelectionMenuController implements Initializable {
     @FXML
     void filePick() {
     	File file = chooser.showOpenDialog(new Stage());
-    	customFilePath = file.getAbsolutePath();
-    	String name = file.getName();
-    	customLabel.setText(name);
+    	if (file != null) {
+        	customFilePath = file.getAbsolutePath();
+        	String name = file.getName();
+        	customLabel.setText(name);
+    	}
+
     }
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
