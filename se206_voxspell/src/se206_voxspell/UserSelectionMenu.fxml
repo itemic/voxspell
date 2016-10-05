@@ -22,12 +22,12 @@
                   <Label text="Wordlist" />
                   <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="15.0">
                      <children>
-                        <RadioButton fx:id="defaultRadio" mnemonicParsing="false" selected="true" text="Default Wordlist">
+                        <RadioButton fx:id="defaultRadio" mnemonicParsing="false" onAction="#hideCustom" selected="true" text="Default Wordlist">
                            <toggleGroup>
                               <ToggleGroup fx:id="wordlist" />
                            </toggleGroup>
                         </RadioButton>
-                        <RadioButton fx:id="customRadio" mnemonicParsing="false" text="Custom Wordlist" toggleGroup="$wordlist" />
+                        <RadioButton fx:id="customRadio" mnemonicParsing="false" onAction="#showCustom" text="Custom Wordlist" toggleGroup="$wordlist" />
                      </children>
                      <VBox.margin>
                         <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
@@ -35,6 +35,12 @@
                      <padding>
                         <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
                      </padding>
+                  </HBox>
+                  <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="15.0">
+                     <children>
+                        <Button fx:id="loadCustomBtn" mnemonicParsing="false" onAction="#filePick" text="Custom" />
+                        <Label fx:id="customLabel" text="No File Selected" />
+                     </children>
                   </HBox>
                   <Button fx:id="addUserPlayBtn" mnemonicParsing="false" onAction="#add" text="Add and Play" />
                </children>

@@ -21,6 +21,7 @@ public class FileHandler {
 	}
 	
 	public ArrayList<File> findProfiles() {
+		ensureDirectory();
 		ArrayList<File> profiles = new ArrayList<>();
 		File[] dir = new File(directory).listFiles();
 		for (File f : dir) {
@@ -30,5 +31,16 @@ public class FileHandler {
 		}
 		return profiles;
 	}
+	
+	public boolean ensureDirectory() {
+		File directory = new File(Save.DIRECTORY);
+		if (directory.exists()) {
+			return true;
+		} else {
+			directory.mkdir();
+			return true;
+		}
+	}
+	
 
 }

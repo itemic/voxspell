@@ -2,14 +2,18 @@ package se206_voxspell;
 
 import java.io.File;
 import java.io.IOException;
+import java.net.URL;
 import java.util.ArrayList;
+import java.util.ResourceBundle;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.Label;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleGroup;
@@ -18,11 +22,13 @@ import javafx.stage.Stage;
 import se206_model.UserModel;
 import se206_util.Save;
 
-public class UserSelectionMenuController {
+public class UserSelectionMenuController implements Initializable {
 
     private ObservableList<String> _ob;
     private ArrayList<String> _filenames = new ArrayList<>();
     private ArrayList<File> _files = new ArrayList<>();
+	private FileChooser chooser = new FileChooser();
+	private String customFilePath;
     
     @FXML
     private TextField userTextField;
@@ -44,6 +50,12 @@ public class UserSelectionMenuController {
 
     @FXML
     private Button loadUserPlayBtn;
+    
+    @FXML
+    private Button loadCustomBtn;
+
+    @FXML
+    private Label customLabel;
 
     void setup() {
     	for (File f: MainApp.instance().getProfiles()) {
@@ -59,6 +71,18 @@ public class UserSelectionMenuController {
     	loadProfileComboBox.getSelectionModel().select(0);
     	}
     }
+    @FXML
+    void showCustom() {
+    	loadCustomBtn.setVisible(true);
+    	customLabel.setVisible(true);
+    }
+    @FXML
+    void hideCustom() {
+    	loadCustomBtn.setVisible(false);
+    	customLabel.setText("No file selected...");
+    	customFilePath = null;
+    	customLabel.setVisible(false);
+    }
     
     @FXML
     void load() {
@@ -68,26 +92,54 @@ public class UserSelectionMenuController {
     	MainApp.instance().startApp();
     }
     
+    //TODO don't let it overwrite
+    
     @FXML
     void add() throws IOException {
-//    	String filename = Save.DIRECTORY + userTextField.getText() + Save.EXTENSION;
-    	RadioButton rb = (RadioButton)wordlist.getSelectedToggle();
-    	System.out.println("TOGGLE: " + rb.getText());
-    	Save s;
-    	if (rb.getText().equals("Default Wordlist")) {
-        	s = new Save(new UserModel(userTextField.getText()));
-
+    	String filename = Save.DIRECTORY + userTextField.getText() + Save.EXTENSION;
+		RadioButton rb = (RadioButton)wordlist.getSelectedToggle();
+		
+		//Does the file exist already? (We don't want to overwrite)
+    	boolean fileExists =  (new File(filename).exists());
+    	
+    	//Did the user choose custom and if so is there a file?
+    	boolean fileSelectedForCustom = (customFilePath != null) && rb.getText().equals("Custom Wordlist");
+    	
+    	//Did the user specify a username?
+    	boolean fileNameEmpty = userTextField.getText().isEmpty();
+    	
+    	if (fileExists || !fileSelectedForCustom || fileNameEmpty) {
+    		System.out.println("ERROR: add alert");
     	} else {
-    		FileChooser chooser = new FileChooser();
-    	    File file = chooser.showOpenDialog(new Stage());
-    	    String name = file.getAbsolutePath();
-        	s = new Save(new UserModel(userTextField.getText(), name));
-    	}
+    		Save s;
+    		if (rb.getText().equals("Default Wordlist")) {
+    			//DEFAULT
+            	s = new Save(new UserModel(userTextField.getText()));
 
-    	MainApp.instance().save(s);
-    	MainApp.instance().load(s);
-    	MainApp.instance().startApp();
+    		} else {
+    			//CUSTOM
+            	s = new Save(new UserModel(userTextField.getText(), customFilePath));
+
+    		}
+    		MainApp.instance().save(s);
+        	MainApp.instance().load(s);
+        	MainApp.instance().startApp();
+    	}    	
+    	
     }
+    
+    @FXML
+    void filePick() {
+    	File file = chooser.showOpenDialog(new Stage());
+    	customFilePath = file.getAbsolutePath();
+    	String name = file.getName();
+    	customLabel.setText(name);
+    }
+	@Override
+	public void initialize(URL location, ResourceBundle resources) {
+		hideCustom();
+		
+	}
     
     
 
