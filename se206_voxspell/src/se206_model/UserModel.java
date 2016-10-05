@@ -29,6 +29,14 @@ public class UserModel implements Serializable {
 		_game = new GameModel("resources/nzcer-wordlist.txt");
 	}
 	
+	public UserModel(String name, String filename) throws IOException {
+		_name = name;
+		_level = 1;
+		_experience = 0;
+		_xpToNextLevel = base;
+		_game = new GameModel(filename);
+	}
+	
 	public GameModel getGame() {
 		return _game;
 	}

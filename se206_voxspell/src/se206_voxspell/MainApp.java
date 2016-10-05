@@ -15,8 +15,7 @@ import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import se206_model.UserModel;
 import se206_util.Save;
-import se206_util.SaveGame;
-import se206_util.SaveHelper;
+import se206_util.FileHandler;
 
 public class MainApp extends Application {
 	private static BorderPane _root = new BorderPane();
@@ -25,7 +24,7 @@ public class MainApp extends Application {
 	private UserModel _user;
 	private StatusHUDController _hud;
 //	private SaveGame _save;
-	private ArrayList<File> _profiles = SaveHelper.getInstance().findFiles();
+	private ArrayList<File> _profiles = FileHandler.getInstance().findProfiles();
 	private Save _s;
 	
 	public ArrayList<File> getProfiles() {

@@ -5,28 +5,30 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 
-public class SaveHelper {
-	private static SaveHelper _instance = null;
-	private String directory = SaveGame.DIR;
-	private SaveHelper() {
+public class FileHandler {
+	private static FileHandler _instance = null;
+	private String directory = Save.DIRECTORY;
+	private String wordlistDirectory = "resources/";
+	private FileHandler() {
 		
 	}
 	
-	public static SaveHelper getInstance() {
+	public static FileHandler getInstance() {
 		if (_instance == null) {
-			_instance = new SaveHelper();
+			_instance = new FileHandler();
 		}
 		return _instance;
 	}
 	
-	public ArrayList<File> findFiles() {
+	public ArrayList<File> findProfiles() {
 		ArrayList<File> profiles = new ArrayList<>();
 		File[] dir = new File(directory).listFiles();
 		for (File f : dir) {
-			if (f.getName().endsWith(SaveGame.EXTENSION)) {
+			if (f.getName().endsWith(Save.EXTENSION)) {
 				profiles.add(f);
 			}
 		}
 		return profiles;
 	}
+
 }

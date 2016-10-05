@@ -10,10 +10,13 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextField;
+import javafx.scene.control.ToggleGroup;
+import javafx.stage.FileChooser;
+import javafx.stage.Stage;
 import se206_model.UserModel;
 import se206_util.Save;
-import se206_util.SaveGame;
 
 public class UserSelectionMenuController {
 
@@ -25,7 +28,13 @@ public class UserSelectionMenuController {
     private TextField userTextField;
 
     @FXML
-    private ComboBox<String> wordListComboBox;
+    private RadioButton defaultRadio;
+
+    @FXML
+    private ToggleGroup wordlist;
+
+    @FXML
+    private RadioButton customRadio;
 
     @FXML
     private Button addUserPlayBtn;
@@ -61,8 +70,20 @@ public class UserSelectionMenuController {
     
     @FXML
     void add() throws IOException {
-    	String filename = Save.DIRECTORY + userTextField.getText() + Save.EXTENSION;
-    	Save s = new Save(new UserModel(userTextField.getText()));
+//    	String filename = Save.DIRECTORY + userTextField.getText() + Save.EXTENSION;
+    	RadioButton rb = (RadioButton)wordlist.getSelectedToggle();
+    	System.out.println("TOGGLE: " + rb.getText());
+    	Save s;
+    	if (rb.getText().equals("Default Wordlist")) {
+        	s = new Save(new UserModel(userTextField.getText()));
+
+    	} else {
+    		FileChooser chooser = new FileChooser();
+    	    File file = chooser.showOpenDialog(new Stage());
+    	    String name = file.getAbsolutePath();
+        	s = new Save(new UserModel(userTextField.getText(), name));
+    	}
+
     	MainApp.instance().save(s);
     	MainApp.instance().load(s);
     	MainApp.instance().startApp();

@@ -3,10 +3,12 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ChoiceBox?>
-<?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.RadioButton?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.ToggleGroup?>
 <?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
 <BorderPane xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1" fx:controller="se206_voxspell.UserSelectionMenuController">
@@ -18,7 +20,22 @@
                   <Label text="Add User" />
                   <TextField fx:id="userTextField" promptText="username" />
                   <Label text="Wordlist" />
-                  <ComboBox fx:id="wordListComboBox" prefWidth="150.0" />
+                  <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="15.0">
+                     <children>
+                        <RadioButton fx:id="defaultRadio" mnemonicParsing="false" selected="true" text="Default Wordlist">
+                           <toggleGroup>
+                              <ToggleGroup fx:id="wordlist" />
+                           </toggleGroup>
+                        </RadioButton>
+                        <RadioButton fx:id="customRadio" mnemonicParsing="false" text="Custom Wordlist" toggleGroup="$wordlist" />
+                     </children>
+                     <VBox.margin>
+                        <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
+                     </VBox.margin>
+                     <padding>
+                        <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
+                     </padding>
+                  </HBox>
                   <Button fx:id="addUserPlayBtn" mnemonicParsing="false" onAction="#add" text="Add and Play" />
                </children>
                <VBox.margin>
