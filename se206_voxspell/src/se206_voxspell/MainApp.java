@@ -44,32 +44,7 @@ public class MainApp extends Application {
 	public static MainApp instance() {
 		return _instance;
 	}
-
-//	public boolean loadUser() {
-//		_save = new SaveGame();
-//		try {
-//			_user = _save.load();
-//			return true;
-//		} catch (FileNotFoundException e) {
-//			//resetUser();
-//			return false;
-//		}
-//	}
 	
-//	public boolean loadUser(SaveGame save) {
-//		_save = save;
-//		try {
-//			_user = _save.load();
-//			return true;
-//		} catch (FileNotFoundException e) {
-//			return false;
-//		}
-//	}
-	
-//	public void saveUser() {
-//		_save.save();
-//	}
-//	
 	public void save() {
 		_s.save();
 	}
@@ -116,9 +91,6 @@ public class MainApp extends Application {
 		}
 	}
 	
-//	public void setSave(SaveGame sg) {
-//		_save = sg;
-//	}
 	
 	public void startApp() {
 		try {
