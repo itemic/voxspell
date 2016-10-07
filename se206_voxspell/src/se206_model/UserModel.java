@@ -18,6 +18,7 @@ public class UserModel implements Serializable {
 	private final int base = 20;
 	private final double modifier = 1.2; // how much to next level
 	private GameModel _game;
+	private boolean isCustomWordlist;
 	
 	//EXPERIENCE REQUIRED: base (100) * 1.2 ^ (level-1)
 	
@@ -27,6 +28,7 @@ public class UserModel implements Serializable {
 		_experience = 0;
 		_xpToNextLevel = base;
 		_game = new GameModel("resources/nzcer-wordlist.txt");
+		isCustomWordlist = false;
 	}
 	
 	public UserModel(String name, String filename) throws IOException {
@@ -35,6 +37,11 @@ public class UserModel implements Serializable {
 		_experience = 0;
 		_xpToNextLevel = base;
 		_game = new GameModel(filename);
+		isCustomWordlist = true;
+	}
+	
+	public boolean getIsCustomWordlist() {
+		return isCustomWordlist;
 	}
 	
 	public GameModel getGame() {
