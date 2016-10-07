@@ -11,6 +11,7 @@ import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.media.MediaPlayer;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import se206_model.UserModel;
@@ -23,9 +24,13 @@ public class MainApp extends Application {
 	private Stage _primaryStage;
 	private UserModel _user;
 	private StatusHUDController _hud;
-//	private SaveGame _save;
 	private ArrayList<File> _profiles = FileHandler.getInstance().findProfiles();
 	private Save _s;
+	private MediaPlayer _media;
+	
+	public MediaPlayer getMediaPlayer() {
+		return _media;
+	}
 	
 	public ArrayList<File> getProfiles() {
 		return _profiles;

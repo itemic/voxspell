@@ -1,8 +1,11 @@
 package se206_model;
 
+import java.io.File;
 import java.io.IOException;
 import java.io.Serializable;
 
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
 import se206_voxspell.MainApp;
 
 public class UserModel implements Serializable {
@@ -57,6 +60,9 @@ public class UserModel implements Serializable {
 		_experience = _experience - _xpToNextLevel;
 		_level++;
 		_xpToNextLevel = (int) (_xpToNextLevel * modifier);
+		MediaPlayer m = MainApp.instance().getMediaPlayer();
+		m = new MediaPlayer(new Media(new File("resources/Cool Intro.mp3").toURI().toString()));
+		m.play();
 	}
 	
 	public double levelProgress() {
