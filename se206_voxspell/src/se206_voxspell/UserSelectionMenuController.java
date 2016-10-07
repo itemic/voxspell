@@ -103,13 +103,13 @@ public class UserSelectionMenuController implements Initializable {
 		//Does the file exist already? (We don't want to overwrite)
     	boolean fileExists =  (new File(filename).exists());
     	
-    	//Did the user choose custom and if so is there a file?
-    	boolean fileSelectedForCustom = (customFilePath != null) && rb.getText().equals("Custom Wordlist");
+    	//no file selected in custom
+    	boolean noCustomFile = rb.getText().equals("Custom Wordlist") && (customFilePath == null);
     	
     	//Did the user specify a username?
     	boolean fileNameEmpty = userTextField.getText().isEmpty();
     	
-    	if (fileExists || !fileSelectedForCustom || fileNameEmpty) {
+    	if (fileExists || noCustomFile || fileNameEmpty) {
     		System.out.println("ERROR: add alert");
     	} else {
     		Save s;
