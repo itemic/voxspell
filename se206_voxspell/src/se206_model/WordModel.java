@@ -26,9 +26,12 @@ public class WordModel implements Serializable {
 		_experience = word.length(); //experience proportional to word length
 	}
 	
+	public int size() {
+		return _word.length();
+	}
 	public boolean isCorrect(String input) {
 		//checks if a word is correct and alters stats based on it
-		boolean userCorrect = (input.equals(_word.toLowerCase()));
+		boolean userCorrect = (input.trim().equals(_word.toLowerCase()));
 		if (userCorrect) {
 			_correct++;
 			_attempts++;

@@ -76,9 +76,18 @@ public class LevelSelectMenuController {
     }
     
     void fromMenu() {
+    	boolean startingLevels = true;
     	for (LevelModel level: MainApp.instance().getUser().getGame().getLevels()) {
-    		_levels.add(level.getName());
-    		_lvModel.add(level);
+    		//to ensure that there is at least a level to start with:
+    		if (startingLevels) {
+    			_levels.add(level.getName());
+        		_lvModel.add(level);
+        		startingLevels = false;
+    		}
+    		else if (MainApp.instance().getUser().getLevel() >= level.getLevelRequirement()){
+        		_levels.add(level.getName());
+        		_lvModel.add(level);
+    		}
     	}
     	_ob = FXCollections.observableArrayList(_levels);
     	levelSelectComboBox.getItems().addAll(_ob);

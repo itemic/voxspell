@@ -43,20 +43,6 @@ public class QuizModel implements Serializable {
 		TextToSpeech.access().speak("Round starting: spell " + _quizWords.get(_wordPosition));
 	}
 	
-	public ArrayList<WordModel> generateQuizxWords() {
-		// TODO: Take into account of weighting
-		ArrayList<WordModel> generatedWords = new ArrayList<>();
-		Collections.shuffle(_allWords);
-		if (_allWords.size() < quizSize) {
-			generatedWords.addAll(_allWords);
-			quizSize = _allWords.size(); //update wordcount
-		} else {
-			for (int i = 0; i < quizSize; i++) {
-				generatedWords.add(_allWords.get(i));
-			}
-		}
-		return generatedWords;
-	}
 	
 	public ArrayList<WordModel> generateQuizWords() {
 		ArrayList<WordModel> generatedWords = new ArrayList<>();
@@ -137,7 +123,7 @@ public class QuizModel implements Serializable {
 	}
 	
 	public boolean checkWord(String guess) {
-		guess = guess.toLowerCase();
+		guess = guess.toLowerCase().trim();
 		WordModel word = _quizWords.get(_wordPosition);
 		boolean isCorrect = word.isCorrect(guess);
 		if (isCorrect) { //ensure case insensitivitys

@@ -15,17 +15,25 @@ public class LevelModel implements Serializable {
 	private ArrayList<WordModel> _levelWords;
 	private int _correct;
 	private int _attempts;
+	private int _charsInLevel;
+	private int _levelGate;
 	
 	public LevelModel(String levelName) {
 		_levelName = levelName;
 		_levelWords = new ArrayList<>();
 		_correct = 0;
 		_attempts = 0;
+		_charsInLevel = 0;
 	}
 	
 	public void addWord(String word) {
 		WordModel newWord = new WordModel(word, this);
-		_levelWords.add(newWord);	
+		_levelWords.add(newWord);
+		_charsInLevel += newWord.size();
+	}
+	
+	public int getLevelRequirement() {
+		return _charsInLevel / _levelWords.size();
 	}
 	
 	public ArrayList<WordModel> getWords() {
