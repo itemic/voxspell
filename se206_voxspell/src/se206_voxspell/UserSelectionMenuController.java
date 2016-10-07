@@ -18,6 +18,7 @@ import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleGroup;
 import javafx.stage.FileChooser;
+import javafx.stage.FileChooser.ExtensionFilter;
 import javafx.stage.Stage;
 import se206_model.UserModel;
 import se206_util.Save;
@@ -141,6 +142,9 @@ public class UserSelectionMenuController implements Initializable {
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		hideCustom();
+		//http://docs.oracle.com/javase/8/javafx/api/javafx/stage/FileChooser.html
+		chooser.getExtensionFilters().addAll(new ExtensionFilter("Text Files", "*.txt"),
+											 new ExtensionFilter("All Files", "*"));
 		
 	}
     
