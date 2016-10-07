@@ -26,6 +26,13 @@ public class SettingsMenuController {
     private Button resetBtn;
 
     @FXML
+    private ComboBox<String> soundtrackComboBox;
+
+    @FXML
+    private Button previewSoundtrackBtn;
+
+    
+    @FXML
     private Button backBtn;
 
     @FXML

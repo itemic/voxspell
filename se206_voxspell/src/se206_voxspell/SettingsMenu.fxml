@@ -33,6 +33,17 @@
                   <Button fx:id="resetBtn" mnemonicParsing="false" onAction="#resetGame" text="Reset!" />
                </children>
             </VBox>
+            <VBox prefHeight="200.0" prefWidth="100.0">
+               <children>
+                  <VBox prefHeight="200.0" prefWidth="100.0">
+                     <children>
+                        <Label text="Soundtrack" />
+                        <ComboBox fx:id="soundtrackComboBox" prefWidth="150.0" />
+                     </children>
+                  </VBox>
+                  <Button fx:id="previewSoundtrackBtn" mnemonicParsing="false" text="Preview" />
+               </children>
+            </VBox>
          </children>
          <padding>
             <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
