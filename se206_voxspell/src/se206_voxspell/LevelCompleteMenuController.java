@@ -8,7 +8,9 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.media.MediaPlayer;
 import se206_model.QuizModel;
+import se206_util.MediaHandler;
 
 public class LevelCompleteMenuController {
 
@@ -26,11 +28,13 @@ public class LevelCompleteMenuController {
 
     @FXML
     private Button menuBtn;
+    
 
     @FXML
     void backToMenu(ActionEvent event) {
     	try {
     		MainApp.instance().save();
+    		MediaHandler.stop();
     		FXMLLoader loader = new FXMLLoader();
     		loader.setLocation(MainApp.class.getResource("HomeMenu.fxml"));
     		BorderPane levelSelectPane = (BorderPane)loader.load();

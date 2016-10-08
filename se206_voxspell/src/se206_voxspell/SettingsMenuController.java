@@ -1,20 +1,25 @@
 package se206_voxspell;
 
 import java.io.IOException;
+import java.net.URL;
+import java.util.ArrayList;
+import java.util.ResourceBundle;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.layout.BorderPane;
 import se206_util.TextToSpeech;
 
-public class SettingsMenuController {
+public class SettingsMenuController implements Initializable {
 	
-	private ObservableList<String> ob = FXCollections.observableArrayList(TextToSpeech.access().voices());
+	private ObservableList<String> obVoices = FXCollections.observableArrayList(TextToSpeech.access().voices());
+	private ObservableList<String> obSounds;
 	
     @FXML
     private ComboBox<String> voiceComboBox;
@@ -61,12 +66,30 @@ public class SettingsMenuController {
     }
     
     public void setUpSettings() {
-    	voiceComboBox.getItems().addAll(ob);
+    	ArrayList<String> availMusic = new ArrayList<>();
+    	availMusic.add("None");
+    	for (int i = 0; i < MainApp.instance().getUser().getMusicList().size(); i++) {
+    		if (MainApp.instance().getUser().getCanPlay(i)) {
+    			availMusic.add(MainApp.instance().getUser().getMusicList().get(i));
+    		}
+    	}
+    	obSounds = FXCollections.observableArrayList(availMusic);
+    	soundtrackComboBox.getItems().addAll(obSounds);
+    	soundtrackComboBox.getSelectionModel().select(MainApp.instance().getUser().getDisplaySoundtrack());
+    	voiceComboBox.getItems().addAll(obVoices);
     	voiceComboBox.getSelectionModel().select(TextToSpeech.access().selectedVoiceNum());
     }
-    
+    public void changeTrack() {
+    	MainApp.instance().getUser().setCurrentSoundtrack(soundtrackComboBox.getSelectionModel().getSelectedItem());
+    }
     public void changeVoice() {
     	TextToSpeech.access().chooseVoice(voiceComboBox.getSelectionModel().getSelectedIndex());
     }
+
+	@Override
+	public void initialize(URL location, ResourceBundle resources) {
+		// TODO Auto-generated method stub
+		
+	}
 
 }

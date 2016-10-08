@@ -15,6 +15,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.layout.BorderPane;
 import se206_model.LevelModel;
+import se206_util.MediaHandler;
 
 public class LevelSelectMenuController {
 
@@ -38,6 +39,9 @@ public class LevelSelectMenuController {
     void goAndPlay(ActionEvent event) {
     	LevelModel selectedLevel = _lvModel.get(levelSelectComboBox.getSelectionModel().getSelectedIndex());
     	try {
+    		if (!MainApp.instance().getUser().getDisplaySoundtrack().equals("None")) {
+    			MediaHandler.play(MainApp.instance().getUser().getCurrentSoundtrack());
+    		}
     		FXMLLoader loader = new FXMLLoader();
     		loader.setLocation(MainApp.class.getResource("GameMenu.fxml"));
     		BorderPane gamePane = (BorderPane)loader.load();

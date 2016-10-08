@@ -7,6 +7,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Button;
 import javafx.scene.layout.BorderPane;
+import se206_util.MediaHandler;
 
 public class HomeMenuController {
 
@@ -22,6 +23,7 @@ public class HomeMenuController {
     @FXML
     void startGame(ActionEvent event) {
     	try {
+    		
     		FXMLLoader loader = new FXMLLoader();
     		loader.setLocation(MainApp.class.getResource("LevelSelectMenu.fxml"));
     		BorderPane levelSelectPane = (BorderPane)loader.load();

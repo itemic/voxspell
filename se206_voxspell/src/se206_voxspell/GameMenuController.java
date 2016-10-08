@@ -11,6 +11,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.BorderPane;
 import se206_model.LevelModel;
 import se206_model.QuizModel;
+import se206_util.MediaHandler;
 
 public class GameMenuController {
 
@@ -63,6 +64,7 @@ public class GameMenuController {
     		try {
     			int quizXP = _quiz.xpEarnedThisQuiz();
     			MainApp.instance().getUser().gainExperience(quizXP);
+    			MediaHandler.stop();
         		FXMLLoader loader = new FXMLLoader();
         		loader.setLocation(MainApp.class.getResource("LevelCompleteMenu.fxml"));
         		BorderPane levelSelectPane = (BorderPane)loader.load();
