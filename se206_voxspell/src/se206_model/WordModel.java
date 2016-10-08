@@ -3,6 +3,9 @@ package se206_model;
 import java.io.Serializable;
 import java.util.Date;
 
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.StringProperty;
+
 public class WordModel implements Serializable {
 	/**
 	 * 
@@ -16,6 +19,7 @@ public class WordModel implements Serializable {
 	private int _wordScore; // 0-100 based on user's performance
 	private int _experience; // experience points earned
 	
+	
 	public WordModel(String word, LevelModel level) {
 		_word = word;
 		_correct = 0;
@@ -24,6 +28,7 @@ public class WordModel implements Serializable {
 //		_lastTried = null
 		_wordScore = 50; //middle ground for new words (neutral)
 		_experience = word.length(); //experience proportional to word length
+		
 	}
 	
 	public int size() {

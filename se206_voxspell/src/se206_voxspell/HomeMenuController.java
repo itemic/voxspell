@@ -39,7 +39,18 @@ public class HomeMenuController {
     
     @FXML
     void goToStats(ActionEvent event) {
-    	
+    	try {
+    		FXMLLoader loader = new FXMLLoader();
+    		loader.setLocation(MainApp.class.getResource("StatisticsMenu.fxml"));
+    		BorderPane stats = (BorderPane)loader.load();
+    		StatisticsMenuController controller = loader.<StatisticsMenuController>getController();
+    		controller.fromMenu(); //code to initialize 
+    		
+    		BorderPane root = MainApp.getRoot();
+    		root.setCenter(stats);
+    	} catch (IOException e) {
+    		e.printStackTrace();
+    	}
     }
 
     @FXML

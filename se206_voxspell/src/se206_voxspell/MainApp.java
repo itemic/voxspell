@@ -6,6 +6,8 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 import javafx.application.Application;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
@@ -15,6 +17,7 @@ import javafx.scene.media.MediaPlayer;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import se206_model.UserModel;
+import se206_model.WordModel;
 import se206_util.Save;
 import se206_util.FileHandler;
 
@@ -27,6 +30,7 @@ public class MainApp extends Application {
 	private ArrayList<File> _profiles = FileHandler.getInstance().findProfiles();
 	private Save _s;
 	private MediaPlayer _media;
+	
 	
 	public MediaPlayer getMediaPlayer() {
 		return _media;
@@ -73,6 +77,9 @@ public class MainApp extends Application {
 	
 	public void start(Stage primaryStage) throws Exception {
 		_instance = this;
+
+		
+		
 		this._primaryStage = primaryStage;
 		this._primaryStage.setTitle("VOXSpell β");
 		profileSelect();

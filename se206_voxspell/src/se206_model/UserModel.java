@@ -83,7 +83,7 @@ public class UserModel implements Serializable {
 			_music.add(f.getName());
 			_activated.add(false);
 		}
-		System.out.println(_music);
+//		System.out.println(_music);
 	}
 	
 	public ArrayList<String> getMusicList() {

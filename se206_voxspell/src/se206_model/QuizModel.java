@@ -72,21 +72,21 @@ public class QuizModel implements Serializable {
 		return generatedWords;
 	}
 	// REF: http://gamedev.stackexchange.com/questions/54551/using-random-numbers-with-a-bias
-	public WordModel getBiasedWord(int bias) {
-		if (bias > 0) {
-			int random = (int)(Math.random() * bias);
-			System.out.println(random);
-			for (WordModel w: _allWords) {
-				if (random < w.getWordScore()) {
-					System.out.println("Adding:" + w);
-					return w;
-				} else {
-					bias -= w.getWordScore();
-				}
-			}
-		}
-		return null;
-	}
+//	public WordModel getBiasedWord(int bias) {
+//		if (bias > 0) {
+//			int random = (int)(Math.random() * bias);
+//			System.out.println(random);
+//			for (WordModel w: _allWords) {
+//				if (random < w.getWordScore()) {
+//					System.out.println("Adding:" + w);
+//					return w;
+//				} else {
+//					bias -= w.getWordScore();
+//				}
+//			}
+//		}
+//		return null;
+//	}
 	
 	public int getQuizSize() {
 		return quizSize;
