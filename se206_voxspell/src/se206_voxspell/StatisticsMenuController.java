@@ -9,6 +9,8 @@ import javafx.beans.property.ReadOnlyStringWrapper;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.collections.transformation.FilteredList;
+import javafx.collections.transformation.SortedList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -17,6 +19,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
 import javafx.scene.layout.BorderPane;
 import se206_model.LevelModel;
 import se206_model.StatsModel;
@@ -33,6 +36,9 @@ public class StatisticsMenuController {
 
     @FXML
     private ComboBox<String> levelComboBox;
+    
+    @FXML
+    private TextField searchField;
 
     @FXML
     private TableView<StatsModel> wordsTable;
@@ -89,6 +95,26 @@ public class StatisticsMenuController {
 		attemptsColumn.setCellValueFactory(cellData -> cellData.getValue().attemptsProperty());
 		
 		wordsTable.scrollTo(0);
+		
+		FilteredList<StatsModel> filter = new FilteredList<>(s, p -> true);
+		//CODE REFERENCE: http://code.makery.ch/blog/javafx-8-tableview-sorting-filtering/
+		searchField.textProperty().addListener((observable, oldValue, newValue) -> {
+			filter.setPredicate(word -> {
+				if (newValue == null || newValue.isEmpty()) {
+					return true;
+				}
+				
+				String wordFilter = newValue.toLowerCase();
+				if (word.getWord().toLowerCase().contains(wordFilter)) {
+					return true;
+				}
+				return false;
+			});
+		});
+		
+		SortedList<StatsModel> sorted = new SortedList<>(filter);
+		sorted.comparatorProperty().bind(wordsTable.comparatorProperty());
+		wordsTable.setItems(sorted);
     }
 
 }
