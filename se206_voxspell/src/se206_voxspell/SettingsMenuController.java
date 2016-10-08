@@ -34,10 +34,6 @@ public class SettingsMenuController implements Initializable {
     private ComboBox<String> soundtrackComboBox;
 
     @FXML
-    private Button previewSoundtrackBtn;
-
-    
-    @FXML
     private Button backBtn;
 
     @FXML
@@ -70,7 +66,8 @@ public class SettingsMenuController implements Initializable {
     	availMusic.add("None");
     	for (int i = 0; i < MainApp.instance().getUser().getMusicList().size(); i++) {
     		if (MainApp.instance().getUser().getCanPlay(i)) {
-    			availMusic.add(MainApp.instance().getUser().getMusicList().get(i));
+    			String s = MainApp.instance().getUser().getMusicList().get(i);
+    			availMusic.add(s);
     		}
     	}
     	obSounds = FXCollections.observableArrayList(availMusic);

@@ -41,7 +41,6 @@
                         <ComboBox fx:id="soundtrackComboBox" onAction="#changeTrack" prefWidth="150.0" />
                      </children>
                   </VBox>
-                  <Button fx:id="previewSoundtrackBtn" mnemonicParsing="false" text="Preview" />
                </children>
             </VBox>
          </children>
