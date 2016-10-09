@@ -2,7 +2,10 @@ package se206_voxspell;
 
 import java.io.IOException;
 import java.net.URL;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.Optional;
 import java.util.ResourceBundle;
 
 import javafx.collections.FXCollections;
@@ -12,8 +15,12 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.layout.BorderPane;
+import se206_util.Save;
 import se206_util.TextToSpeech;
 
 public class SettingsMenuController implements Initializable {
@@ -35,6 +42,8 @@ public class SettingsMenuController implements Initializable {
 
     @FXML
     private Button backBtn;
+    
+    private Alert alert = new Alert(AlertType.CONFIRMATION);
 
     @FXML
     void backToMenu(ActionEvent event) {
@@ -59,6 +68,27 @@ public class SettingsMenuController implements Initializable {
     @FXML
     void resetGame(ActionEvent event) {
     	System.out.println("RESET!"); //tb implemented
+    	alert.setTitle("Delete user");
+    	alert.setHeaderText("Are you sure you want to delete user?");
+    	alert.setContentText("The user " + MainApp.instance().getUser().toString() + " will be deleted, along with all its statistics. There's no going back.");
+    	Optional<ButtonType> result = alert.showAndWait();
+    	if (result.get() == ButtonType.OK) {
+    		System.out.println("You are delete!");
+    		try {
+    		Files.deleteIfExists(Paths.get(Save.DIRECTORY + MainApp.instance().getUser().toString() + Save.EXTENSION));
+    		FXMLLoader loader = new FXMLLoader();
+			loader.setLocation(MainApp.class.getResource("UserSelectionMenu.fxml"));
+			BorderPane profiles = (BorderPane) loader.load();
+			UserSelectionMenuController controller = loader.<UserSelectionMenuController>getController();
+    		controller.setup();
+			MainApp.getRoot().setCenter(profiles);
+			MainApp.getRoot().setTop(null);
+    		} catch (IOException e) {
+    			e.printStackTrace();
+    		}
+    	} else {
+    		System.out.println("No kill");
+    	}
     }
     
     public void setUpSettings() {

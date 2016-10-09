@@ -59,6 +59,8 @@ public class UserSelectionMenuController implements Initializable {
     private Label customLabel;
 
     void setup() {
+    	_files.clear();
+    	_filenames.clear();
     	for (File f: MainApp.instance().getProfiles()) {
     		_files.add(f);
     		_filenames.add(f.getName());
@@ -141,6 +143,7 @@ public class UserSelectionMenuController implements Initializable {
     }
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
+//		setup();
 		hideCustom();
 		//http://docs.oracle.com/javase/8/javafx/api/javafx/stage/FileChooser.html
 		chooser.getExtensionFilters().addAll(new ExtensionFilter("Text Files", "*.txt"),
