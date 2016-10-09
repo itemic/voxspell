@@ -17,7 +17,6 @@
             <ComboBox fx:id="levelSelectComboBox" onAction="#updateLevel" />
             <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="15.0">
                <children>
-                  <Button fx:id="statsBtn" mnemonicParsing="false" onAction="#showLevelStats" text="Stats" />
                   <Button fx:id="playBtn" mnemonicParsing="false" onAction="#goAndPlay" text="Play" />
                </children>
                <VBox.margin>
@@ -33,7 +32,7 @@
    <bottom>
       <ButtonBar prefHeight="40.0" prefWidth="200.0" BorderPane.alignment="CENTER">
         <buttons>
-          <Button fx:id="backBtn" mnemonicParsing="false" onAction="#returnToMenu" text="&lt; Back" />
+          <Button fx:id="backBtn" mnemonicParsing="false" onAction="#returnToMenu" text="Back" />
         </buttons>
          <BorderPane.margin>
             <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />

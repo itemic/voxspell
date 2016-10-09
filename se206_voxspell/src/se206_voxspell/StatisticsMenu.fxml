@@ -27,7 +27,7 @@
          <children>
             <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="15.0">
                <children>
-                  <ComboBox fx:id="levelComboBox" onAction="#changeView" prefWidth="150.0" />
+                  <ComboBox fx:id="levelComboBox" onAction="#changeView" />
                   <TextField fx:id="searchField" promptText="Search..." />
                </children>
                <VBox.margin>

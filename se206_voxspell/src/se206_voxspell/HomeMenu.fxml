@@ -9,10 +9,10 @@
    <center>
       <VBox alignment="CENTER" spacing="15.0" BorderPane.alignment="CENTER">
          <children>
-            <Button fx:id="playBtn" mnemonicParsing="false" onAction="#startGame" text="New Game" />
-            <Button fx:id="statsBtn" mnemonicParsing="false" onAction="#goToStats" text="My Stats" />
-            <Button fx:id="settingsBtn" mnemonicParsing="false" onAction="#goToSettings" text="Settings" />
-          <Button fx:id="switchUserBtn" mnemonicParsing="false" onAction="#backToUserSelection" text="Switch User" />
+            <Button fx:id="playBtn" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#startGame" text="New Game" wrapText="true" />
+            <Button fx:id="statsBtn" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#goToStats" text="My Stats" wrapText="true" />
+            <Button fx:id="settingsBtn" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#goToSettings" text="Settings" wrapText="true" />
+          <Button fx:id="switchUserBtn" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#backToUserSelection" text="Switch User" wrapText="true" />
          </children>
          <BorderPane.margin>
             <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />

@@ -48,7 +48,7 @@ public class UserSelectionMenuController implements Initializable {
     private Button addUserPlayBtn;
 
     @FXML
-    private ChoiceBox<String> loadProfileComboBox;
+    private ComboBox<String> loadProfileComboBox;
 
     @FXML
     private Button loadUserPlayBtn;

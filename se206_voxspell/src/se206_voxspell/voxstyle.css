@@ -1,3 +1,95 @@
+.root {
+	-fx-background-color: #F4B350;
+}
+
 .label {
 	-fx-font-size: 20;
 }
+
+.progress-bar {
+	-fx-background-radius: 10px;
+}
+
+.progress-bar .bar {
+	-fx-background-insets: 0;
+	-fx-padding: 1em;
+	-fx-background-radius: 10px;
+}
+
+.progress-bar .track {
+	-fx-background-radius: 10px;
+
+}
+
+.button {
+    -fx-background-color: 
+        rgba(0,0,0,0.08),
+        linear-gradient(#5a61af, #51536d),
+        linear-gradient(#e4fbff 0%,#cee6fb 10%, #a5d3fb 50%, #88c6fb 51%, #d5faff 100%);
+    -fx-background-insets: 0 0 -1 0,0,1;
+    -fx-background-radius: 5,5,4;
+    -fx-padding: 3 30 3 30;
+    -fx-text-fill: #242d35;
+    -fx-font-size: 14px;
+}
+
+/* Basic Buttons */
+/* Basic Buttons */
+.button {
+    -fx-padding: 5 50 5 50;   
+    -fx-background-radius: 30;
+    -fx-background-color: #F89406;
+    -fx-font-size: 14pt;
+}
+
+.button:hover {
+	-fx-background-color: #F5AB35;
+}
+
+.button:pressed {
+	-fx-background-color: #E87E04;
+}
+
+.button:focused {
+	-fx-border-color: #E87E04;
+    -fx-border-width: 0;
+    -fx-border-radius: 30;	
+}
+
+
+/* Comboboxes */
+.combo-box-base {
+	-fx-font-size: 12pt;
+	-fx-background-radius: 30;
+	-fx-background-color: white;
+	-fx-border-color: #E87E04;
+    -fx-border-radius: 30;	
+	-fx-border-width: 2;
+	-fx-text-fill: black;
+	-fx-pref-width: 250;
+	-fx-pref-height: 45;
+}
+
+.combo-box-popup > .list-view {
+	-fx-translate-x: 15;
+	-fx-pref-width: 220;
+	-fx-effect: null;
+	-fx-background-insets: 0;
+ 	-fx-padding: 0;}
+
+
+
+.combo-box-popup > .list-view > .virtual-flow > .clipped-container > .sheet > .list-cell {
+    -fx-font-size: 11pt;
+    -fx-padding: 4 0 4 5;
+}
+
+.combo-box-popup > .list-view > .virtual-flow > .clipped-container > .sheet > .list-cell:hover{
+    -fx-background-color: #F5AB35;
+}
+
+.combo-box-popup > .list-view > .virtual-flow > .clipped-container > .sheet > .list-cell:filled:selected{
+    -fx-background-color: #F89406;  /* TODO: this probably is the "active" color" */
+}
+
+

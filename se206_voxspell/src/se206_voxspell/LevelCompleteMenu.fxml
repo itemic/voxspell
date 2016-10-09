@@ -40,8 +40,6 @@
    <bottom>
       <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" spacing="15.0" BorderPane.alignment="CENTER">
          <children>
-            <Label fx:id="rewardLabel" text="You qualified for a reward!" />
-            <Button fx:id="rewardBtn" mnemonicParsing="false" onAction="#showReward" text="Reward" />
             <Button fx:id="menuBtn" mnemonicParsing="false" onAction="#backToMenu" text="Menu" />
          </children>
          <BorderPane.margin>
