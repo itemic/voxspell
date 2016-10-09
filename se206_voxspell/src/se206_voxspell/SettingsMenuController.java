@@ -73,7 +73,6 @@ public class SettingsMenuController implements Initializable {
     	alert.setContentText("The user " + MainApp.instance().getUser().toString() + " will be deleted, along with all its statistics. There's no going back.");
     	Optional<ButtonType> result = alert.showAndWait();
     	if (result.get() == ButtonType.OK) {
-    		System.out.println("You are delete!");
     		try {
     		Files.deleteIfExists(Paths.get(Save.DIRECTORY + MainApp.instance().getUser().toString() + Save.EXTENSION));
     		FXMLLoader loader = new FXMLLoader();
@@ -87,7 +86,6 @@ public class SettingsMenuController implements Initializable {
     			e.printStackTrace();
     		}
     	} else {
-    		System.out.println("No kill");
     	}
     }
     

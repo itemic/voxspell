@@ -21,6 +21,7 @@ import javafx.stage.FileChooser;
 import javafx.stage.FileChooser.ExtensionFilter;
 import javafx.stage.Stage;
 import se206_model.UserModel;
+import se206_util.FileHandler;
 import se206_util.Save;
 
 public class UserSelectionMenuController implements Initializable {
@@ -61,7 +62,7 @@ public class UserSelectionMenuController implements Initializable {
     void setup() {
     	_files.clear();
     	_filenames.clear();
-    	for (File f: MainApp.instance().getProfiles()) {
+    	for (File f: FileHandler.findProfiles()) {
     		_files.add(f);
     		_filenames.add(f.getName());
     	}

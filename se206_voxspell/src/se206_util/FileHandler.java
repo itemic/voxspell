@@ -7,7 +7,7 @@ import java.util.ArrayList;
 
 public class FileHandler {
 	private static FileHandler _instance = null;
-	private String directory = Save.DIRECTORY;
+	private static String directory = Save.DIRECTORY;
 	private String wordlistDirectory = "resources/";
 	private FileHandler() {
 		
@@ -20,7 +20,7 @@ public class FileHandler {
 		return _instance;
 	}
 	
-	public ArrayList<File> findProfiles() {
+	public static ArrayList<File> findProfiles() {
 		ensureDirectory();
 		ArrayList<File> profiles = new ArrayList<>();
 		File[] dir = new File(directory).listFiles();
@@ -32,7 +32,7 @@ public class FileHandler {
 		return profiles;
 	}
 	
-	public boolean ensureDirectory() {
+	public static boolean ensureDirectory() {
 		File directory = new File(Save.DIRECTORY);
 		if (directory.exists()) {
 			return true;

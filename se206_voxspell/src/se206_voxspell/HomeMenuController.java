@@ -1,6 +1,8 @@
 package se206_voxspell;
 
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -8,6 +10,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Button;
 import javafx.scene.layout.BorderPane;
 import se206_util.MediaHandler;
+import se206_util.Save;
 
 public class HomeMenuController {
 
@@ -19,6 +22,24 @@ public class HomeMenuController {
 
     @FXML
     private Button settingsBtn;
+    
+    @FXML
+    private Button switchUserBtn;
+
+    @FXML
+    void backToUserSelection(ActionEvent event) {
+    	try {
+    		FXMLLoader loader = new FXMLLoader();
+			loader.setLocation(MainApp.class.getResource("UserSelectionMenu.fxml"));
+			BorderPane profiles = (BorderPane) loader.load();
+			UserSelectionMenuController controller = loader.<UserSelectionMenuController>getController();
+    		controller.setup();
+			MainApp.getRoot().setCenter(profiles);
+			MainApp.getRoot().setTop(null);
+    		} catch (IOException e) {
+    			e.printStackTrace();
+    		}
+    }
     
     @FXML
     void startGame(ActionEvent event) {
