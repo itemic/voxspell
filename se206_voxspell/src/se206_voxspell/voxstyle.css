@@ -48,7 +48,7 @@
 
 .button:pressed {
 	-fx-background-color: #E87E04;
-}
+}	
 
 .button:focused {
 	-fx-border-color: #E87E04;

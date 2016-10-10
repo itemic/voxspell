@@ -81,7 +81,7 @@ public class UserModel implements Serializable {
 	private void setUpMusic() {
 		for (File f: new File("resources/soundtrack/").listFiles()) {
 			_music.add(f.getName());
-			_activated.add(false);
+			_activated.add(true);
 		}
 //		System.out.println(_music);
 	}
