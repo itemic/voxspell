@@ -11,6 +11,10 @@
 	-fx-font-family: Righteous, cursive;
 	-fx-font-size: 60;
 }
+
+.subtitle {
+	-fx-font-size: 36;
+}
 .progress-bar {
 	-fx-background-radius: 10px;
 }
@@ -66,9 +70,21 @@
     -fx-border-radius: 30;	
 }
 
+.text-field {
+	-fx-font-size: 12pt;
+	-fx-background-radius: 30;
+	-fx-background-color: white;
+	-fx-border-color: #E87E04;
+    -fx-border-radius: 30;	
+	-fx-border-width: 2;
+	-fx-text-fill: black;
+	-fx-pref-width: 250;
+	-fx-pref-height: 45;
+}
+
 
 /* Comboboxes */
-.combo-box-base {
+.combo-box-base{
 	-fx-font-size: 12pt;
 	-fx-background-radius: 30;
 	-fx-background-color: white;

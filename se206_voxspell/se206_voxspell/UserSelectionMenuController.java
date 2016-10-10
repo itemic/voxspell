@@ -8,8 +8,11 @@ import java.util.ResourceBundle;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.ComboBox;
@@ -17,6 +20,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleGroup;
+import javafx.scene.layout.VBox;
 import javafx.stage.FileChooser;
 import javafx.stage.FileChooser.ExtensionFilter;
 import javafx.stage.Stage;
@@ -57,7 +61,25 @@ public class UserSelectionMenuController implements Initializable {
     private Button loadCustomBtn;
 
     @FXML
+    private RadioButton newUserRadio;
+
+    @FXML
+    private ToggleGroup userGroup;
+
+    @FXML
+    private RadioButton existingUserRadio;
+
+    @FXML
+    private VBox newUserVbox;
+    
+    @FXML
+    private VBox existingUserVbox;
+    
+    @FXML
     private Label customLabel;
+    
+    Alert alert = new Alert(AlertType.ERROR);
+
 
     void setup() {
     	_files.clear();
@@ -113,7 +135,20 @@ public class UserSelectionMenuController implements Initializable {
     	boolean fileNameEmpty = userTextField.getText().isEmpty();
     	
     	if (fileExists || noCustomFile || fileNameEmpty) {
-    		System.out.println("ERROR: add alert");
+    		if (fileExists) {
+    			alert.setTitle("User exists");
+    	    	alert.setHeaderText("This user exists already.");
+    	    	alert.setContentText("Choose a new name.");
+    		} else if (fileNameEmpty) {
+    			alert.setTitle("No username.");
+    	    	alert.setHeaderText("No username.");
+    	    	alert.setContentText("Choose a username for yourself.");
+    		} else {
+    			alert.setTitle("No wordlist chosen");
+    	    	alert.setHeaderText("VOXSpell can't find a wordlist.");
+    	    	alert.setContentText("Choose a wordlist or use the default.");
+    		}
+    		alert.showAndWait();
     	} else {
     		Save s;
     		if (rb.getText().equals("Default Wordlist")) {
@@ -146,12 +181,40 @@ public class UserSelectionMenuController implements Initializable {
 	public void initialize(URL location, ResourceBundle resources) {
 //		setup();
 		hideCustom();
+		showNewUser();
 		//http://docs.oracle.com/javase/8/javafx/api/javafx/stage/FileChooser.html
 		chooser.getExtensionFilters().addAll(new ExtensionFilter("Text Files", "*.txt"),
 											 new ExtensionFilter("All Files", "*"));
 		
 	}
     
+	
+   @FXML
+    void showExistingUser() {
+	   existingUserVbox.setVisible(true);
+	   newUserVbox.setVisible(false);
+	   existingUserVbox.setManaged(true);
+	   newUserVbox.setManaged(false);
+	   
+	   addUserPlayBtn.setVisible(false);
+	   loadUserPlayBtn.setVisible(true);
+	   addUserPlayBtn.setManaged(false);
+	   loadUserPlayBtn.setManaged(true);
+    }
+
+    @FXML
+    void showNewUser() {
+		existingUserVbox.setVisible(false);
+		newUserVbox.setVisible(true);
+		existingUserVbox.setManaged(false);
+		newUserVbox.setManaged(true);
+		
+		addUserPlayBtn.setVisible(true);
+		loadUserPlayBtn.setVisible(false);
+		addUserPlayBtn.setManaged(true);
+		loadUserPlayBtn.setManaged(false);
+    }
+
     
 
 }
