@@ -6,52 +6,9 @@
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.BorderPane?>
-<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<BorderPane xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1" fx:controller="se206_voxspell.SettingsMenuController">
-   <center>
-      <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="15.0" BorderPane.alignment="CENTER">
-         <children>
-            <VBox alignment="TOP_CENTER" prefHeight="200.0" prefWidth="100.0" spacing="15.0">
-               <children>
-                  <VBox prefHeight="200.0" prefWidth="100.0">
-                     <children>
-                        <Label text="Voice" />
-                        <ComboBox fx:id="voiceComboBox" onAction="#changeVoice" prefWidth="150.0" />
-                     </children>
-                  </VBox>
-                  <Button fx:id="previewBtn" mnemonicParsing="false" onAction="#previewVoice" text="Preview" />
-               </children>
-               <HBox.margin>
-                  <Insets />
-               </HBox.margin>
-            </VBox>
-            <VBox prefHeight="200.0" prefWidth="100.0">
-               <children>
-                  <Label text="Reset" />
-                  <Button fx:id="resetBtn" mnemonicParsing="false" onAction="#resetGame" text="Reset!" />
-               </children>
-            </VBox>
-            <VBox prefHeight="200.0" prefWidth="100.0">
-               <children>
-                  <VBox prefHeight="200.0" prefWidth="100.0">
-                     <children>
-                        <Label text="Soundtrack" />
-                        <ComboBox fx:id="soundtrackComboBox" onAction="#changeTrack" prefWidth="150.0" />
-                     </children>
-                  </VBox>
-               </children>
-            </VBox>
-         </children>
-         <padding>
-            <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
-         </padding>
-         <BorderPane.margin>
-            <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
-         </BorderPane.margin>
-      </HBox>
-   </center>
+<BorderPane stylesheets="@voxstyle.css" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1" fx:controller="se206_voxspell.SettingsMenuController">
    <bottom>
       <ButtonBar prefHeight="40.0" prefWidth="200.0" BorderPane.alignment="CENTER">
         <buttons>
@@ -62,4 +19,51 @@
          </BorderPane.margin>
       </ButtonBar>
    </bottom>
+   <center>
+      <VBox alignment="CENTER" spacing="15.0" BorderPane.alignment="CENTER">
+         <children>
+            <VBox alignment="CENTER" spacing="15.0">
+               <children>
+                  <VBox alignment="CENTER">
+                     <children>
+                        <Label text="Voice" />
+                        <ComboBox fx:id="voiceComboBox" onAction="#changeVoice" />
+                     </children>
+                     <VBox.margin>
+                        <Insets left="15.0" right="15.0" top="15.0" />
+                     </VBox.margin>
+                     <padding>
+                        <Insets left="15.0" right="15.0" top="15.0" />
+                     </padding>
+                  </VBox>
+                  <Button fx:id="previewBtn" mnemonicParsing="false" onAction="#previewVoice" text="Preview" />
+               </children>
+               <VBox.margin>
+                  <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
+               </VBox.margin>
+               <padding>
+                  <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
+               </padding>
+            </VBox>
+            <VBox alignment="CENTER">
+               <children>
+                  <Label text="Soundtrack" />
+                  <ComboBox fx:id="soundtrackComboBox" onAction="#changeTrack" stylesheets="@voxstyle.css" />
+               </children>
+            </VBox>
+            <VBox alignment="CENTER">
+               <children>
+                  <Label text="Reset" />
+                  <Button fx:id="resetBtn" mnemonicParsing="false" onAction="#resetGame" text="Reset!" />
+               </children>
+            </VBox>
+         </children>
+         <BorderPane.margin>
+            <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
+         </BorderPane.margin>
+         <padding>
+            <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
+         </padding>
+      </VBox>
+   </center>
 </BorderPane>

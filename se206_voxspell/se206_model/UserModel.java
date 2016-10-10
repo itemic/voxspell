@@ -42,6 +42,7 @@ public class UserModel implements Serializable {
 		setUpMusic();
 	}
 	
+	
 	public UserModel(String name, String filename) throws IOException {
 		_name = name;
 		_level = 1;

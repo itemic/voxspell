@@ -27,17 +27,12 @@ public class MainApp extends Application {
 	private Stage _primaryStage;
 	private UserModel _user;
 	private StatusHUDController _hud;
-	private ArrayList<File> _profiles = FileHandler.getInstance().findProfiles();
 	private Save _s;
 	private MediaPlayer _media;
 	
 	
 	public MediaPlayer getMediaPlayer() {
 		return _media;
-	}
-	
-	public ArrayList<File> getProfiles() {
-		return _profiles;
 	}
 	
 	
