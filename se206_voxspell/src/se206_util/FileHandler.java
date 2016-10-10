@@ -8,7 +8,6 @@ import java.util.ArrayList;
 public class FileHandler {
 	private static FileHandler _instance = null;
 	private static String directory = Save.DIRECTORY;
-	private String wordlistDirectory = "resources/";
 	private FileHandler() {
 		
 	}
@@ -34,7 +33,6 @@ public class FileHandler {
 	
 	public static boolean ensureDirectory() {
 		File directory = new File(Save.DIRECTORY);
-		Save.DIRECTORY = directory.getAbsolutePath() +"/";
 		if (directory.exists()) {
 			return true;
 		} else {
