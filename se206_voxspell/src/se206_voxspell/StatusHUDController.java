@@ -40,7 +40,7 @@ public class StatusHUDController implements Initializable{
     public void update(boolean didLevelUp) {
     	this.update();
     	if (didLevelUp) {
-    		MediaHandler.play("resources/Cool Intro.mp3");
+    		MediaHandler.play("se206_voxspell/resources/Cool Intro.mp3");
     	}
     }
     

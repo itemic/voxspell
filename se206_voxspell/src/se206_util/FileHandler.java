@@ -8,7 +8,7 @@ import java.util.ArrayList;
 public class FileHandler {
 	private static FileHandler _instance = null;
 	private static String directory = Save.DIRECTORY;
-	private String wordlistDirectory = "resources/";
+	private String wordlistDirectory = "se206_voxspell/resources/";
 	private FileHandler() {
 		
 	}

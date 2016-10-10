@@ -37,7 +37,7 @@ public class UserModel implements Serializable {
 		_level = 1;
 		_experience = 0;
 		_xpToNextLevel = base;
-		_game = new GameModel("resources/nzcer-wordlist.txt");
+		_game = new GameModel("se206_voxspell/resources/nzcer-wordlist.txt");
 		isCustomWordlist = false;
 		setUpMusic();
 	}
@@ -64,7 +64,7 @@ public class UserModel implements Serializable {
 		if (s.equals("None")) {
 			_currentSoundtrack = s;	
 		} else {
-			_currentSoundtrack = "resources/soundtrack/" + s;
+			_currentSoundtrack = "se206_voxspell/resources/soundtrack/" + s;
 		}
 		
 		_displaySoundtrack = s;
@@ -79,7 +79,7 @@ public class UserModel implements Serializable {
 	}
 	
 	private void setUpMusic() {
-		for (File f: new File("resources/soundtrack/").listFiles()) {
+		for (File f: new File("se206_voxspell/resources/soundtrack/").listFiles()) {
 			_music.add(f.getName());
 			_activated.add(true);
 		}
