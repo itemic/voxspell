@@ -22,6 +22,7 @@ public class QuizModel implements Serializable {
 	private int _wordPosition; // where in the list has the user gotten to?
 	private boolean _canReplay; //can the user replay?
 	private int _quizXP; //how much the user gained in XP this game.
+	private boolean _isCorrect;
 	
 	public enum QuizState {
 		NEW
@@ -127,26 +128,35 @@ public class QuizModel implements Serializable {
 		WordModel word = _quizWords.get(_wordPosition);
 		boolean isCorrect = word.isCorrect(guess);
 		if (isCorrect) { //ensure case insensitivitys
-			TextToSpeech.access().speak("You spelled it right.");
+//			TextToSpeech.access().speak("You spelled it right.");
 			_correct++;
 			_attempts++;
 			_quizXP += word.getXP();
 		} else {
-			TextToSpeech.access().speak("Incorrect spelling.");
+//			TextToSpeech.access().speak("Incorrect spelling.");
 			_attempts++;
 		}
 		_wordPosition++;
+		_isCorrect = isCorrect;
 		return isCorrect;
 	}
 	
 	//based on michael's implementation in prototype
 	public boolean loadNext() {
 		if (_wordPosition == quizSize) {
-			TextToSpeech.access().speak("Round over.");
+			if (_isCorrect) {
+				TextToSpeech.access().speak("Correct. Round over.");
+			} else {
+				TextToSpeech.access().speak("Incorrect. Round over.");
+			}
 			//game is finished
 			return false;
 		} else {
-			TextToSpeech.access().speak("Spell " + _quizWords.get(_wordPosition).toString());
+			if (_isCorrect) {
+				TextToSpeech.access().speak("You spelled it right. Spell " + _quizWords.get(_wordPosition).toString());
+			} else {
+				TextToSpeech.access().speak("Incorrect spelling. Spell " + _quizWords.get(_wordPosition).toString());
+			}
 			_canReplay = true; //
 			return true;
 		}
