@@ -2,17 +2,19 @@
 
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 
 <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1" fx:controller="se206_voxspell.HomeMenuController">
    <center>
-      <VBox alignment="CENTER" spacing="15.0" BorderPane.alignment="CENTER">
+      <VBox alignment="CENTER" spacing="25.0" BorderPane.alignment="CENTER">
          <children>
-            <Button fx:id="playBtn" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#startGame" text="New Game" wrapText="true" />
-            <Button fx:id="statsBtn" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#goToStats" text="My Stats" wrapText="true" />
-            <Button fx:id="settingsBtn" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#goToSettings" text="Settings" wrapText="true" />
-          <Button fx:id="switchUserBtn" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#backToUserSelection" text="Switch User" wrapText="true" />
+            <Button fx:id="playBtn" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#startGame" styleClass="home-menu-btn" text="New Game" wrapText="true" />
+            <Button fx:id="statsBtn" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#goToStats" styleClass="home-menu-btn" text="My Stats" wrapText="true" />
+            <Button fx:id="settingsBtn" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#goToSettings" styleClass="home-menu-btn" text="Settings" wrapText="true" />
+          <Button fx:id="switchUserBtn" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#backToUserSelection" styleClass="home-menu-btn" text="Switch User" wrapText="true" />
          </children>
          <BorderPane.margin>
             <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
@@ -22,4 +24,17 @@
          </padding>
       </VBox>
    </center>
+   <top>
+      <Label styleClass="title-label" text="VOXSPELL 1.0" BorderPane.alignment="CENTER">
+         <BorderPane.margin>
+            <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
+         </BorderPane.margin>
+         <padding>
+            <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
+         </padding>
+         <font>
+            <Font size="36.0" />
+         </font>
+      </Label>
+   </top>
 </BorderPane>

@@ -2,15 +2,21 @@
 	-fx-background-color: #F4B350;
 }
 
+
+
 .label {
 	-fx-font-size: 20;
 }
-
+.title-label {
+	-fx-font-family: Righteous, cursive;
+	-fx-font-size: 60;
+}
 .progress-bar {
 	-fx-background-radius: 10px;
 }
 
 .progress-bar .bar {
+	
 	-fx-background-insets: 0;
 	-fx-padding: 1em;
 	-fx-background-radius: 10px;
@@ -34,12 +40,16 @@
 }
 
 /* Basic Buttons */
-/* Basic Buttons */
 .button {
     -fx-padding: 5 50 5 50;   
     -fx-background-radius: 30;
     -fx-background-color: #F89406;
     -fx-font-size: 14pt;
+}
+
+	
+.home-menu-btn {
+	-fx-padding: 10 50 10 50;
 }
 
 .button:hover {
