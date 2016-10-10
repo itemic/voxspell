@@ -29,7 +29,7 @@ public class MediaHandler {
 	
 	public static void tracklist() {
 		ArrayList<String> tracks = new ArrayList<>();
-		File[] dir = new File("se206_voxspell/resources/soundtrack/").listFiles();
+		File[] dir = new File("resources/soundtrack/").listFiles();
 		for (File f: dir) {
 			tracks.add(f.getName());
 		}

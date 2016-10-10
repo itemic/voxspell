@@ -9,7 +9,7 @@ import java.util.ArrayList;
 public class WordListReader {
 
 	//Will ignore concurrency temporarily
-	private static final String DEFAULT_WORDLIST = "se206_voxspell/resources/nzcer-wordlist.txt";
+	private static final String DEFAULT_WORDLIST = "resources/nzcer-wordlist.txt";
 	private BufferedReader _fileReader;
 	private ArrayList<String> _levelNames = new ArrayList<>();
 	
