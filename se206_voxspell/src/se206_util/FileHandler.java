@@ -34,6 +34,7 @@ public class FileHandler {
 	
 	public static boolean ensureDirectory() {
 		File directory = new File(Save.DIRECTORY);
+		Save.DIRECTORY = directory.getAbsolutePath() +"/";
 		if (directory.exists()) {
 			return true;
 		} else {

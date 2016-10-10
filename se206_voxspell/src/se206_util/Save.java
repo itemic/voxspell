@@ -15,7 +15,7 @@ import se206_model.UserModel;
 public class Save {
 	public static final String DEFAULT_FILE_NAME = "voxsave";
 	public static final String EXTENSION = ".vxs";
-	public static final String DIRECTORY = "profile/";
+	public static String DIRECTORY = "profile/";
 	
 	private String _filename;
 	private UserModel _user;
