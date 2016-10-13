@@ -27,9 +27,17 @@ public class LevelModel implements Serializable {
 	}
 	
 	public void addWord(String word) {
-		WordModel newWord = new WordModel(word, this);
-		_levelWords.add(newWord);
-		_charsInLevel += newWord.size();
+		WordModel newWord = new WordModel(word.toLowerCase(), this); //ALL WORDS LOWERCASE
+		if (!_levelWords.contains(newWord)){
+			_levelWords.add(newWord);
+			_charsInLevel += newWord.size();
+		}
+
+	}
+	
+	public void removeWord(WordModel word){
+		_levelWords.remove(word);
+		_charsInLevel -= word.size();
 	}
 	
 	public int getLevelRequirement() {

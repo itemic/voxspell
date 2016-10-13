@@ -93,5 +93,14 @@ public class WordModel implements Serializable {
 	public int getXP() {
 		return _experience;
 	}
+	
+	public boolean equals(Object obj){
+		if (obj == null) {
+			return false;
+		}
+		
+		return this.toString().equals(obj.toString());
+		
+	}
 		
 }

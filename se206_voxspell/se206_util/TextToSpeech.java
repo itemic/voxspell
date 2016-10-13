@@ -217,11 +217,7 @@ public class TextToSpeech {
 			if (_last != null) {
 				_last.join();
 			}
-			if (_os == OS.OSX) {
-				_cmd.add(0, "/bin/bash");
-			} else if (_os == OS.LINUX) {
-				
-			}
+			
 			ProcessBuilder pb = new ProcessBuilder(_cmd);
 			try {
 				// testing concurrency

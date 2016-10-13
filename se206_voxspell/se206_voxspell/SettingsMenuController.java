@@ -67,7 +67,6 @@ public class SettingsMenuController implements Initializable {
 
     @FXML
     void resetGame(ActionEvent event) {
-    	System.out.println("RESET!"); //tb implemented
     	alert.setTitle("Delete user");
     	alert.setHeaderText("Are you sure you want to delete user?");
     	alert.setContentText("The user " + MainApp.instance().getUser().toString() + " will be deleted, along with all its statistics. There's no going back.");

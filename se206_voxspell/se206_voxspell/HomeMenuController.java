@@ -25,6 +25,9 @@ public class HomeMenuController {
     
     @FXML
     private Button switchUserBtn;
+    
+    @FXML
+    private Button editorBtn;
 
     @FXML
     void backToUserSelection(ActionEvent event) {
@@ -85,6 +88,22 @@ public class HomeMenuController {
     		
     		BorderPane root = MainApp.getRoot();
     		root.setCenter(settings);
+    	} catch (IOException e) {
+    		e.printStackTrace();
+    	}
+    }
+    
+    @FXML
+    void goToEditor(ActionEvent event) {
+    	try {
+    		FXMLLoader loader = new FXMLLoader();
+    		loader.setLocation(MainApp.class.getResource("LevelEditor.fxml"));
+    		BorderPane editor = (BorderPane)loader.load();
+    		LevelEditorController controller = loader.<LevelEditorController>getController();
+    		controller.fromMenu(); //code to initialize 
+    		
+    		BorderPane root = MainApp.getRoot();
+    		root.setCenter(editor);
     	} catch (IOException e) {
     		e.printStackTrace();
     	}
