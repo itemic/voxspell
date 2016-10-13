@@ -6,6 +6,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.OutputStream;
 import java.io.PrintWriter;
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -118,65 +119,28 @@ public class TextToSpeech {
 		return _instance;
 	}
 
-	/**
-	 * Speaks to the user through the speakers the text provided
-	 * 
-	 * @param speak Text to be spoken
-	 */
+	
 	public void speak(String speak) {
-		String cmd = null;
+		ArrayList<String> cmd = new ArrayList<>();
 		if (_os == OS.OSX) {
-			cmd = "say -v " + _voices.get(_selectedVoiceInt) + " " + speak;
+			cmd.add("/bin/bash");
+			cmd.add("-c");
+			cmd.add("say -v " + _voices.get(_selectedVoiceInt) + " " + speak);
 		} else if (_os == OS.LINUX) {
-			generateScheme(speak);
-			cmd = "festival -b " + scmStr;
-		} else {
-			System.out.println("Not available on Windows.");
-			System.out.println("You were going to say: " + speak);
+			cmd.add("/usr/bin/festival");
+			cmd.add("(Parameter.set 'Duration_Stretch 1.2)");
+			cmd.add("(voice_" + selectedVoice() + ")");
+			cmd.add("(SayText \"" + speak + "\")");
+			cmd.add("(exit)");
 		}
 		if (_os != OS.WINDOWS) {
 			Thread tmp = new Thread(new Speech(lastSpeech, cmd));
 			tmp.start();
-			generateScheme(speak);
 			lastSpeech = tmp;
 		}
+
 	}
 
-	/**
-	 * Generates a scheme file so that the text can be spoken with the selected
-	 * voice
-	 * 
-	 * @param speak Text to be spoken
-	 *            
-	 */
-	private void generateScheme(String speak) {
-		File scm = new File(scmStr);
-
-		if (!scm.exists()) {
-			try {
-				scm.createNewFile();
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-		}
-
-		// Scheme file now exists
-		try {
-			PrintWriter writer = new PrintWriter(scm);
-			writer.println("(Parameter.set 'Duration_Stretch 1.2)");
-			writer.println("(voice_" + selectedVoice() + ")");
-			writer.println("(SayText \"" + speak + "\")");
-			writer.close();
-		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-	}
-
-	/**
-	 * Finds all available voices on the current machine
-	 */
 	private void makeVoices() {
 		String cmd = null;
 		if (_os == OS.OSX) {
@@ -230,7 +194,7 @@ public class TextToSpeech {
 	@SuppressWarnings("rawtypes")
 	private class Speech extends Task {
 		Thread _last;
-		String _cmd;
+		ArrayList<String> _cmd;
 
 		/**
 		 * The only constructor requires what comes before and what to say
@@ -240,7 +204,7 @@ public class TextToSpeech {
 		 * @param cmd
 		 *            What to say
 		 */
-		public Speech(Thread last, String cmd) {
+		public Speech(Thread last, ArrayList<String> cmd) {
 			super();
 			_last = last;
 			_cmd = cmd;
@@ -253,7 +217,12 @@ public class TextToSpeech {
 			if (_last != null) {
 				_last.join();
 			}
-			ProcessBuilder pb = new ProcessBuilder("/bin/bash", "-c", _cmd);
+			if (_os == OS.OSX) {
+				_cmd.add(0, "/bin/bash");
+			} else if (_os == OS.LINUX) {
+				
+			}
+			ProcessBuilder pb = new ProcessBuilder(_cmd);
 			try {
 				// testing concurrency
 				Process p = pb.start();
