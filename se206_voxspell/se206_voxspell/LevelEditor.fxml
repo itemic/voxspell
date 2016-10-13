@@ -48,7 +48,7 @@
                   <Button fx:id="removeWordBtn" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#deleteWord" text="Remove Word" />
                   <Button fx:id="addLevelBtn" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="Add Level" />
                   <Button fx:id="removeLevelBtn" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="Remove Level" />
-                  <Button fx:id="importWordListBtn" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="Import Wordlist" />
+                  <Button fx:id="importWordListBtn" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#importList" text="Import Wordlist" />
                </children>
             </VBox>
          </children>

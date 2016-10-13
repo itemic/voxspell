@@ -1,5 +1,6 @@
 package se206_voxspell;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Optional;
@@ -17,6 +18,9 @@ import javafx.scene.control.ListView;
 import javafx.scene.control.SelectionMode;
 import javafx.scene.control.TextInputDialog;
 import javafx.scene.layout.BorderPane;
+import javafx.stage.FileChooser;
+import javafx.stage.Stage;
+import javafx.stage.FileChooser.ExtensionFilter;
 import se206_model.LevelModel;
 import se206_model.WordModel;
 
@@ -50,6 +54,7 @@ public class LevelEditorController {
     private Alert atLeastOneWarning = new Alert(AlertType.WARNING);
     private TextInputDialog addWordDialog = new TextInputDialog("");
 
+	private FileChooser chooser = new FileChooser();
     
     private ObservableList<String> _ob;
     private ArrayList<String> _levels = new ArrayList<>();
@@ -130,6 +135,23 @@ public class LevelEditorController {
     		selectedLevel.addWord(result.get());
     		updateList();
     	}
+    }
+    
+    @FXML
+    void importList() {
+    	chooser.getExtensionFilters().addAll(new ExtensionFilter("Text Files", "*.txt"),
+				 new ExtensionFilter("All Files", "*"));
+    	File file = chooser.showOpenDialog(new Stage());
+    	if (file != null) {
+        	try {
+        	String customFilePath = file.getAbsolutePath();
+				MainApp.instance().getUser().getGame().addImportedLists(customFilePath);
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+    	}
+    	updateList();
     }
 
 }

@@ -29,6 +29,20 @@ public class GameModel implements Serializable {
 		}
 	}
 	
+	public void addImportedLists(String wordList) throws IOException {
+		WordListReader wlr = new WordListReader(wordList);
+		ArrayList<ArrayList<String>> words = wlr.readWords();
+		ArrayList<String> levels = wlr.getLevelNames();
+		
+		for (int i = 0; i < words.size(); i++){
+			//each level
+			_quizWords.add(new LevelModel(levels.get(i)));
+			for (String word: words.get(i)) {
+				_quizWords.get(i).addWord(word);
+			}
+		}
+	}
+	
 	public ArrayList<WordModel> getWordsFromLevel(int levelID) {
 		return _quizWords.get(levelID).getWords();
 	}
