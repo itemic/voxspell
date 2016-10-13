@@ -1,13 +1,17 @@
 package se206_voxspell;
 
 import java.io.IOException;
+import java.util.Optional;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.layout.BorderPane;
 import se206_model.LevelModel;
 import se206_model.QuizModel;
@@ -37,14 +41,15 @@ public class GameMenuController {
 
     @FXML
     private Button hintBtn;
+    
+    @FXML
+    private Button leaveQuizBtn;
 
     @FXML
     private Button submitBtn;
 
-    @FXML
-    void hintPressed(ActionEvent event) {
-
-    }
+    private Alert alert = new Alert(AlertType.CONFIRMATION);
+    
 
     @FXML
     void replayPressed(ActionEvent event) {
@@ -94,6 +99,28 @@ public class GameMenuController {
     	levelAccuracyLabel.setText(_quiz.quizAccuracy());
     	allTimeLabel.setText(_quiz.getLevel().levelAccuracy());
     	progressLabel.setText(_quiz.getCurrentWordPosition() + "/" + _quiz.getQuizSize());
+    }
+    
+    @FXML
+    void quitEarly() {
+    	alert.setTitle("In A Hurry?");
+    	alert.setHeaderText("Are you sure you want to leave early?");
+    	alert.setContentText("You won't get any experience if you leave now.");
+    	Optional<ButtonType> result = alert.showAndWait();
+    	if (result.get() == ButtonType.OK) {
+    		try {
+        		FXMLLoader loader = new FXMLLoader();
+        		loader.setLocation(MainApp.class.getResource("HomeMenu.fxml"));
+        		BorderPane levelSelectPane = (BorderPane)loader.load();
+        		
+        		BorderPane root = MainApp.getRoot();
+        		root.setCenter(levelSelectPane);
+        	} catch (IOException e) {
+        		e.printStackTrace();
+        	}
+    	} else {
+    		
+    	}
     }
 
 }
