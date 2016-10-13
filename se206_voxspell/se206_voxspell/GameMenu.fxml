@@ -20,7 +20,7 @@
             <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="15.0">
                <children>
                   <Button fx:id="replayBtn" mnemonicParsing="false" onAction="#replayPressed" text="Replay" />
-                  <Button fx:id="submitBtn" mnemonicParsing="false" onAction="#submitPressed" text="Submit" />
+                  <Button fx:id="submitBtn" defaultButton="true" mnemonicParsing="false" onAction="#submitPressed" text="Submit" />
                </children>
                <padding>
                   <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
