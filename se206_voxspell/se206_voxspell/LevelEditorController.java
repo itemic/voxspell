@@ -10,6 +10,8 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
@@ -19,6 +21,7 @@ import javafx.scene.control.SelectionMode;
 import javafx.scene.control.TextInputDialog;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.FileChooser;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.FileChooser.ExtensionFilter;
 import se206_model.LevelModel;
@@ -107,6 +110,22 @@ public class LevelEditorController {
     		e.printStackTrace();
     	}
     }
+    @FXML
+    void newLevel() {
+    	try {
+    		FXMLLoader loader = new FXMLLoader();
+    		loader.setLocation(MainApp.class.getResource("NewLevelMenu.fxml"));
+    		BorderPane newLevel = (BorderPane)loader.load();
+    		NewLevelMenuController controller = loader.<NewLevelMenuController>getController();
+    		controller.setup();
+    		
+    		BorderPane root = MainApp.getRoot();
+    		root.setCenter(newLevel);
+    	} catch (IOException e) {
+    		e.printStackTrace();
+    	}
+    }
+    
     
     @FXML
     void deleteWord() {

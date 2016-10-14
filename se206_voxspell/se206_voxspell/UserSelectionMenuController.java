@@ -167,6 +167,8 @@ public class UserSelectionMenuController implements Initializable {
     	
     }
     
+
+    
     @FXML
     void filePick() {
     	File file = chooser.showOpenDialog(new Stage());
