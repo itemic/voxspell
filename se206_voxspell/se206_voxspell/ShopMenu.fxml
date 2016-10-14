@@ -52,7 +52,7 @@
                   <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
                </padding>
                <children>
-                  <Label fx:id="costLabel" text="Label" />
+                  <Label fx:id="costLabel" />
                   <Button fx:id="buyBtn" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#buyItem" text="Buy" />
                </children>
             </VBox>
