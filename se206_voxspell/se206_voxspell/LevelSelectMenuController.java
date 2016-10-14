@@ -13,6 +13,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.Label;
 import javafx.scene.layout.BorderPane;
 import se206_model.LevelModel;
 import se206_util.MediaHandler;
@@ -28,6 +29,9 @@ public class LevelSelectMenuController {
     @FXML
     private Button playBtn;
 
+    @FXML
+    private Label noLevelsLabel;
+    
     @FXML
     private Button backBtn;
     
@@ -60,10 +64,10 @@ public class LevelSelectMenuController {
     	try {
     		FXMLLoader loader = new FXMLLoader();
     		loader.setLocation(MainApp.class.getResource("HomeMenu.fxml"));
-    		BorderPane levelSelectPane = (BorderPane)loader.load();
+    		BorderPane back = (BorderPane)loader.load();
     		
     		BorderPane root = MainApp.getRoot();
-    		root.setCenter(levelSelectPane);
+    		root.setCenter(back);
     	} catch (IOException e) {
     		e.printStackTrace();
     	}
@@ -80,23 +84,22 @@ public class LevelSelectMenuController {
     }
     
     void fromMenu() {
-    	boolean startingLevels = true;
     	
     	for (LevelModel level: MainApp.instance().getUser().getGame().getLevels()) {
-    		//to ensure that there is at least a level to start with:
-    		if (startingLevels) {
-    			addToComboBox(level);
-        		startingLevels = false;
-    		}
-    		else if (MainApp.instance().getUser().getLevel() >= level.getLevelRequirement() || MainApp.instance().getUser().getIsCustomWordlist()){
+    		if (level.canPlayLevel() || MainApp.instance().getUser().getIsCustomWordlist()){
     			//just add all the levels if it is a custom one
     			addToComboBox(level);
     		}
     	}
+    	if (_levels.isEmpty()) {
+    		playBtn.setVisible(false);
+    		levelSelectComboBox.setVisible(false);
+    	} else {
+    		noLevelsLabel.setVisible(false);
     	_ob = FXCollections.observableArrayList(_levels);
     	levelSelectComboBox.getItems().addAll(_ob);
     	levelSelectComboBox.getSelectionModel().select(0);
-    	
+    	}
     }
 
     private void addToComboBox(LevelModel level) {

@@ -16,7 +16,8 @@ public class LevelModel implements Serializable {
 	private int _correct;
 	private int _attempts;
 	private int _charsInLevel;
-	private int _levelGate;
+	private boolean _availableForPlay;
+	private int _levelCost;
 	
 	public LevelModel(String levelName) {
 		_levelName = levelName;
@@ -24,6 +25,8 @@ public class LevelModel implements Serializable {
 		_correct = 0;
 		_attempts = 0;
 		_charsInLevel = 0;
+		_availableForPlay = false;
+		_levelCost = 250;
 	}
 	
 	public void addWord(String word) {
@@ -35,6 +38,14 @@ public class LevelModel implements Serializable {
 
 	}
 	
+	public boolean canPlayLevel() {
+		return _availableForPlay;
+	}
+	
+	public void toggleCanPlay() {
+		_availableForPlay = !_availableForPlay;
+	}
+	
 	public void removeWord(WordModel word){
 		_levelWords.remove(word);
 		_charsInLevel -= word.size();
@@ -42,6 +53,10 @@ public class LevelModel implements Serializable {
 	
 	public int getLevelRequirement() {
 		return _charsInLevel / _levelWords.size();
+	}
+	
+	public int getLevelCost() {
+		return _levelCost;
 	}
 	
 	public ArrayList<WordModel> getWords() {

@@ -23,7 +23,7 @@ public class QuizModel implements Serializable {
 	private int _attempts;
 	private int _wordPosition; // where in the list has the user gotten to?
 	private boolean _canReplay; //can the user replay?
-	private int _quizXP; //how much the user gained in XP this game.
+	private int _currencyGain; //how much the user gained in $ this game.
 	private boolean _isCorrect;
 	
 	public enum QuizState {
@@ -42,7 +42,7 @@ public class QuizModel implements Serializable {
 		_quizWords = generateQuizWords();
 		_wordPosition = 0;
 		_canReplay = true;
-		_quizXP = 0;
+		_currencyGain = 0;
 		TextToSpeech.access().speak("Round starting: spell " + _quizWords.get(_wordPosition));
 	}
 	
@@ -118,7 +118,7 @@ public class QuizModel implements Serializable {
 			TextToSpeech.access().speak("You spelled it right.");
 			_correct++;
 			_attempts++;
-			_quizXP += word.getXP();
+			_currencyGain += word.getXP();
 		} else {
 			TextToSpeech.access().speak("Incorrect.");
 			_attempts++;
@@ -146,8 +146,8 @@ public class QuizModel implements Serializable {
 		}
 	}
 	
-	public int xpEarnedThisQuiz() {
-		return _quizXP;
+	public int getCurrencyGain() {
+		return _currencyGain;
 	}
 	
 	public LevelModel getLevel() {

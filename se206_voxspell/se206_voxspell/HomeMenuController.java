@@ -1,18 +1,21 @@
 package se206_voxspell;
 
 import java.io.IOException;
+import java.net.URL;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.util.ResourceBundle;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.layout.BorderPane;
 import se206_util.MediaHandler;
 import se206_util.Save;
 
-public class HomeMenuController {
+public class HomeMenuController implements Initializable {
 
     @FXML
     private Button playBtn;
@@ -29,6 +32,9 @@ public class HomeMenuController {
     @FXML
     private Button editorBtn;
 
+    @FXML
+    private Button shopBtn;
+    
     @FXML
     void backToUserSelection(ActionEvent event) {
     	try {
@@ -108,5 +114,27 @@ public class HomeMenuController {
     		e.printStackTrace();
     	}
     }
+    
+    @FXML
+    void goToShop(ActionEvent event) {
+    	try {
+    		FXMLLoader loader = new FXMLLoader();
+    		loader.setLocation(MainApp.class.getResource("ShopMenu.fxml"));
+    		BorderPane editor = (BorderPane)loader.load();
+    		ShopMenuController controller = loader.<ShopMenuController>getController();
+    		controller.fromMenu(); //code to initialize 
+    		
+    		BorderPane root = MainApp.getRoot();
+    		root.setCenter(editor);
+    	} catch (IOException e) {
+    		e.printStackTrace();
+    	}
+    }
+
+	@Override
+	public void initialize(URL location, ResourceBundle resources) {
+		MainApp.instance().save();
+		
+	}
 
 }

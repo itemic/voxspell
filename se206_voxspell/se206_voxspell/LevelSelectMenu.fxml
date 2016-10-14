@@ -15,6 +15,7 @@
          <children>
             <ComboBox fx:id="levelSelectComboBox" onAction="#updateLevel" />
             <Button fx:id="playBtn" mnemonicParsing="false" onAction="#goAndPlay" text="Play" />
+            <Label fx:id="noLevelsLabel" alignment="CENTER" contentDisplay="CENTER" text="There are no levels available! Visit the VOXStore and come back!" textAlignment="CENTER" wrapText="true" />
          </children>
       </VBox>
    </center>

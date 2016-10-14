@@ -16,14 +16,10 @@ import se206_util.MediaHandler;
 
 public class StatusHUDController implements Initializable{
 
-    @FXML
-    private ProgressBar levelProgressBar;
 
     @FXML
     private Label levelLabel;
     
-    @FXML
-    private Tooltip xpToolTip;
     
     @FXML
     private Label usernameLabel;
@@ -31,18 +27,11 @@ public class StatusHUDController implements Initializable{
 
     public void update() {
     	UserModel user = MainApp.instance().getUser();
-    	levelProgressBar.setProgress(user.levelProgress());
-    	levelLabel.setText("Lv. " + user.getLevel());
+//    	levelProgressBar.setProgress(user.levelProgress());
+    	levelLabel.setText("Currency: " + user.getCurrency());
     	usernameLabel.setText(user.toString());
-    	xpToolTip.setText(user.getXP() + "/" + user.getNextXP());
     }
 
-    public void update(boolean didLevelUp) {
-    	this.update();
-    	if (didLevelUp) {
-    		MediaHandler.play("resources/Cool Intro.mp3");
-    	}
-    }
     
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {

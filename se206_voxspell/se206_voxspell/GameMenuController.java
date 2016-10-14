@@ -67,8 +67,8 @@ public class GameMenuController {
     	MainApp.instance().save(); //save on every click?
     	if (!levelHasMore) {
     		try {
-    			int quizXP = _quiz.xpEarnedThisQuiz();
-    			MainApp.instance().getUser().gainExperience(quizXP);
+    			int quizXP = _quiz.getCurrencyGain();
+    			MainApp.instance().getUser().gainCurrency(quizXP);
     			MediaHandler.stop();
         		FXMLLoader loader = new FXMLLoader();
         		loader.setLocation(MainApp.class.getResource("LevelCompleteMenu.fxml"));
@@ -106,7 +106,7 @@ public class GameMenuController {
     void quitEarly() {
     	alert.setTitle("In A Hurry?");
     	alert.setHeaderText("Are you sure you want to leave early?");
-    	alert.setContentText("You won't get any experience if you leave now.");
+    	alert.setContentText("You won't get any currency if you leave now.");
     	Optional<ButtonType> result = alert.showAndWait();
     	if (result.get() == ButtonType.OK) {
     		try {
