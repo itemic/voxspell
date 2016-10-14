@@ -183,5 +183,13 @@ public class LevelEditorController {
     	}
     	updateList();
     }
+    
+    @FXML
+    void deleteLevel() {
+    	LevelModel selectedLevel = levelCombo.getSelectionModel().getSelectedItem();
+    	MainApp.instance().getUser().getGame().getLevels().remove(selectedLevel);
+    	updateList();
+
+    }
 
 }
