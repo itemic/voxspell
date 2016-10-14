@@ -7,7 +7,9 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.concurrent.ThreadLocalRandom;
 
+import se206_util.MediaHandler;
 import se206_util.TextToSpeech;
+import se206_voxspell.MainApp;
 
 public class QuizModel implements Serializable {
 	/**
@@ -72,22 +74,7 @@ public class QuizModel implements Serializable {
 		
 		return generatedWords;
 	}
-	// REF: http://gamedev.stackexchange.com/questions/54551/using-random-numbers-with-a-bias
-//	public WordModel getBiasedWord(int bias) {
-//		if (bias > 0) {
-//			int random = (int)(Math.random() * bias);
-//			System.out.println(random);
-//			for (WordModel w: _allWords) {
-//				if (random < w.getWordScore()) {
-//					System.out.println("Adding:" + w);
-//					return w;
-//				} else {
-//					bias -= w.getWordScore();
-//				}
-//			}
-//		}
-//		return null;
-//	}
+
 	
 	public int getQuizSize() {
 		return quizSize;
@@ -128,12 +115,12 @@ public class QuizModel implements Serializable {
 		WordModel word = _quizWords.get(_wordPosition);
 		boolean isCorrect = word.isCorrect(guess);
 		if (isCorrect) { //ensure case insensitivitys
-//			TextToSpeech.access().speak("You spelled it right.");
+			TextToSpeech.access().speak("You spelled it right.");
 			_correct++;
 			_attempts++;
 			_quizXP += word.getXP();
 		} else {
-//			TextToSpeech.access().speak("Incorrect spelling.");
+			TextToSpeech.access().speak("Incorrect.");
 			_attempts++;
 		}
 		_wordPosition++;
@@ -144,18 +131,15 @@ public class QuizModel implements Serializable {
 	//based on michael's implementation in prototype
 	public boolean loadNext() {
 		if (_wordPosition == quizSize) {
-			if (_isCorrect) {
-				TextToSpeech.access().speak("Correct. Round over.");
-			} else {
-				TextToSpeech.access().speak("Incorrect. Round over.");
-			}
+			TextToSpeech.access().speak("Round over.");
+			MediaHandler.stop();
 			//game is finished
 			return false;
 		} else {
 			if (_isCorrect) {
-				TextToSpeech.access().speak("You spelled it right. Spell " + _quizWords.get(_wordPosition).toString());
+				TextToSpeech.access().speak("Spell " + _quizWords.get(_wordPosition).toString());
 			} else {
-				TextToSpeech.access().speak("Incorrect spelling. Spell " + _quizWords.get(_wordPosition).toString());
+				TextToSpeech.access().speak("Spell " + _quizWords.get(_wordPosition).toString());
 			}
 			_canReplay = true; //
 			return true;

@@ -21,6 +21,10 @@ public class MediaHandler {
 		_mp.play();
 	}
 	
+	public static void setVolume(double d) {
+		_mp.setVolume(d);
+	}
+	
 	public static void stop() {
 		if (_mp != null && _mp.getStatus().equals(Status.PLAYING)) {
 			_mp.stop();
