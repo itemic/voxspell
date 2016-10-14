@@ -1,13 +1,18 @@
 package se206_voxspell;
 
 import java.io.IOException;
+import java.net.URL;
 import java.util.ArrayList;
+import java.util.ResourceBundle;
 
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
@@ -15,7 +20,7 @@ import javafx.scene.control.ListView;
 import javafx.scene.layout.BorderPane;
 import se206_model.LevelModel;
 
-public class ShopMenuController {
+public class ShopMenuController implements Initializable {
 
     @FXML
     private Button backBtn;
@@ -96,4 +101,27 @@ public class ShopMenuController {
         	}
     	}
     }
+
+	@Override
+	public void initialize(URL location, ResourceBundle resources) {
+		salesListView.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<Object>() {
+
+			@Override
+			public void changed(ObservableValue<? extends Object> observable, Object oldValue, Object newValue) {
+		    	String selected = shopTypeCombo.getSelectionModel().getSelectedItem();
+				LevelModel lv = (LevelModel)salesListView.getSelectionModel().getSelectedItem();
+
+				if (selected.equals("Levels") && lv != null) {
+					costLabel.setText("Cost: B$" + lv.getLevelCost());
+				}
+				
+				if (lv == null) {
+					costLabel.setText("");
+				}
+				
+				
+			}
+			
+		});
+	}
 }
