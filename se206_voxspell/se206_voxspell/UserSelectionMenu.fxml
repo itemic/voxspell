@@ -87,8 +87,8 @@
             <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
          </BorderPane.margin>
          <buttons>
-            <Button fx:id="loadUserPlayBtn" mnemonicParsing="false" onAction="#load" text="Load User" />
-            <Button fx:id="addUserPlayBtn" mnemonicParsing="false" onAction="#add" text="Start Game" />
+            <Button fx:id="loadUserPlayBtn" defaultButton="true" mnemonicParsing="false" onAction="#load" text="Load User" />
+            <Button fx:id="addUserPlayBtn" defaultButton="true" mnemonicParsing="false" onAction="#add" text="Start Game" />
          </buttons>
       </ButtonBar>
    </bottom>

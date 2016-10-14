@@ -95,6 +95,7 @@ public class LevelEditorController {
     		wordListView.getItems().add(w);
     	}
     	wordListView.scrollTo(0);
+    	MainApp.instance().save();
     }
     
     @FXML

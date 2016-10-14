@@ -83,6 +83,7 @@ public class GameMenuController {
     	} else {
     		replayBtn.setDisable(false);
     	}
+    	inputField.requestFocus();
 
     	//TEMP CODE TO TEST DUMMY
     	
