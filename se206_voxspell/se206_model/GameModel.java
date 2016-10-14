@@ -24,7 +24,7 @@ public class GameModel implements Serializable {
 			//each level
 			_quizWords.add(new LevelModel(levels.get(i)));
 			for (String word: words.get(i)) {
-				_quizWords.get(i).addWord(word);
+				_quizWords.get(_quizWords.size()-1).addWord(word);
 			}
 		}
 	}
@@ -33,12 +33,13 @@ public class GameModel implements Serializable {
 		WordListReader wlr = new WordListReader(wordList);
 		ArrayList<ArrayList<String>> words = wlr.readWords();
 		ArrayList<String> levels = wlr.getLevelNames();
-		
+		System.out.println(words);
+		System.out.println(levels);
 		for (int i = 0; i < words.size(); i++){
 			//each level
 			_quizWords.add(new LevelModel(levels.get(i)));
 			for (String word: words.get(i)) {
-				_quizWords.get(i).addWord(word);
+				_quizWords.get(_quizWords.size()-1).addWord(word);
 			}
 		}
 	}

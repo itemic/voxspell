@@ -27,7 +27,7 @@ import se206_model.WordModel;
 public class LevelEditorController {
 
     @FXML
-    private ComboBox<String> levelCombo;
+    private ComboBox<LevelModel> levelCombo;
 
     @FXML
     private ListView<WordModel> wordListView;
@@ -56,18 +56,16 @@ public class LevelEditorController {
 
 	private FileChooser chooser = new FileChooser();
     
-    private ObservableList<String> _ob;
-    private ArrayList<String> _levels = new ArrayList<>();
+    private ObservableList<LevelModel> _ob;
     private ArrayList<LevelModel> _lvModel = new ArrayList<>();
     
     void fromMenu() {
     	wordListView.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
     	for (LevelModel level: MainApp.instance().getUser().getGame().getLevels()) {
-    		_levels.add(level.getName());
     		_lvModel.add(level);
     	}
     	
-    	_ob = FXCollections.observableArrayList(_levels);
+    	_ob = FXCollections.observableArrayList(_lvModel);
     	levelCombo.getItems().addAll(_ob);
     	levelCombo.getSelectionModel().select(0);
     	updateList();
@@ -76,7 +74,20 @@ public class LevelEditorController {
     @FXML
     void updateList() {
     	wordListView.getItems().clear();
-    	LevelModel selectedLevel = _lvModel.get(levelCombo.getSelectionModel().getSelectedIndex());
+    	LevelModel selectedLevel = levelCombo.getSelectionModel().getSelectedItem();
+//// UPDATE
+    	for (LevelModel level: MainApp.instance().getUser().getGame().getLevels()) {
+    		_lvModel.add(level);
+    	}
+    	
+    	_ob = FXCollections.observableArrayList(_lvModel);
+    	for (LevelModel l: _ob) {
+    		if (!levelCombo.getItems().contains(l)) {
+    			levelCombo.getItems().add(l);
+    		}
+    	}
+    	
+//// UPDATE
     	for (WordModel w: selectedLevel.getWords()){
     		wordListView.getItems().add(w);
     	}
@@ -99,7 +110,7 @@ public class LevelEditorController {
     
     @FXML
     void deleteWord() {
-    	LevelModel selectedLevel = _lvModel.get(levelCombo.getSelectionModel().getSelectedIndex());    	
+    	LevelModel selectedLevel = levelCombo.getSelectionModel().getSelectedItem();
 		WordModel w = wordListView.getSelectionModel().getSelectedItem();
 		if (w == null) {
 			//nothing selected; do nothing
@@ -124,7 +135,7 @@ public class LevelEditorController {
     
     @FXML
     void addWord() {
-    	LevelModel selectedLevel = _lvModel.get(levelCombo.getSelectionModel().getSelectedIndex());  
+    	LevelModel selectedLevel = levelCombo.getSelectionModel().getSelectedItem();
     	addWordDialog.getEditor().clear();
     	addWordDialog.setTitle("Add New Word");
     	addWordDialog.setHeaderText("Add a word to " + selectedLevel.getName());
