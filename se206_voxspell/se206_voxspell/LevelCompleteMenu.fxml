@@ -25,7 +25,7 @@
         </rowConstraints>
          <children>
             <Label text="Score" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
-            <Label text="Credits Earned" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER" fx:id="xpTitleLabel" />
+            <Label text="βCredits Earned" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER" fx:id="xpTitleLabel" />
             <Label fx:id="scoreLabel" text="90%" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
             <Label text="+129xp" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER" fx:id="xpLabel" />
          </children>

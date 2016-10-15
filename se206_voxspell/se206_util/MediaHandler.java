@@ -17,7 +17,6 @@ public class MediaHandler {
 		//ref: http://stackoverflow.com/questions/22490064/how-to-use-javafx-mediaplayer-correctly
 		Media m = new Media(new File(filename).toURI().toString());
 		_mp = new MediaPlayer(m);
-		_mp.setVolume(0.08);
 		_mp.play();
 	}
 	

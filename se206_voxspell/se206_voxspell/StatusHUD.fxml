@@ -32,7 +32,7 @@
             <Label fx:id="gameModeLabel" alignment="CENTER" text="GameMode" textAlignment="CENTER" GridPane.columnIndex="1" GridPane.halignment="CENTER" />
          </children>
          <padding>
-            <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
+            <Insets left="15.0" right="15.0" top="15.0" />
          </padding>
       </GridPane>
    </top>

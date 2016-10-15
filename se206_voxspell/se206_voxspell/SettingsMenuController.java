@@ -8,6 +8,8 @@ import java.util.ArrayList;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -17,10 +19,12 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.Slider;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.layout.BorderPane;
 import se206_model.GameType;
+import se206_util.MediaHandler;
 import se206_util.Save;
 import se206_util.TextToSpeech;
 
@@ -33,8 +37,16 @@ public class SettingsMenuController implements Initializable {
     private ComboBox<String> voiceComboBox;
 
     @FXML
+    private Button aboutBtn;
+    
+    @FXML
     private Button previewBtn;
 
+    @FXML
+    private Slider soundtrackVolumeBar;
+    
+    @FXML
+    private Button previewTrackBtn;
     @FXML
     private Button resetBtn;
 
@@ -66,6 +78,20 @@ public class SettingsMenuController implements Initializable {
     	TextToSpeech.access().speak("Hi, my name is " + TextToSpeech.access().selectedVoice());
     }
 
+    @FXML
+    void showAbout() {
+    	try {
+    		FXMLLoader loader = new FXMLLoader();
+    		loader.setLocation(MainApp.class.getResource("HelpScreen.fxml"));
+    		BorderPane back = (BorderPane)loader.load();
+    		
+    		BorderPane root = MainApp.getRoot();
+    		root.setCenter(back);
+    	} catch (IOException e) {
+    		e.printStackTrace();
+    	}
+    }
+    
     @FXML
     void resetGame(ActionEvent event) {
     	alert.setTitle("Delete user");
@@ -110,10 +136,30 @@ public class SettingsMenuController implements Initializable {
     public void changeVoice() {
     	TextToSpeech.access().chooseVoice(voiceComboBox.getSelectionModel().getSelectedIndex());
     }
+    
+    @FXML
+    void previewTrack() {
+    	MediaHandler.stop();
+    	MediaHandler.play(MainApp.instance().getUser().getCurrentSoundtrack());
+    }
+    
+    @FXML
+    void setVolume() {
+    	double volValue = soundtrackVolumeBar.getValue();
+    	MediaHandler.setVolume(volValue);
+    }
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-		// TODO Auto-generated method stub
+		soundtrackVolumeBar.valueProperty().addListener(new ChangeListener<Number>() {
+
+			@Override
+			public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
+				MediaHandler.setVolume(newValue.doubleValue());
+				
+			}
+			
+		});
 		
 	}
 
