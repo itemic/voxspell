@@ -9,7 +9,10 @@ import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.concurrent.Task;
+import javafx.concurrent.WorkerStateEvent;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -91,13 +94,14 @@ public class ShopMenuController implements Initializable {
 				salesListView.getItems().add(song);
     			}
     		}
-    	}
+    	
+		costLabel.setText("You have β$" + MainApp.instance().getUser().getCurrency());
 
-    void showError() {
-    	noFunds.setTitle("Insufficient Funds");
-    	noFunds.setHeaderText("Not enough βCredits!");
-    	noFunds.setContentText("Earn more βCredits and come back!");
-    }
+    	}
+    
+    
+
+
     @FXML
     void buyItem(ActionEvent evt) {
     	int currentCurrency = MainApp.instance().getUser().getCurrency();
@@ -111,12 +115,15 @@ public class ShopMenuController implements Initializable {
         	if ( currentCurrency >= LEVEL_PRICE) {
         		MainApp.instance().getUser().gainCurrency(-LEVEL_PRICE); //delete moneys
         		selectedLevel.toggleCanPlay();
-        		MainApp.instance().getHUD().update();
+//        		MainApp.instance().getHUD().update();
         		salesListView.getItems().remove(selectedLevel);
         		updateList();
         	} else {
         		//not enough money :(
         		//let the user know!
+        		
+        		
+        		
         	}
     	} else if (selected.equals("Soundtracks")) {
     		String selectedTrack = (String)salesListView.getSelectionModel().getSelectedItem();
@@ -154,9 +161,8 @@ public class ShopMenuController implements Initializable {
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		buyBtn.setVisible(false);
-//		buyBtn.setManaged(false);
 		soundtrackBtn.setVisible(false);
-//		soundtrackBtn.setManaged(false);
+		costLabel.setText("You have β$ " + MainApp.instance().getUser().getCurrency());
 		//ref http://stackoverflow.com/questions/12459086/how-to-perform-an-action-by-selecting-an-item-from-listview-in-javafx-2
 		salesListView.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<Object>() {
 			@Override
@@ -167,14 +173,22 @@ public class ShopMenuController implements Initializable {
 		    	if (selected.equals("Levels")) {
 			    	LevelModel lv = (LevelModel)salesListView.getSelectionModel().getSelectedItem();
 			    	if (lv != null) {
-			    		costLabel.setText("Cost: β$" + LEVEL_PRICE);
+			    		buyBtn.setText("Buy (β$" + LEVEL_PRICE + ")");
 						buyBtn.setVisible(true);
 						buyBtn.setManaged(true);
 						soundtrackBtn.setVisible(false);
 						soundtrackBtn.setManaged(false);
+						int currency = MainApp.instance().getUser().getCurrency();
+						if (currency < LEVEL_PRICE) {
+							buyBtn.setDisable(true);
+						} else {
+							buyBtn.setDisable(false);
+						}
 
 			    	} else {
-			    		costLabel.setText("");
+//			    		costLabel.setText("");
+		    			costLabel.setText("You have β$" + MainApp.instance().getUser().getCurrency());
+
 						buyBtn.setVisible(false);
 //						buyBtn.setManaged(false);
 						soundtrackBtn.setVisible(false);
@@ -184,7 +198,7 @@ public class ShopMenuController implements Initializable {
 		    	} else if (selected.equals("Soundtracks")) {
 		    		String sound = (String)salesListView.getSelectionModel().getSelectedItem();
 		    		if (sound != null) {
-		    			costLabel.setText("Cost: β$" + MUSIC_PRICE);
+			    		buyBtn.setText("Buy (β$" + MUSIC_PRICE + ")");
 			    		int index = MainApp.instance().getUser().getMusicList().indexOf(sound);
 
 		    			if (MainApp.instance().getUser().getCanPlay(index)) {
@@ -194,6 +208,13 @@ public class ShopMenuController implements Initializable {
 			    			buyBtn.setManaged(false);
 			    			soundtrackBtn.setVisible(true);
 			    			soundtrackBtn.setManaged(true);
+			    			
+			    			int currency = MainApp.instance().getUser().getCurrency();
+							if (currency < MUSIC_PRICE) {
+								buyBtn.setDisable(true);
+							} else {
+								buyBtn.setDisable(false);
+							}
 			    			
 			    			if (sound.equals(MainApp.instance().getUser().getDisplaySoundtrack())) {
 			    				soundtrackBtn.setDisable(true);
@@ -210,7 +231,7 @@ public class ShopMenuController implements Initializable {
 			    		}
 		    			
 		    		} else {
-		    			costLabel.setText("");
+		    			costLabel.setText("You have β$" + MainApp.instance().getUser().getCurrency());
 		    			buyBtn.setVisible(false);
 //		    			buyBtn.setManaged(false);
 		    			soundtrackBtn.setVisible(false);

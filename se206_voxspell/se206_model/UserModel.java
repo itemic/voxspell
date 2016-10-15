@@ -104,7 +104,7 @@ public class UserModel implements Serializable {
 	
 	public void gainCurrency(int gain) {
 		_currency += gain;
-		update();
+//		update();
 	}
 	
 	
@@ -114,9 +114,9 @@ public class UserModel implements Serializable {
 	}
 	
 	
-	public void update() {
-		MainApp.instance().getHUD().update();
-	}
+//	public void update() {
+//		MainApp.instance().getHUD().update();
+//	}
 	
 	public String toString() {
 		return _name;

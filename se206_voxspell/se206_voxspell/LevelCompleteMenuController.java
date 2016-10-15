@@ -33,6 +33,12 @@ public class LevelCompleteMenuController {
     @FXML
     private Label xpTitleLabel;
     
+    @FXML
+    private Label creditLabel;
+    
+    @FXML
+    private Label creditTextLabel;
+    
 
     @FXML
     void backToMenu(ActionEvent event) {
@@ -56,9 +62,12 @@ public class LevelCompleteMenuController {
     		//no experience in this mode
     		xpTitleLabel.setManaged(false);
     		xpLabel.setManaged(false);
+    		creditTextLabel.setManaged(false);
+    		creditLabel.setManaged(false);
     	}
     	
     	xpLabel.setText("β$" + quiz.getCurrencyGain());
+    	creditLabel.setText("β$" + MainApp.instance().getUser().getCurrency());
     	scoreLabel.setText(quiz.getCorrect() + "/" + quiz.getQuizSize());
     }
 

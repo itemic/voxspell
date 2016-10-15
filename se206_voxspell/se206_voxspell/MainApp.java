@@ -8,9 +8,11 @@ import java.util.ArrayList;
 import javafx.application.Application;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.media.MediaPlayer;
@@ -109,12 +111,11 @@ public class MainApp extends Application {
 			loader.setLocation(MainApp.class.getResource("HomeMenu.fxml"));
 			BorderPane menu = (BorderPane) loader.load();
 			loader = new FXMLLoader();
-			loader.setLocation(MainApp.class.getResource("StatusHUD.fxml"));
-			BorderPane status = (BorderPane)loader.load();
+//			loader.setLocation(MainApp.class.getResource("StatusHUD.fxml"));
+//			BorderPane status = (BorderPane)loader.load();
 			_root.setCenter(menu);
-			_root.setTop(status);
-    		_hud = loader.<StatusHUDController>getController();
-    		
+//			_root.setTop(status);
+//    		_hud = loader.<StatusHUDController>getController();
     		if (getUser().getGameType().equals(GameType.CHALLENGE)) {
     			this._primaryStage.setTitle("VOXSpell 1.0 - " + getUser().toString() + " (Challenge)");
     		} else {
@@ -125,12 +126,31 @@ public class MainApp extends Application {
 			e.printStackTrace();
 		}
 	}
-	
+    private static double xOffset = 0;
+    private static double yOffset = 0;
+    public void testCode() {
+    	//http://stackoverflow.com/questions/18173956/how-to-drag-undecorated-window //offset too
+    	
+		_root.setOnMousePressed(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent event) {
+            	xOffset = _primaryStage.getX() - event.getScreenX();
+                yOffset = _primaryStage.getY() - event.getScreenY();
+            }
+        });
+        _root.setOnMouseDragged(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent event) {
+            	_primaryStage.setX(event.getScreenX() + xOffset);
+                _primaryStage.setY(event.getScreenY() + yOffset);
+            }
+        });
+	}
 	public void displayLayout() {
 		Scene scene = new Scene(_root, 800, 600);
 		scene.getStylesheets().add(getClass().getResource("voxstyle.css").toExternalForm());
 		scene.getStylesheets().add("https://fonts.googleapis.com/css?family=Righteous");
-
+		testCode();
 		_primaryStage.setScene(scene);
 		_primaryStage.initStyle(StageStyle.UNIFIED);
 		_primaryStage.setResizable(false);

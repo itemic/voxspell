@@ -22,12 +22,15 @@
         <rowConstraints>
           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
             <Label text="Score" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
             <Label text="βCredits Earned" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER" fx:id="xpTitleLabel" />
             <Label fx:id="scoreLabel" text="90%" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
             <Label text="+129xp" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER" fx:id="xpLabel" />
+            <Label fx:id="creditTextLabel" text="Total βCredits" GridPane.halignment="CENTER" GridPane.rowIndex="2" />
+            <Label fx:id="creditLabel" text="β$40" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="2" />
          </children>
          <padding>
             <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />

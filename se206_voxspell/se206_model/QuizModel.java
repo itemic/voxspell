@@ -5,6 +5,7 @@ import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.concurrent.ThreadLocalRandom;
 
 import se206_util.MediaHandler;
@@ -52,13 +53,26 @@ public class QuizModel implements Serializable {
 		int bias = 0;
 		for (WordModel w: _allWords){
 			bias += (100 - w.getWordScore());
+//			System.out.println("Bias: " + w.getWordScore() + " |" + w.getWord());
 		}
 		
-		Collections.shuffle(_allWords);
 		if (_allWords.size() < quizSize) {
+			Collections.shuffle(_allWords);
 			generatedWords.addAll(_allWords);
 			quizSize = _allWords.size(); //update wordcount
 		} else {
+			Collections.sort(_allWords, new Comparator<WordModel>() {
+
+				@Override
+				public int compare(WordModel o1, WordModel o2) {
+					int o1WS = o1.getWordScore();
+					int o2WS = o2.getWordScore();
+					//http://stackoverflow.com/questions/9150446/compareto-with-primitives-integer-int
+					return o1WS > o2WS ? 1 : o1WS < o2WS ? -1 : 0;
+				}
+				
+			});
+//			System.out.println("All words, in order: " + _allWords.toString());
 			for (int i = 0; i < quizSize; i++) {
 				int chosen = ThreadLocalRandom.current().nextInt(0, bias);
 				int selectedWord = (int) (((double)chosen/bias) * (_allWords.size()-1));
@@ -70,7 +84,7 @@ public class QuizModel implements Serializable {
 				}
 			}
 		}
-			
+//			System.out.println("Generated: " + generatedWords);
 		
 		return generatedWords;
 	}
