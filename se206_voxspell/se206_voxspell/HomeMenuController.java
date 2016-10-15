@@ -12,6 +12,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.layout.BorderPane;
+import se206_model.GameType;
 import se206_util.MediaHandler;
 import se206_util.Save;
 
@@ -133,8 +134,17 @@ public class HomeMenuController implements Initializable {
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-		MainApp.instance().save();
+		if (MainApp.instance().getUser().getGameType().equals(GameType.CHALLENGE)) {
+			// no editor
+			editorBtn.setManaged(false);
+		} else {
+			// no shop
+			shopBtn.setManaged(false);
+		}
 		
+		
+		MainApp.instance().save();
+		MediaHandler.stop();
 	}
 
 }

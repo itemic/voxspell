@@ -86,16 +86,18 @@ public class LevelSelectMenuController {
     void fromMenu() {
     	
     	for (LevelModel level: MainApp.instance().getUser().getGame().getLevels()) {
-    		if (level.canPlayLevel() || MainApp.instance().getUser().getIsCustomWordlist()){
-    			//just add all the levels if it is a custom one
+    		if (level.canPlayLevel() ){
     			addToComboBox(level);
     		}
     	}
     	if (_levels.isEmpty()) {
     		playBtn.setVisible(false);
+    		playBtn.setManaged(false);
     		levelSelectComboBox.setVisible(false);
+    		levelSelectComboBox.setManaged(false);
     	} else {
     		noLevelsLabel.setVisible(false);
+    		noLevelsLabel.setManaged(false);
     	_ob = FXCollections.observableArrayList(_levels);
     	levelSelectComboBox.getItems().addAll(_ob);
     	levelSelectComboBox.getSelectionModel().select(0);

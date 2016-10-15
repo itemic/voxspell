@@ -1,5 +1,5 @@
 .root {
-	-fx-background-color: #F4B350;
+	-fx-background-color: white;
 }
 
 
@@ -97,8 +97,7 @@
 }
 
 .combo-box-popup > .list-view {
-	-fx-translate-x: 15;
-	-fx-pref-width: 220;
+
 	-fx-effect: null;
 	-fx-background-insets: 0;
  	-fx-padding: 0;}

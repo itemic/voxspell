@@ -18,9 +18,6 @@ public class UserModel implements Serializable {
 	private static final long serialVersionUID = 7934526701176815705L;
 	private String _name;
 	private int _level;
-	private final int base = 20;
-	private final double chanceOfReward = 0.7;
-	private final double modifier = 1.18; // how much to next level
 	private GameModel _game;
 	private boolean isCustomWordlist;
 	private ArrayList<String> _music = new ArrayList<>();
@@ -28,26 +25,27 @@ public class UserModel implements Serializable {
 	private String _currentSoundtrack = "None";
 	private String _displaySoundtrack = "None";
 	private int _currency; //currency called betalpha
-	
+	private GameType _mode;
+
 	//EXPERIENCE REQUIRED: base (100) * 1.2 ^ (level-1)
 	
-	public UserModel(String name) throws IOException {
-		_name = name;
-		_level = 1;
-		_currency = 55000;
-		_game = new GameModel("resources/nzcer-wordlist.txt");
-		isCustomWordlist = false;
-		setUpMusic();
+	public UserModel(String name, GameType mode) throws IOException {
+		this(name, "resources/nzcer-wordlist.txt", mode);
 	}
 	
 	
-	public UserModel(String name, String filename) throws IOException {
+	public UserModel(String name, String filename, GameType mode) throws IOException {
 		_name = name;
 		_level = 1;
-		_currency = 550;
+		_currency = 25;
 		_game = new GameModel(filename);
 		isCustomWordlist = true;
+		_mode = mode;
 		setUpMusic();
+	}
+	
+	public GameType getGameType() {
+		return _mode;
 	}
 	
 	public String getCurrentSoundtrack() {

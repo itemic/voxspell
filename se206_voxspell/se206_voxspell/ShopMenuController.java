@@ -13,6 +13,8 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
@@ -22,6 +24,9 @@ import se206_model.LevelModel;
 
 public class ShopMenuController implements Initializable {
 
+	private final int MUSIC_PRICE = 100;
+	private final int LEVEL_PRICE = 25;
+	
     @FXML
     private Button backBtn;
 
@@ -32,10 +37,16 @@ public class ShopMenuController implements Initializable {
     private Button buyBtn;
     
     @FXML
+    private Button soundtrackBtn;
+   
+    
+    @FXML
     private ComboBox<String> shopTypeCombo;
 
     @FXML
     private ListView<Object> salesListView;
+    
+    private Alert noFunds = new Alert(AlertType.INFORMATION);
     
     private ObservableList<String> _ob;
     private ArrayList<String> _selections = new ArrayList<>();
@@ -76,12 +87,20 @@ public class ShopMenuController implements Initializable {
     			}
     		}
     	} else if (selected.equals("Soundtracks")) {
-    		
+    		for (String song: MainApp.instance().getUser().getMusicList()) {
+				salesListView.getItems().add(song);
+    			}
+    		}
     	}
+
+    void showError() {
+    	noFunds.setTitle("Insufficient Funds");
+    	noFunds.setHeaderText("Not enough money!");
+    	noFunds.setContentText("Earn more credits and come back!");
     }
-    
     @FXML
     void buyItem(ActionEvent evt) {
+    	int currentCurrency = MainApp.instance().getUser().getCurrency();
     	//TODO: DISABLE BUTTONS IF NOTHING TO BUY
     	String selected = shopTypeCombo.getSelectionModel().getSelectedItem();
     	if (selected == null) {
@@ -89,8 +108,8 @@ public class ShopMenuController implements Initializable {
     	}
     	else if (selected.equals("Levels")) {
     		LevelModel selectedLevel = (LevelModel)salesListView.getSelectionModel().getSelectedItem();
-        	if (MainApp.instance().getUser().getCurrency() >= selectedLevel.getLevelCost()) {
-        		MainApp.instance().getUser().gainCurrency(-selectedLevel.getLevelCost()); //delete moneys
+        	if ( currentCurrency >= LEVEL_PRICE) {
+        		MainApp.instance().getUser().gainCurrency(-LEVEL_PRICE); //delete moneys
         		selectedLevel.toggleCanPlay();
         		MainApp.instance().getHUD().update();
         		salesListView.getItems().remove(selectedLevel);
@@ -99,26 +118,107 @@ public class ShopMenuController implements Initializable {
         		//not enough money :(
         		//let the user know!
         	}
+    	} else if (selected.equals("Soundtracks")) {
+    		String selectedTrack = (String)salesListView.getSelectionModel().getSelectedItem();
+    		int index = MainApp.instance().getUser().getMusicList().indexOf(selectedTrack);
+    		if (MainApp.instance().getUser().getCanPlay(index)) {
+    			// user already has it
+    		} else {
+    			// user hasn't unlocked it (button should be buy)
+    			if (currentCurrency >= MUSIC_PRICE) {
+    				MainApp.instance().getUser().gainCurrency(-MUSIC_PRICE);
+    				MainApp.instance().getUser().setCanPlay(index);
+    				costLabel.setText("Owned");
+    				buyBtn.setVisible(false);
+    				buyBtn.setManaged(false);
+    				soundtrackBtn.setVisible(true);
+    				soundtrackBtn.setManaged(true);
+    				if (!selectedTrack.equals(MainApp.instance().getUser().getDisplaySoundtrack())) {
+    					soundtrackBtn.setDisable(false);
+    				}
+    			} else {
+    				//not enough money
+    			}
+    		}
     	}
+    }
+    
+    @FXML
+    void setSoundtrack() {
+		String sound = (String)salesListView.getSelectionModel().getSelectedItem();
+		MainApp.instance().getUser().setCurrentSoundtrack(sound);
+		soundtrackBtn.setDisable(true);
+//		updateList();
     }
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
+		buyBtn.setVisible(false);
+//		buyBtn.setManaged(false);
+		soundtrackBtn.setVisible(false);
+//		soundtrackBtn.setManaged(false);
+		//ref http://stackoverflow.com/questions/12459086/how-to-perform-an-action-by-selecting-an-item-from-listview-in-javafx-2
 		salesListView.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<Object>() {
-
 			@Override
 			public void changed(ObservableValue<? extends Object> observable, Object oldValue, Object newValue) {
 		    	String selected = shopTypeCombo.getSelectionModel().getSelectedItem();
-				LevelModel lv = (LevelModel)salesListView.getSelectionModel().getSelectedItem();
+				soundtrackBtn.setVisible(false);
+				soundtrackBtn.setManaged(false);
+		    	if (selected.equals("Levels")) {
+			    	LevelModel lv = (LevelModel)salesListView.getSelectionModel().getSelectedItem();
+			    	if (lv != null) {
+			    		costLabel.setText("Cost: B$" + LEVEL_PRICE);
+						buyBtn.setVisible(true);
+						buyBtn.setManaged(true);
+						soundtrackBtn.setVisible(false);
+						soundtrackBtn.setManaged(false);
 
-				if (selected.equals("Levels") && lv != null) {
-					costLabel.setText("Cost: B$" + lv.getLevelCost());
-				}
-				
-				if (lv == null) {
-					costLabel.setText("");
-				}
-				
+			    	} else {
+			    		costLabel.setText("");
+						buyBtn.setVisible(false);
+//						buyBtn.setManaged(false);
+						soundtrackBtn.setVisible(false);
+//						soundtrackBtn.setManaged(false);
+
+			    	}
+		    	} else if (selected.equals("Soundtracks")) {
+		    		String sound = (String)salesListView.getSelectionModel().getSelectedItem();
+		    		if (sound != null) {
+		    			costLabel.setText("Cost: B$" + MUSIC_PRICE);
+			    		int index = MainApp.instance().getUser().getMusicList().indexOf(sound);
+
+		    			if (MainApp.instance().getUser().getCanPlay(index)) {
+			    			//if user owns, hide BUY button show set or unset
+		    				costLabel.setText("Owned");
+			    			buyBtn.setVisible(false);
+			    			buyBtn.setManaged(false);
+			    			soundtrackBtn.setVisible(true);
+			    			soundtrackBtn.setManaged(true);
+			    			
+			    			if (sound.equals(MainApp.instance().getUser().getDisplaySoundtrack())) {
+			    				soundtrackBtn.setDisable(true);
+			    			} else {
+			    				soundtrackBtn.setDisable(false);
+			    			}
+			    			
+			    		} else {
+			    			//if user doesn't own it, show BUY dont show Set button
+			    			buyBtn.setVisible(true);
+			    			buyBtn.setManaged(true);
+			    			soundtrackBtn.setVisible(false);
+			    			soundtrackBtn.setManaged(false);
+			    		}
+		    			
+		    		} else {
+		    			costLabel.setText("");
+		    			buyBtn.setVisible(false);
+//		    			buyBtn.setManaged(false);
+		    			soundtrackBtn.setVisible(false);
+//		    			soundtrackBtn.setManaged(false);
+		    		}
+
+		    		
+		    	}
 				
 			}
 			

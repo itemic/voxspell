@@ -24,6 +24,7 @@ import javafx.scene.layout.VBox;
 import javafx.stage.FileChooser;
 import javafx.stage.FileChooser.ExtensionFilter;
 import javafx.stage.Stage;
+import se206_model.GameType;
 import se206_model.UserModel;
 import se206_util.FileHandler;
 import se206_util.Save;
@@ -78,6 +79,15 @@ public class UserSelectionMenuController implements Initializable {
     @FXML
     private Label customLabel;
     
+    @FXML
+    private RadioButton freePlayRadio;
+    
+    @FXML
+    private RadioButton challengeRadio;
+    
+    @FXML
+    private ToggleGroup playMode;
+    
     Alert alert = new Alert(AlertType.ERROR);
 
 
@@ -123,13 +133,13 @@ public class UserSelectionMenuController implements Initializable {
     @FXML
     void add() throws IOException {
     	String filename = Save.DIRECTORY + userTextField.getText() + Save.EXTENSION;
-		RadioButton rb = (RadioButton)wordlist.getSelectedToggle();
-		
+		RadioButton rbWordlist = (RadioButton)wordlist.getSelectedToggle();
+		RadioButton rbMode = (RadioButton)playMode.getSelectedToggle();
 		//Does the file exist already? (We don't want to overwrite)
     	boolean fileExists =  (new File(filename).exists());
     	
     	//no file selected in custom
-    	boolean noCustomFile = rb.getText().equals("Custom Wordlist") && (customFilePath == null);
+    	boolean noCustomFile = rbWordlist.getText().equals("Custom Wordlist") && (customFilePath == null);
     	
     	//Did the user specify a username?
     	boolean fileNameEmpty = userTextField.getText().isEmpty();
@@ -151,13 +161,22 @@ public class UserSelectionMenuController implements Initializable {
     		alert.showAndWait();
     	} else {
     		Save s;
-    		if (rb.getText().equals("Default Wordlist")) {
+    		if (rbWordlist.getText().equals("Default Wordlist")) {
+    			if (rbMode.getText().equals("Challenge Mode")) {
+                	s = new Save(new UserModel(userTextField.getText(), GameType.CHALLENGE));
+    			} else {
+                	s = new Save(new UserModel(userTextField.getText(), GameType.FREEPLAY));
+    			}
     			//DEFAULT
-            	s = new Save(new UserModel(userTextField.getText()));
 
     		} else {
     			//CUSTOM
-            	s = new Save(new UserModel(userTextField.getText(), customFilePath));
+    			if (rbMode.getText().equals("Challenge Mode")) {
+    				s = new Save(new UserModel(userTextField.getText(), customFilePath, GameType.CHALLENGE));	
+    			} else {
+    				s = new Save(new UserModel(userTextField.getText(), customFilePath, GameType.FREEPLAY));
+    			}
+            	
 
     		}
     		MainApp.instance().save(s);

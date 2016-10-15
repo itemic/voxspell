@@ -9,6 +9,8 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
 import javafx.scene.control.ProgressBar;
 import javafx.scene.control.Tooltip;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import se206_model.UserModel;
@@ -27,8 +29,7 @@ public class StatusHUDController implements Initializable{
 
     public void update() {
     	UserModel user = MainApp.instance().getUser();
-//    	levelProgressBar.setProgress(user.levelProgress());
-    	levelLabel.setText("Currency: " + user.getCurrency());
+    	levelLabel.setText("Credits: " + user.getCurrency());
     	usernameLabel.setText(user.toString());
     }
 

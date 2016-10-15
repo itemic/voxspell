@@ -26,39 +26,6 @@
          </styleClass>
       </Label>
    </top>
-   <center>
-      <HBox BorderPane.alignment="CENTER">
-         <BorderPane.margin>
-            <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
-         </BorderPane.margin>
-         <padding>
-            <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
-         </padding>
-         <children>
-            <VBox alignment="CENTER" spacing="15.0">
-               <padding>
-                  <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
-               </padding>
-               <HBox.margin>
-                  <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
-               </HBox.margin>
-               <children>
-                  <ComboBox fx:id="shopTypeCombo" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" onAction="#updateList" />
-                  <ListView fx:id="salesListView" />
-               </children>
-            </VBox>
-            <VBox alignment="CENTER" spacing="15.0">
-               <padding>
-                  <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
-               </padding>
-               <children>
-                  <Label fx:id="costLabel" />
-                  <Button fx:id="buyBtn" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#buyItem" text="Buy" />
-               </children>
-            </VBox>
-         </children>
-      </HBox>
-   </center>
    <bottom>
       <ButtonBar prefHeight="40.0" prefWidth="200.0" BorderPane.alignment="CENTER">
         <buttons>
@@ -69,4 +36,36 @@
          </BorderPane.margin>
       </ButtonBar>
    </bottom>
+   <center>
+      <VBox alignment="CENTER" spacing="15.0" BorderPane.alignment="CENTER">
+         <padding>
+            <Insets left="15.0" right="15.0" top="15.0" />
+         </padding>
+         <children>
+            <ComboBox fx:id="shopTypeCombo" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" onAction="#updateList" />
+            <ListView fx:id="salesListView" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" />
+            <HBox alignment="CENTER">
+               <children>
+                  <VBox alignment="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308">
+                     <padding>
+                        <Insets left="15.0" right="15.0" />
+                     </padding>
+                     <children>
+                        <Label fx:id="costLabel" />
+                        <HBox alignment="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" spacing="15.0">
+                           <children>
+                              <Button fx:id="buyBtn" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#buyItem" text="Buy" />
+                              <Button fx:id="soundtrackBtn" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#setSoundtrack" text="Set" />
+                           </children>
+                           <VBox.margin>
+                              <Insets left="15.0" right="15.0" />
+                           </VBox.margin>
+                        </HBox>
+                     </children>
+                  </VBox>
+               </children>
+            </HBox>
+         </children>
+      </VBox>
+   </center>
 </BorderPane>
