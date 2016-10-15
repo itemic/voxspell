@@ -95,8 +95,8 @@ public class ShopMenuController implements Initializable {
 
     void showError() {
     	noFunds.setTitle("Insufficient Funds");
-    	noFunds.setHeaderText("Not enough money!");
-    	noFunds.setContentText("Earn more credits and come back!");
+    	noFunds.setHeaderText("Not enough βCredits!");
+    	noFunds.setContentText("Earn more βCredits and come back!");
     }
     @FXML
     void buyItem(ActionEvent evt) {
@@ -167,7 +167,7 @@ public class ShopMenuController implements Initializable {
 		    	if (selected.equals("Levels")) {
 			    	LevelModel lv = (LevelModel)salesListView.getSelectionModel().getSelectedItem();
 			    	if (lv != null) {
-			    		costLabel.setText("Cost: B$" + LEVEL_PRICE);
+			    		costLabel.setText("Cost: β$" + LEVEL_PRICE);
 						buyBtn.setVisible(true);
 						buyBtn.setManaged(true);
 						soundtrackBtn.setVisible(false);
@@ -184,7 +184,7 @@ public class ShopMenuController implements Initializable {
 		    	} else if (selected.equals("Soundtracks")) {
 		    		String sound = (String)salesListView.getSelectionModel().getSelectedItem();
 		    		if (sound != null) {
-		    			costLabel.setText("Cost: B$" + MUSIC_PRICE);
+		    			costLabel.setText("Cost: β$" + MUSIC_PRICE);
 			    		int index = MainApp.instance().getUser().getMusicList().indexOf(sound);
 
 		    			if (MainApp.instance().getUser().getCanPlay(index)) {

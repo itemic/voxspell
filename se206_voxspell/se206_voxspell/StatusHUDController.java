@@ -32,7 +32,7 @@ public class StatusHUDController implements Initializable{
 
     public void update() {
     	UserModel user = MainApp.instance().getUser();
-    	levelLabel.setText("Credits: " + user.getCurrency());
+    	levelLabel.setText("Credits: β$" + user.getCurrency());
     	usernameLabel.setText(user.toString());
     }
 

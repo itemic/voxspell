@@ -16,6 +16,7 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.media.MediaPlayer;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
+import se206_model.GameType;
 import se206_model.UserModel;
 import se206_model.WordModel;
 import se206_util.Save;
@@ -74,13 +75,16 @@ public class MainApp extends Application {
 		_instance = this;
 
 		
-		
+	
 		this._primaryStage = primaryStage;
-		this._primaryStage.setTitle("VOXSpell β");
+		this._primaryStage.setTitle("VOXSpell 1.0");
 		profileSelect();
 		displayLayout();
 	}
 	
+	public void changeWindowTitle(String str) {
+		this._primaryStage.setTitle(str);
+	}
 	public static BorderPane getRoot() {
 		return _root;
 	}
@@ -110,6 +114,12 @@ public class MainApp extends Application {
 			_root.setCenter(menu);
 			_root.setTop(status);
     		_hud = loader.<StatusHUDController>getController();
+    		
+    		if (getUser().getGameType().equals(GameType.CHALLENGE)) {
+    			this._primaryStage.setTitle("VOXSpell 1.0 - " + getUser().toString() + " (Challenge)");
+    		} else {
+    			this._primaryStage.setTitle("VOXSpell 1.0 - " + getUser().toString() + " (Free Play)");
+    		}
 
 		} catch (IOException e) {
 			e.printStackTrace();

@@ -58,7 +58,7 @@ public class LevelCompleteMenuController {
     		xpLabel.setManaged(false);
     	}
     	
-    	xpLabel.setText("+ B$" + quiz.getCurrencyGain());
+    	xpLabel.setText("β$" + quiz.getCurrencyGain());
     	scoreLabel.setText(quiz.getCorrect() + "/" + quiz.getQuizSize());
     }
 
