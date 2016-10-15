@@ -131,6 +131,7 @@ public class SettingsMenuController implements Initializable {
     	voiceComboBox.getSelectionModel().select(TextToSpeech.access().selectedVoiceNum());
     }
     public void changeTrack() {
+    	MediaHandler.stop();
     	MainApp.instance().getUser().setCurrentSoundtrack(soundtrackComboBox.getSelectionModel().getSelectedItem());
     }
     public void changeVoice() {

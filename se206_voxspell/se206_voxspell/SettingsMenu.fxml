@@ -52,7 +52,7 @@
                         <Button fx:id="previewTrackBtn" mnemonicParsing="false" onAction="#previewTrack" text="Preview" />
                      </children>
                   </HBox>
-                  <Slider fx:id="soundtrackVolumeBar" blockIncrement="0.01" majorTickUnit="0.01" max="0.5" minorTickCount="0" snapToTicks="true" value="0.1" />
+                  <Slider fx:id="soundtrackVolumeBar" blockIncrement="0.01" majorTickUnit="0.01" max="0.5" minorTickCount="0" value="0.1" />
                </children>
             </VBox>
             <VBox alignment="CENTER">

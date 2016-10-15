@@ -9,6 +9,7 @@ import javafx.scene.media.MediaPlayer.Status;
 
 public class MediaHandler {
 	private static MediaPlayer _mp;
+	private static double volume = 0.1;
 	
 	public static void play(String filename) {
 		if (filename.equals("None")) {
@@ -17,11 +18,13 @@ public class MediaHandler {
 		//ref: http://stackoverflow.com/questions/22490064/how-to-use-javafx-mediaplayer-correctly
 		Media m = new Media(new File(filename).toURI().toString());
 		_mp = new MediaPlayer(m);
+		_mp.setVolume(volume);
 		_mp.play();
 	}
 	
 	public static void setVolume(double d) {
-		_mp.setVolume(d);
+		volume = d;
+		_mp.setVolume(volume);
 	}
 	
 	public static void stop() {

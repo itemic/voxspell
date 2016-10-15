@@ -27,6 +27,7 @@ import javafx.stage.Stage;
 import se206_model.GameType;
 import se206_model.UserModel;
 import se206_util.FileHandler;
+import se206_util.MediaHandler;
 import se206_util.Save;
 
 public class UserSelectionMenuController implements Initializable {
@@ -92,6 +93,7 @@ public class UserSelectionMenuController implements Initializable {
 
 
     void setup() {
+    	MediaHandler.stop();
     	_files.clear();
     	_filenames.clear();
     	for (File f: FileHandler.findProfiles()) {

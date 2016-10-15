@@ -1,14 +1,18 @@
 package se206_voxspell;
 
 import java.io.IOException;
+import java.net.URL;
+import java.util.ResourceBundle;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.layout.BorderPane;
+import se206_util.MediaHandler;
 
-public class HelpScreenController {
+public class HelpScreenController implements Initializable {
 
     @FXML
     private Button backBtn;
@@ -28,5 +32,12 @@ public class HelpScreenController {
     		e.printStackTrace();
     	}
     }
+
+	@Override
+	public void initialize(URL location, ResourceBundle resources) {
+		// TODO Auto-generated method stub
+		MediaHandler.stop();
+		
+	}
 
 }
