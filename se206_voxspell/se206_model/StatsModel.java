@@ -14,11 +14,13 @@ public class StatsModel {
 	private SimpleStringProperty word;
 	private SimpleStringProperty correct;
 	private SimpleStringProperty attempts;
+	private SimpleStringProperty accuracy;
 	
 	public StatsModel(WordModel w) {
 		word = new SimpleStringProperty(w.getWord());
 		correct = new SimpleStringProperty(w.getTimesCorrect() + "");
 		attempts = new SimpleStringProperty(w.getTotalAttempts() + "");
+		accuracy = new SimpleStringProperty(w.getAccuracy() + "");
 	}
 	
 	public String getWord() {
@@ -55,6 +57,18 @@ public class StatsModel {
 	
 	public StringProperty attemptsProperty() {
 		return attempts;
+	}
+	
+	public String getAccuracy() {
+		return accuracy.get();
+	}
+	
+	public void setAccuracy(String s) {
+		accuracy.set(s);
+	}
+	
+	public StringProperty accuracyProperty() {
+		return accuracy;
 	}
 
 }

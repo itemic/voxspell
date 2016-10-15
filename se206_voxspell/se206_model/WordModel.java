@@ -1,6 +1,8 @@
 package se206_model;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.Date;
 
 import javafx.beans.property.SimpleStringProperty;
@@ -72,6 +74,16 @@ public class WordModel implements Serializable {
 	
 	public String getWord() {
 		return _word;
+	}
+	
+	public String getAccuracy() {
+		if (_attempts == 0) {
+			return "--%"; // no value yet
+		} else {
+			//REFERENCE: http://stackoverflow.com/questions/2808535/round-a-double-to-2-decimal-places
+			double percentage = new BigDecimal((double)((double)_correct / (double)_attempts) * 100).setScale(2, RoundingMode.CEILING).doubleValue();
+			return percentage + "%";
+		}
 	}
 	
 	public int getTimesCorrect() {

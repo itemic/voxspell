@@ -52,6 +52,9 @@ public class StatisticsMenuController {
     @FXML
     private TableColumn<StatsModel, String> attemptsColumn;
     
+    @FXML
+    private TableColumn<StatsModel, String> accuracyColumn;
+    
     
     @FXML
     void goBack(ActionEvent event) {
@@ -91,6 +94,7 @@ public class StatisticsMenuController {
 		
 		wordsTable.setItems(s);
 		wordColumn.setCellValueFactory(cellData -> cellData.getValue().wordProperty());
+		accuracyColumn.setCellValueFactory(cellData -> cellData.getValue().accuracyProperty());
 		correctColumn.setCellValueFactory(cellData -> cellData.getValue().correctProperty());
 		attemptsColumn.setCellValueFactory(cellData -> cellData.getValue().attemptsProperty());
 		
