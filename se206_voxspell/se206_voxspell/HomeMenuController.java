@@ -46,6 +46,7 @@ public class HomeMenuController implements Initializable {
     		controller.setup();
 			MainApp.getRoot().setCenter(profiles);
 			MainApp.getRoot().setTop(null);
+			MainApp.instance().changeWindowTitle("VOXSpell 1.0");
     		} catch (IOException e) {
     			e.printStackTrace();
     		}
@@ -134,12 +135,17 @@ public class HomeMenuController implements Initializable {
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
+		String user = MainApp.instance().getUser().toString();
 		if (MainApp.instance().getUser().getGameType().equals(GameType.CHALLENGE)) {
 			// no editor
 			editorBtn.setManaged(false);
+			MainApp.instance().changeWindowTitle("VOXSpell 1.0 - " + user + " (Challenge)");
+
 		} else {
 			// no shop
 			shopBtn.setManaged(false);
+			MainApp.instance().changeWindowTitle("VOXSpell 1.0 - " + user + " (Free Play)");
+
 		}
 		
 		
