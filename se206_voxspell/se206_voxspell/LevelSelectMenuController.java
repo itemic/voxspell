@@ -15,6 +15,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.layout.BorderPane;
+import se206_model.GameType;
 import se206_model.LevelModel;
 import se206_util.MediaHandler;
 
@@ -86,7 +87,7 @@ public class LevelSelectMenuController {
     void fromMenu() {
     	
     	for (LevelModel level: MainApp.instance().getUser().getGame().getLevels()) {
-    		if (level.canPlayLevel() ){
+    		if (level.canPlayLevel() || MainApp.instance().getUser().getGameType().equals(GameType.FREEPLAY)){
     			addToComboBox(level);
     		}
     	}

@@ -14,9 +14,9 @@
             <Button fx:id="playBtn" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#startGame" styleClass="home-menu-btn" text="New Game" wrapText="true" />
             <Button fx:id="statsBtn" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#goToStats" styleClass="home-menu-btn" text="My Stats" wrapText="true" />
             <Button fx:id="shopBtn" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#goToShop" styleClass="home-menu-btn" text="Shop" />
+            <Button fx:id="editorBtn" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#goToEditor" styleClass="home-menu-btn" text="Level Editor" wrapText="true" />
             <Button fx:id="settingsBtn" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#goToSettings" styleClass="home-menu-btn" text="Settings" wrapText="true" />
           <Button fx:id="switchUserBtn" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#backToUserSelection" styleClass="home-menu-btn" text="Switch User" wrapText="true" />
-            <Button fx:id="editorBtn" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#goToEditor" styleClass="home-menu-btn" text="Level Editor" wrapText="true" />
          </children>
          <BorderPane.margin>
             <Insets bottom="15.0" left="15.0" right="15.0" />

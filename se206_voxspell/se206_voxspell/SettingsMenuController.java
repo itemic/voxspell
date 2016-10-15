@@ -20,6 +20,7 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.layout.BorderPane;
+import se206_model.GameType;
 import se206_util.Save;
 import se206_util.TextToSpeech;
 
@@ -92,7 +93,7 @@ public class SettingsMenuController implements Initializable {
     	ArrayList<String> availMusic = new ArrayList<>();
     	availMusic.add("None");
     	for (int i = 0; i < MainApp.instance().getUser().getMusicList().size(); i++) {
-    		if (MainApp.instance().getUser().getCanPlay(i)) {
+    		if (MainApp.instance().getUser().getCanPlay(i) || MainApp.instance().getUser().getGameType().equals(GameType.FREEPLAY)) {
     			String s = MainApp.instance().getUser().getMusicList().get(i);
     			availMusic.add(s);
     		}

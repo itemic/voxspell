@@ -5,6 +5,8 @@ import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.util.ArrayList;
 
+import se206_voxspell.MainApp;
+
 public class LevelModel implements Serializable {
 	
 	/**

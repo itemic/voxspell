@@ -13,6 +13,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
+import se206_model.GameType;
 import se206_model.UserModel;
 import se206_util.MediaHandler;
 
@@ -22,6 +23,8 @@ public class StatusHUDController implements Initializable{
     @FXML
     private Label levelLabel;
     
+    @FXML
+    private Label gameModeLabel;
     
     @FXML
     private Label usernameLabel;
@@ -37,5 +40,11 @@ public class StatusHUDController implements Initializable{
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		update();
+		if (MainApp.instance().getUser().getGameType().equals(GameType.FREEPLAY)) {
+			levelLabel.setManaged(false);
+			gameModeLabel.setText("Free Play");
+		} else {
+			gameModeLabel.setText("Challenge");
+		}
 	}
 }

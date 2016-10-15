@@ -9,6 +9,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.media.MediaPlayer;
+import se206_model.GameType;
 import se206_model.QuizModel;
 import se206_util.MediaHandler;
 
@@ -29,6 +30,9 @@ public class LevelCompleteMenuController {
     @FXML
     private Button menuBtn;
     
+    @FXML
+    private Label xpTitleLabel;
+    
 
     @FXML
     void backToMenu(ActionEvent event) {
@@ -48,6 +52,12 @@ public class LevelCompleteMenuController {
     
     
     public void init(QuizModel quiz) {
+    	if (MainApp.instance().getUser().getGameType().equals(GameType.FREEPLAY)) {
+    		//no experience in this mode
+    		xpTitleLabel.setManaged(false);
+    		xpLabel.setManaged(false);
+    	}
+    	
     	xpLabel.setText("+ B$" + quiz.getCurrencyGain());
     	scoreLabel.setText(quiz.getCorrect() + "/" + quiz.getQuizSize());
     }
