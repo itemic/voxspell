@@ -11,6 +11,7 @@ import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.VBox;
 import javafx.scene.media.MediaPlayer;
 import se206_model.GameType;
 import se206_model.QuizModel;
@@ -33,15 +34,6 @@ public class LevelCompleteMenuController {
     @FXML
     private Button menuBtn;
     
-    @FXML
-    private Label xpTitleLabel;
-    
-    @FXML
-    private Label creditLabel;
-    
-    @FXML
-    private Label creditTextLabel;
- 
 
     @FXML
     private ImageView completeImage;
@@ -51,6 +43,9 @@ public class LevelCompleteMenuController {
     
     @FXML
     private ImageView scoreImage;
+    
+    @FXML
+    private VBox creditVbox;
 
     @FXML
     void backToMenu(ActionEvent event) {
@@ -72,14 +67,11 @@ public class LevelCompleteMenuController {
     public void init(QuizModel quiz) {
     	if (MainApp.instance().getUser().getGameType().equals(GameType.FREEPLAY)) {
     		//no experience in this mode
-    		xpTitleLabel.setManaged(false);
-    		xpLabel.setManaged(false);
-    		creditTextLabel.setManaged(false);
-    		creditLabel.setManaged(false);
+    		creditVbox.setManaged(false);
+    		creditVbox.setManaged(false);
     	}
     	
     	xpLabel.setText("β$" + quiz.getCurrencyGain());
-    	creditLabel.setText("β$" + MainApp.instance().getUser().getCurrency());
     	scoreLabel.setText(quiz.getCorrect() + "/" + quiz.getQuizSize());
     	
     	Image image = new Image("resources/levelcomplete.png");
