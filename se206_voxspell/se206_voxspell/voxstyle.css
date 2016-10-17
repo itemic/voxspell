@@ -50,6 +50,11 @@
 	-fx-font-size: 36;
 }
 
+#subheading {
+	-fx-font-weight: bold;
+	-fx-text-fill: -accent400;
+	-fx-font-size: 1em;
+}
 
 /* Basic Buttons */
 
@@ -89,6 +94,10 @@
 
 #danger:pressed {
 	-fx-background-color: -danger3;
+}
+
+#quiz {
+	-fx-font-size: 32;
 }
 
 .text-field {
@@ -261,7 +270,7 @@
 	-fx-effect: null;
 	-fx-background-color: -black100;
 	-fx-background-radius: 0;
-	-fx-background-insets: 2 0 0;
+	-fx-background-insets: 2.5;
 }
 
 .scroll-bar:hover .thumb {
@@ -339,12 +348,38 @@
 
 .table-row-cell:selected {
 	-fx-background: -accent200;
-	-fx-background-color: -accent200;
-	
-	-fx-table-cell-border-color: -accent400;
+	-fx-background-color: -black850;
+	-fx-table-cell-border-color: -black850;
+	-fx-background-insets: 0;	
+}
+
+.table-row-cell:selected .table-cell{
+	-fx-text-fill: -accent400;
+}
+
+.list-view {
+	-fx-focus-color: -black800;
+	-fx-faint-focus-color: -black800;
+	-fx-effect: null;
+	-fx-background-insets: 0;
+ 	-fx-padding: 0;
+	-fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.6), 10, 0, 0, 2);
+}
+
+.list-view .list-cell {
+	-fx-text-fill: white;
+	-fx-font-size: 15;
+	-fx-alignment: center-left;
+	-fx-background-color: -black800;
+	-fx-pref-height: 48;
+	-fx-alignment: center-left;
+	-fx-background-insets: 0;
+}
+
+.list-view .list-cell:selected {
+	-fx-background: -accent200;
+	-fx-background-color: -black850;
+	-fx-text-fill: -accent400;
 	-fx-background-insets: 0;
 	
 }
-
-
-

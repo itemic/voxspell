@@ -1,5 +1,6 @@
 package se206_voxspell;
 
+import java.io.File;
 import java.io.IOException;
 
 import javafx.event.ActionEvent;
@@ -7,6 +8,8 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.media.MediaPlayer;
 import se206_model.GameType;
@@ -38,7 +41,16 @@ public class LevelCompleteMenuController {
     
     @FXML
     private Label creditTextLabel;
+ 
+
+    @FXML
+    private ImageView completeImage;
     
+    @FXML
+    private ImageView gainImage;
+    
+    @FXML
+    private ImageView scoreImage;
 
     @FXML
     void backToMenu(ActionEvent event) {
@@ -69,6 +81,20 @@ public class LevelCompleteMenuController {
     	xpLabel.setText("β$" + quiz.getCurrencyGain());
     	creditLabel.setText("β$" + MainApp.instance().getUser().getCurrency());
     	scoreLabel.setText(quiz.getCorrect() + "/" + quiz.getQuizSize());
+    	
+    	Image image = new Image("resources/levelcomplete.png");
+    	Image plus = new Image("resources/voxcoingain.png");
+    	Image score;
+    	if (quiz.getCorrect() > 8) {
+    		score = new Image("resources/goodscore.png");
+    	} else if (quiz.getCorrect() > 6) {
+    		score = new Image("resources/decentscore.png");
+    	} else {
+    		score = new Image("resources/badscore.png");
+    	}
+    	completeImage.setImage(image);
+    	gainImage.setImage(plus);
+    	scoreImage.setImage(score);
     }
 
     @FXML

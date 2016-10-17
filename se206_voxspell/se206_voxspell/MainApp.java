@@ -91,6 +91,10 @@ public class MainApp extends Application {
 		return _root;
 	}
 	
+	public Stage getStage() {
+		return _primaryStage;
+	}
+	
 	public void profileSelect() {
 		try {
 			FXMLLoader loader = new FXMLLoader();
@@ -150,7 +154,7 @@ public class MainApp extends Application {
 		Scene scene = new Scene(_root, 800, 600);
 		scene.getStylesheets().add(getClass().getResource("voxstyle.css").toExternalForm());
 		scene.getStylesheets().add("https://fonts.googleapis.com/css?family=Righteous");
-		scene.getStylesheets().add("https://fonts.googleapis.com/css?family=Roboto");
+		scene.getStylesheets().add("https://fonts.googleapis.com/css?family=Roboto:400,700");
 		testCode();
 		_primaryStage.setScene(scene);
 		_primaryStage.initStyle(StageStyle.UNDECORATED);

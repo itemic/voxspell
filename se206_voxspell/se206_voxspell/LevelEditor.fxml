@@ -13,7 +13,7 @@
 
 <BorderPane xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1" fx:controller="se206_voxspell.LevelEditorController">
    <top>
-      <Label text="Level Editor" BorderPane.alignment="CENTER">
+      <Label text="LEVEL EDITOR" BorderPane.alignment="CENTER">
          <BorderPane.margin>
             <Insets left="15.0" right="15.0" top="15.0" />
          </BorderPane.margin>
