@@ -63,7 +63,10 @@ public class LevelEditorController {
     private ArrayList<LevelModel> _lvModel = new ArrayList<>();
     
     void fromMenu() {
-    	wordListView.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
+//    	wordListView.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
+    	_lvModel.clear();
+    	levelCombo.getItems().clear();
+    	
     	for (LevelModel level: MainApp.instance().getUser().getGame().getLevels()) {
     		_lvModel.add(level);
     	}
@@ -91,8 +94,10 @@ public class LevelEditorController {
     	}
     	
 //// UPDATE
+    	if (selectedLevel != null) {
     	for (WordModel w: selectedLevel.getWords()){
     		wordListView.getItems().add(w);
+    	}
     	}
     	wordListView.scrollTo(0);
     	MainApp.instance().save();
@@ -188,8 +193,11 @@ public class LevelEditorController {
     @FXML
     void deleteLevel() {
     	LevelModel selectedLevel = levelCombo.getSelectionModel().getSelectedItem();
+    	int levelIndex = levelCombo.getSelectionModel().getSelectedIndex();
+    	
+    	
     	MainApp.instance().getUser().getGame().getLevels().remove(selectedLevel);
-    	updateList();
+    	fromMenu();
 
     }
 
