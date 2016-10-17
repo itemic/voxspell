@@ -144,17 +144,19 @@ public class UserSelectionMenuController implements Initializable {
     	boolean noCustomFile = rbWordlist.getText().equals("Custom Wordlist") && (customFilePath == null);
     	
     	//Did the user specify a username?
-    	boolean fileNameEmpty = userTextField.getText().isEmpty();
+    	boolean fileNameEmpty = userTextField.getText().trim().isEmpty();
     	
     	if (fileExists || noCustomFile || fileNameEmpty) {
     		if (fileExists) {
     			alert.setTitle("User exists");
     	    	alert.setHeaderText("This user exists already.");
     	    	alert.setContentText("Choose a new name.");
+    	    	userTextField.requestFocus();
     		} else if (fileNameEmpty) {
     			alert.setTitle("No username.");
     	    	alert.setHeaderText("No username.");
     	    	alert.setContentText("Choose a username for yourself.");
+    	    	userTextField.requestFocus();
     		} else {
     			alert.setTitle("No wordlist chosen");
     	    	alert.setHeaderText("VOXSpell can't find a wordlist.");

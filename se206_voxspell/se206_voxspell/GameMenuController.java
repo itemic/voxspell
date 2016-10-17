@@ -66,37 +66,40 @@ public class GameMenuController implements Initializable {
     @FXML
     void submitPressed(ActionEvent event) {
     	String guess = inputField.getText();
-    	boolean isSpelledCorrectly = _quiz.checkWord(guess);
-    	if (isSpelledCorrectly) {
-    		TextToSpeech.access().speak("You got it right.", disable);
-    	} else {
-    		TextToSpeech.access().speak("Incorrect.", disable);
-    	}
-    	update();
-    	inputField.clear();
-    	boolean levelHasMore = _quiz.loadNext();
-    	MainApp.instance().save(); //save on every click?
-    	if (!levelHasMore) {
-    		try {
-        		TextToSpeech.access().speak("Round over.", disable);
-    			int quizXP = _quiz.getCurrencyGain();
-    			MainApp.instance().getUser().gainCurrency(quizXP);
-    			MediaHandler.stop();
-        		FXMLLoader loader = new FXMLLoader();
-        		loader.setLocation(MainApp.class.getResource("LevelCompleteMenu.fxml"));
-        		BorderPane levelSelectPane = (BorderPane)loader.load();
-        		LevelCompleteMenuController controller = loader.<LevelCompleteMenuController>getController();
-        		controller.init(_quiz);
-        		BorderPane root = MainApp.getRoot();
-        		root.setCenter(levelSelectPane);
-        	} catch (IOException e) {
-        		e.printStackTrace();
+    	if (guess.trim() != "") {
+    		boolean isSpelledCorrectly = _quiz.checkWord(guess);
+        	if (isSpelledCorrectly) {
+        		TextToSpeech.access().speak("You got it right.", disable);
+        	} else {
+        		TextToSpeech.access().speak("Incorrect.", disable);
         	}
-    	} else {
-//    		System.out.println("Spell " + _quiz.getCurrentWord());
-    		TextToSpeech.access().speak("Spell " + _quiz.getCurrentWord(), disable);
+        	update();
+        	inputField.clear();
+        	boolean levelHasMore = _quiz.loadNext();
+        	MainApp.instance().save(); //save on every click?
+        	if (!levelHasMore) {
+        		try {
+            		TextToSpeech.access().speak("Round over.", disable);
+        			int quizXP = _quiz.getCurrencyGain();
+        			MainApp.instance().getUser().gainCurrency(quizXP);
+        			MediaHandler.stop();
+            		FXMLLoader loader = new FXMLLoader();
+            		loader.setLocation(MainApp.class.getResource("LevelCompleteMenu.fxml"));
+            		BorderPane levelSelectPane = (BorderPane)loader.load();
+            		LevelCompleteMenuController controller = loader.<LevelCompleteMenuController>getController();
+            		controller.init(_quiz);
+            		BorderPane root = MainApp.getRoot();
+            		root.setCenter(levelSelectPane);
+            	} catch (IOException e) {
+            		e.printStackTrace();
+            	}
+        	} else {
+//        		System.out.println("Spell " + _quiz.getCurrentWord());
+        		TextToSpeech.access().speak("Spell " + _quiz.getCurrentWord(), disable);
+        	}
+        	inputField.requestFocus();
     	}
-    	inputField.requestFocus();
+    	
 
     	//TEMP CODE TO TEST DUMMY
     	
