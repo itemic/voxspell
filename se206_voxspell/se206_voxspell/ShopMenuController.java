@@ -22,6 +22,8 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 import se206_model.LevelModel;
 
@@ -53,6 +55,9 @@ public class ShopMenuController implements Initializable {
     
     private ObservableList<String> _ob;
     private ArrayList<String> _selections = new ArrayList<>();
+    
+    @FXML
+    private ImageView shopImage;
 
     
     @FXML
@@ -95,7 +100,7 @@ public class ShopMenuController implements Initializable {
     			}
     		}
     	
-		costLabel.setText("You have β$" + MainApp.instance().getUser().getCurrency());
+		costLabel.setText("" + MainApp.instance().getUser().getCurrency());
 
     	}
     
@@ -160,9 +165,11 @@ public class ShopMenuController implements Initializable {
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
+		Image coin = new Image("resources/voxcoin.png");
+		shopImage.setImage(coin);
 		buyBtn.setVisible(false);
 		soundtrackBtn.setVisible(false);
-		costLabel.setText("You have β$ " + MainApp.instance().getUser().getCurrency());
+		costLabel.setText("" + MainApp.instance().getUser().getCurrency());
 		//ref http://stackoverflow.com/questions/12459086/how-to-perform-an-action-by-selecting-an-item-from-listview-in-javafx-2
 		salesListView.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<Object>() {
 			@Override
@@ -187,7 +194,7 @@ public class ShopMenuController implements Initializable {
 
 			    	} else {
 //			    		costLabel.setText("");
-		    			costLabel.setText("You have β$" + MainApp.instance().getUser().getCurrency());
+		    			costLabel.setText("" + MainApp.instance().getUser().getCurrency());
 
 						buyBtn.setVisible(false);
 //						buyBtn.setManaged(false);
@@ -204,6 +211,7 @@ public class ShopMenuController implements Initializable {
 		    			if (MainApp.instance().getUser().getCanPlay(index)) {
 			    			//if user owns, hide BUY button show set or unset
 		    				costLabel.setText("Owned");
+		    				
 			    			buyBtn.setVisible(false);
 			    			buyBtn.setManaged(false);
 			    			soundtrackBtn.setVisible(true);
@@ -228,10 +236,11 @@ public class ShopMenuController implements Initializable {
 			    			buyBtn.setManaged(true);
 			    			soundtrackBtn.setVisible(false);
 			    			soundtrackBtn.setManaged(false);
+			    			costLabel.setText("" + MainApp.instance().getUser().getCurrency());
 			    		}
 		    			
 		    		} else {
-		    			costLabel.setText("You have β$" + MainApp.instance().getUser().getCurrency());
+		    			costLabel.setText("" + MainApp.instance().getUser().getCurrency());
 		    			buyBtn.setVisible(false);
 //		    			buyBtn.setManaged(false);
 		    			soundtrackBtn.setVisible(false);
