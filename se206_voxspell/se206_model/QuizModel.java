@@ -96,7 +96,7 @@ public class QuizModel implements Serializable {
 	
 	public boolean canReplay() {
 		if (_canReplay) {
-			TextToSpeech.access().speak("Listen carefully, spell " + _quizWords.get(_wordPosition));
+			TextToSpeech.access().speak(_quizWords.get(_wordPosition) + "");
 			_canReplay = false;
 		}
 		return _canReplay;

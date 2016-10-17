@@ -3,6 +3,7 @@ package se206_model;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
+import java.time.LocalDate;
 import java.util.Date;
 
 import javafx.beans.property.SimpleStringProperty;
@@ -17,7 +18,7 @@ public class WordModel implements Serializable {
 	private int _correct;
 	private int _attempts; //logically incorrect would be a-c
 	private LevelModel _level; //level if you will
-	private Date _lastTried; //to be considered (NOT IN CONSTRUCTORS YET)
+	private LocalDate _lastTried; //to be considered (NOT IN CONSTRUCTORS YET)
 	private int _wordScore; // 0-100 based on user's performance
 	private int _experience; // experience points earned
 	
@@ -27,7 +28,7 @@ public class WordModel implements Serializable {
 		_correct = 0;
 		_attempts = 0;
 		_level = level;
-//		_lastTried = null
+		_lastTried = null;
 		_wordScore = 50; //middle ground for new words (neutral)
 		_experience = word.length(); //experience proportional to word length
 		
@@ -69,7 +70,19 @@ public class WordModel implements Serializable {
 				_wordScore = 0;
 			}
 		}
+		_lastTried = LocalDate.now();
 		return userCorrect;
+	}
+	
+	public LocalDate getLastTried() {
+		return _lastTried;
+	}
+	public String getLastTriedStr() {
+		if (_lastTried == null) {
+			return "not practiced";
+		} else {
+			return _lastTried.toString();
+		}
 	}
 	
 	public String getWord() {

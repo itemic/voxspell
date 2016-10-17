@@ -1,4 +1,4 @@
-%Level 1
+%NZCER 1
 a
 I
 it
@@ -9,7 +9,7 @@ in
 my
 to
 we
-%Level 2
+%NZCER 2
 at
 had
 of
@@ -30,7 +30,7 @@ me
 so
 they
 you
-%Level 3
+%NZCER 3
 about
 be
 go
@@ -61,7 +61,7 @@ get
 home
 one
 with
-%Level 4
+%NZCER 4
 again
 do
 next
@@ -112,7 +112,7 @@ little
 over
 this 
 your
-%Level 5
+%NZCER 5
 am
 door
 last
@@ -163,7 +163,7 @@ know
 never
 three
 year
-%Level 6
+%NZCER 6
 also
 cool
 eyes
@@ -234,7 +234,7 @@ say
 ten
 wanted
 yes
-%Level 7
+%NZCER 7
 any
 each
 ground
@@ -295,7 +295,7 @@ gone
 many
 sometimes
 world
-%Level 8
+%NZER 8
 aloud
 eight
 interesting
@@ -357,7 +357,7 @@ hungry
 piece
 spring
 yesterday
-%Level 9
+%NZCER 9
 allowed
 dictionary
 friends
@@ -428,7 +428,7 @@ field
 minute
 straight
 you're
-%Level 10
+%NZCER 10
 addition
 country
 fraction
@@ -499,7 +499,7 @@ experience
 justice
 position
 wholesale
-%Level 11
+%NZCER 11
 acceptance
 conductor
 future

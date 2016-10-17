@@ -15,12 +15,14 @@ public class StatsModel {
 	private SimpleStringProperty correct;
 	private SimpleStringProperty attempts;
 	private SimpleStringProperty accuracy;
+	private SimpleStringProperty lastTried;
 	
 	public StatsModel(WordModel w) {
 		word = new SimpleStringProperty(w.getWord());
 		correct = new SimpleStringProperty(w.getTimesCorrect() + "");
 		attempts = new SimpleStringProperty(w.getTotalAttempts() + "");
 		accuracy = new SimpleStringProperty(w.getAccuracy() + "");
+		lastTried = new SimpleStringProperty(w.getLastTriedStr() + ""); //try to format later 
 	}
 	
 	public String getWord() {
@@ -71,4 +73,15 @@ public class StatsModel {
 		return accuracy;
 	}
 
+	public String getLastTried() {
+		return lastTried.get();
+	}
+	
+	public void setLastTried(String s) {
+		lastTried.set(s);
+	}
+	
+	public StringProperty lastTriedProperty() {
+		return lastTried;
+	}
 }

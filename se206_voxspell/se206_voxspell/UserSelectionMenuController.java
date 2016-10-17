@@ -134,7 +134,7 @@ public class UserSelectionMenuController implements Initializable {
     
     @FXML
     void add() throws IOException {
-    	String filename = Save.DIRECTORY + userTextField.getText() + Save.EXTENSION;
+    	String filename = Save.DIRECTORY + userTextField.getText().trim() + Save.EXTENSION;
 		RadioButton rbWordlist = (RadioButton)wordlist.getSelectedToggle();
 		RadioButton rbMode = (RadioButton)playMode.getSelectedToggle();
 		//Does the file exist already? (We don't want to overwrite)

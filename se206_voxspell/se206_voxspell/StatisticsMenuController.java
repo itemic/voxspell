@@ -17,6 +17,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
@@ -33,6 +34,9 @@ public class StatisticsMenuController {
 
     @FXML
     private Button backBtn;
+    
+    @FXML
+    private Label titleLabel;
 
     @FXML
     private ComboBox<String> levelComboBox;
@@ -55,6 +59,10 @@ public class StatisticsMenuController {
     @FXML
     private TableColumn<StatsModel, String> accuracyColumn;
     
+    @FXML
+    private TableColumn<StatsModel, String> lastPracticedColumn;
+    
+    
     
     @FXML
     void goBack(ActionEvent event) {
@@ -71,6 +79,7 @@ public class StatisticsMenuController {
     }
     
     public void fromMenu() {
+    	titleLabel.setText(MainApp.instance().getUser().toString().toUpperCase()+"'S STATS");
     	for (LevelModel level: MainApp.instance().getUser().getGame().getLevels()) {
     		_levels.add(level.getName());
     		_lvModel.add(level);
@@ -97,6 +106,8 @@ public class StatisticsMenuController {
 		accuracyColumn.setCellValueFactory(cellData -> cellData.getValue().accuracyProperty());
 		correctColumn.setCellValueFactory(cellData -> cellData.getValue().correctProperty());
 		attemptsColumn.setCellValueFactory(cellData -> cellData.getValue().attemptsProperty());
+		lastPracticedColumn.setCellValueFactory(cellData -> cellData.getValue().lastTriedProperty());
+
 		
 		wordsTable.scrollTo(0);
 		
