@@ -96,6 +96,11 @@
 	-fx-background-color: -danger3;
 }
 
+#danger:disabled {
+	-fx-background-color: #404040;
+	-fx-text-fill: #7a7a7a;
+}
+
 #quiz {
 	-fx-font-size: 32;
 }

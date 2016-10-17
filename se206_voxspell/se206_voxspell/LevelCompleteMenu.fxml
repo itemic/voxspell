@@ -26,11 +26,6 @@
    <center>
       <VBox spacing="15.0" BorderPane.alignment="CENTER">
          <children>
-            <ImageView fx:id="completeImage" fitWidth="800.0" pickOnBounds="true" preserveRatio="true">
-               <viewport>
-                  <Rectangle2D width="800.0" />
-               </viewport>
-            </ImageView>
             <HBox alignment="CENTER" spacing="30.0">
                <children>
                   <VBox alignment="CENTER">
@@ -60,8 +55,15 @@
             </HBox>
          </children>
          <BorderPane.margin>
-            <Insets />
+            <Insets top="50.0" />
          </BorderPane.margin>
       </VBox>
    </center>
+   <top>
+      <ImageView fx:id="completeImage" fitWidth="800.0" pickOnBounds="true" preserveRatio="true" BorderPane.alignment="CENTER">
+         <viewport>
+            <Rectangle2D width="800.0" />
+         </viewport>
+      </ImageView>
+   </top>
 </BorderPane>
