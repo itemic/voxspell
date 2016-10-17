@@ -12,6 +12,8 @@ import java.io.Serializable;
 import java.util.ArrayList;
 
 import javafx.concurrent.Task;
+import javafx.scene.Node;
+import javafx.scene.control.Control;
 
 /**
  * <h1>TextToSpeech</h1> This class is responsible for taking text, synthesising
@@ -120,7 +122,7 @@ public class TextToSpeech {
 	}
 
 	
-	public void speak(String speak) {
+	public void speak(String speak, ArrayList<Node> controls) {
 		ArrayList<String> cmd = new ArrayList<>();
 		if (_os == OS.OSX) {
 			cmd.add("/bin/bash");
@@ -134,12 +136,14 @@ public class TextToSpeech {
 			cmd.add("(exit)");
 		}
 		if (_os != OS.WINDOWS) {
-			Thread tmp = new Thread(new Speech(lastSpeech, cmd));
+			Thread tmp = new Thread(new Speech(lastSpeech, cmd, controls));
 			tmp.start();
 			lastSpeech = tmp;
+
 		}
 
 	}
+
 
 	private void makeVoices() {
 		String cmd = null;
@@ -176,10 +180,34 @@ public class TextToSpeech {
 		} else {
 			System.out.println("Not available on Windows.");
 			_voices.add("Temporary"); // temporary solution to prevent crashing
-										// on Windows
+			// on Windows
 			_voices.add("Solution");
 			_voices.add("Windows");
 		}
+	}
+	
+	private class ConcurrentSpeech extends Task {
+		private ArrayList<String> _cmd;
+		private ArrayList<? extends Control> _disable;
+
+		public ConcurrentSpeech(ArrayList<String> cmd, ArrayList<? extends Control> disable) {
+			_cmd = cmd;
+			_disable = disable;
+		}
+		@Override
+		protected Object call() throws Exception {
+			// TODO Auto-generated method stub
+			ProcessBuilder pb = new ProcessBuilder(_cmd);
+			for (Control o: _disable) {
+				o.setDisable(true);
+			}
+			pb.start().waitFor();
+			for (Control o: _disable) {
+				o.setDisable(false);
+			}
+			return null;
+		}
+		
 	}
 
 	/***
@@ -195,6 +223,7 @@ public class TextToSpeech {
 	private class Speech extends Task {
 		Thread _last;
 		ArrayList<String> _cmd;
+		ArrayList<Node> _disable;
 
 		/**
 		 * The only constructor requires what comes before and what to say
@@ -204,10 +233,11 @@ public class TextToSpeech {
 		 * @param cmd
 		 *            What to say
 		 */
-		public Speech(Thread last, ArrayList<String> cmd) {
+		public Speech(Thread last, ArrayList<String> cmd, ArrayList<Node> disable) {
 			super();
 			_last = last;
 			_cmd = cmd;
+			_disable = disable;
 		}
 
 		/**
@@ -221,8 +251,16 @@ public class TextToSpeech {
 			ProcessBuilder pb = new ProcessBuilder(_cmd);
 			try {
 				// testing concurrency
+				for (Node n: _disable) {
+					n.setDisable(true);
+				}
 				Process p = pb.start();
 				p.waitFor();
+				
+				for (Node n: _disable) {
+					n.setDisable(false);
+				}
+				
 			} catch (IOException | InterruptedException e) {
 				e.printStackTrace();
 			}

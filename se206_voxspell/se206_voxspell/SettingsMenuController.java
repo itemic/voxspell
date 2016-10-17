@@ -19,7 +19,9 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.Control;
 import javafx.scene.control.Slider;
+import javafx.scene.Node;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.layout.BorderPane;
@@ -58,6 +60,8 @@ public class SettingsMenuController implements Initializable {
     
     private Alert alert = new Alert(AlertType.CONFIRMATION);
 
+    private ArrayList<Node> allControls = new ArrayList<>();
+    
     @FXML
     void backToMenu(ActionEvent event) {
     	MainApp.instance().save();
@@ -75,7 +79,7 @@ public class SettingsMenuController implements Initializable {
 
     @FXML
     void previewVoice(ActionEvent event) {
-    	TextToSpeech.access().speak("Hi, my name is " + TextToSpeech.access().selectedVoice());
+    	TextToSpeech.access().speak("Hi, my name is " + TextToSpeech.access().selectedVoice(), allControls);
     }
 
     @FXML
@@ -152,6 +156,14 @@ public class SettingsMenuController implements Initializable {
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
+		allControls.add(aboutBtn);
+		allControls.add(previewBtn);
+		allControls.add(previewTrackBtn);
+		allControls.add(voiceComboBox);
+		allControls.add(resetBtn);
+		allControls.add(soundtrackVolumeBar);
+		allControls.add(soundtrackComboBox);
+		allControls.add(backBtn);
 		soundtrackVolumeBar.valueProperty().addListener(new ChangeListener<Number>() {
 
 			@Override

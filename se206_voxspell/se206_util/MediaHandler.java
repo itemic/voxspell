@@ -24,7 +24,10 @@ public class MediaHandler {
 	
 	public static void setVolume(double d) {
 		volume = d;
-		_mp.setVolume(volume);
+		if (_mp != null) {
+			_mp.setVolume(volume);	
+		}
+		
 	}
 	
 	public static void stop() {

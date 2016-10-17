@@ -23,7 +23,6 @@ public class QuizModel implements Serializable {
 	private int _correct;
 	private int _attempts;
 	private int _wordPosition; // where in the list has the user gotten to?
-	private boolean _canReplay; //can the user replay?
 	private int _currencyGain; //how much the user gained in $ this game.
 	private boolean _isCorrect;
 	
@@ -42,9 +41,8 @@ public class QuizModel implements Serializable {
 		_allWords = level.getWords();
 		_quizWords = generateQuizWords();
 		_wordPosition = 0;
-		_canReplay = true;
 		_currencyGain = 0;
-		TextToSpeech.access().speak("Round starting: spell " + _quizWords.get(_wordPosition));
+//		TextToSpeech.access().speak("Round starting: spell " + _quizWords.get(_wordPosition));
 	}
 	
 	
@@ -94,16 +92,8 @@ public class QuizModel implements Serializable {
 		return quizSize;
 	}
 	
-	public boolean canReplay() {
-		if (_canReplay) {
-			TextToSpeech.access().speak(_quizWords.get(_wordPosition) + "");
-			_canReplay = false;
-		}
-		return _canReplay;
-	}
-	
-	public void setReplayable(boolean b) {
-		_canReplay = b;
+	public void replay() {
+//			TextToSpeech.access().speak(_quizWords.get(_wordPosition) + "");
 	}
 	
 	
@@ -129,12 +119,12 @@ public class QuizModel implements Serializable {
 		WordModel word = _quizWords.get(_wordPosition);
 		boolean isCorrect = word.isCorrect(guess);
 		if (isCorrect) { //ensure case insensitivitys
-			TextToSpeech.access().speak("You spelled it right.");
+//			TextToSpeech.access().speak("You spelled it right.");
 			_correct++;
 			_attempts++;
 			_currencyGain += word.getXP();
 		} else {
-			TextToSpeech.access().speak("Incorrect.");
+//			TextToSpeech.access().speak("Incorrect.");
 			_attempts++;
 		}
 		_wordPosition++;
@@ -145,17 +135,16 @@ public class QuizModel implements Serializable {
 	//based on michael's implementation in prototype
 	public boolean loadNext() {
 		if (_wordPosition == quizSize) {
-			TextToSpeech.access().speak("Round over.");
+//			TextToSpeech.access().speak("Round over.");
 			MediaHandler.stop();
 			//game is finished
 			return false;
 		} else {
 			if (_isCorrect) {
-				TextToSpeech.access().speak("Spell " + _quizWords.get(_wordPosition).toString());
+//				TextToSpeech.access().speak("Spell " + _quizWords.get(_wordPosition).toString());
 			} else {
-				TextToSpeech.access().speak("Spell " + _quizWords.get(_wordPosition).toString());
+//				TextToSpeech.access().speak("Spell " + _quizWords.get(_wordPosition).toString());
 			}
-			_canReplay = true; //
 			return true;
 		}
 	}
@@ -163,7 +152,9 @@ public class QuizModel implements Serializable {
 	public int getCurrencyGain() {
 		return _currencyGain;
 	}
-	
+	public String getCurrentWord() {
+		return _quizWords.get(_wordPosition).toString();
+	}
 	public LevelModel getLevel() {
 		return _level;
 	}

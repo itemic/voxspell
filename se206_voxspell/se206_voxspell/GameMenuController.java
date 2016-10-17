@@ -1,23 +1,29 @@
 package se206_voxspell;
 
 import java.io.IOException;
+import java.net.URL;
+import java.util.ArrayList;
 import java.util.Optional;
+import java.util.ResourceBundle;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.Node;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.layout.BorderPane;
 import se206_model.LevelModel;
 import se206_model.QuizModel;
 import se206_util.MediaHandler;
+import se206_util.TextToSpeech;
 
-public class GameMenuController {
+public class GameMenuController implements Initializable {
 
 	private QuizModel _quiz;
 	
@@ -50,23 +56,29 @@ public class GameMenuController {
 
     private Alert alert = new Alert(AlertType.CONFIRMATION);
     
+    private ArrayList<Node> disable = new ArrayList<>();
 
     @FXML
     void replayPressed(ActionEvent event) {
-    	boolean canReplay = _quiz.canReplay();
-    	replayBtn.setDisable(true);
+    	TextToSpeech.access().speak(_quiz.getCurrentWord(), disable);
     }
 
     @FXML
     void submitPressed(ActionEvent event) {
     	String guess = inputField.getText();
     	boolean isSpelledCorrectly = _quiz.checkWord(guess);
+    	if (isSpelledCorrectly) {
+    		TextToSpeech.access().speak("You got it right.", disable);
+    	} else {
+    		TextToSpeech.access().speak("Incorrect.", disable);
+    	}
     	update();
     	inputField.clear();
     	boolean levelHasMore = _quiz.loadNext();
     	MainApp.instance().save(); //save on every click?
     	if (!levelHasMore) {
     		try {
+        		TextToSpeech.access().speak("Round over.", disable);
     			int quizXP = _quiz.getCurrencyGain();
     			MainApp.instance().getUser().gainCurrency(quizXP);
     			MediaHandler.stop();
@@ -81,7 +93,8 @@ public class GameMenuController {
         		e.printStackTrace();
         	}
     	} else {
-    		replayBtn.setDisable(false);
+//    		System.out.println("Spell " + _quiz.getCurrentWord());
+    		TextToSpeech.access().speak("Spell " + _quiz.getCurrentWord(), disable);
     	}
     	inputField.requestFocus();
 
@@ -91,6 +104,7 @@ public class GameMenuController {
 
     void loadGame(LevelModel level) {
     	_quiz = new QuizModel(level);
+    	TextToSpeech.access().speak("Round starting. Spell " + _quiz.getCurrentWord(), disable);
     	update();
     	//used to pass in necessary stuff
     }
@@ -106,7 +120,7 @@ public class GameMenuController {
     void quitEarly() {
     	alert.setTitle("In A Hurry?");
     	alert.setHeaderText("Are you sure you want to leave early?");
-    	alert.setContentText("You won't get any currency if you leave now.");
+    	alert.setContentText("You won't get any credits if you leave now.");
     	Optional<ButtonType> result = alert.showAndWait();
     	if (result.get() == ButtonType.OK) {
     		try {
@@ -123,6 +137,15 @@ public class GameMenuController {
     		
     	}
     }
+
+	@Override
+	public void initialize(URL location, ResourceBundle resources) {
+		disable.add(inputField);
+		disable.add(replayBtn);
+		disable.add(submitBtn);
+		disable.add(leaveQuizBtn);
+		
+	}
 
 }
 

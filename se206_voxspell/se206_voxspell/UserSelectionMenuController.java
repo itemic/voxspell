@@ -203,6 +203,7 @@ public class UserSelectionMenuController implements Initializable {
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 //		setup();
+		MainApp.instance().changeWindowTitle("VOXSpell 1.0");
 		hideCustom();
 		showNewUser();
 		//http://docs.oracle.com/javase/8/javafx/api/javafx/stage/FileChooser.html
