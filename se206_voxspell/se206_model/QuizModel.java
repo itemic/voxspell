@@ -17,8 +17,8 @@ public class QuizModel implements Serializable {
 	 * 
 	 */
 	private static final long serialVersionUID = -1958232043783152292L;
-	public static int quizSize = 5; ///words in a level
-	private static double passThreshold = 0.9; // accuracy needed to pass
+	public static int quizSize = 10; ///words in a level
+	private static double passThreshold = 0.85; // accuracy needed to pass
 	private LevelModel _level;
 	private int _correct;
 	private int _attempts;

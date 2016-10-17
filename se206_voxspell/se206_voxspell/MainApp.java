@@ -150,9 +150,10 @@ public class MainApp extends Application {
 		Scene scene = new Scene(_root, 800, 600);
 		scene.getStylesheets().add(getClass().getResource("voxstyle.css").toExternalForm());
 		scene.getStylesheets().add("https://fonts.googleapis.com/css?family=Righteous");
+		scene.getStylesheets().add("https://fonts.googleapis.com/css?family=Roboto");
 		testCode();
 		_primaryStage.setScene(scene);
-		_primaryStage.initStyle(StageStyle.UNIFIED);
+		_primaryStage.initStyle(StageStyle.UNDECORATED);
 		_primaryStage.setResizable(false);
 		_primaryStage.sizeToScene(); // prevents border from setResizable
 		_primaryStage.show();
