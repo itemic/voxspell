@@ -13,7 +13,7 @@
    <center>
       <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" spacing="10.0" BorderPane.alignment="CENTER">
          <children>
-            <ComboBox fx:id="levelSelectComboBox" onAction="#updateLevel" />
+            <ComboBox fx:id="levelSelectComboBox" />
             <Button fx:id="playBtn" mnemonicParsing="false" onAction="#goAndPlay" text="Play" />
             <Label fx:id="noLevelsLabel" alignment="CENTER" contentDisplay="CENTER" text="There are no levels available! Visit the Shop or Level Editor and come back!" textAlignment="CENTER" wrapText="true" />
          </children>

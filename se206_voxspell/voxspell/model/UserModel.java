@@ -4,12 +4,14 @@ import java.io.File;
 import java.io.IOException;
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.concurrent.ThreadLocalRandom;
 
-import javafx.scene.media.Media;
-import javafx.scene.media.MediaPlayer;
-import voxspell.gui.MainApp;
-
+/**
+ * This class is a model that represents a user and stores some important
+ * statistics associated with them, such as the Game Model, # credits,
+ * and the available soundtracks.
+ * @author terran
+ *
+ */
 public class UserModel implements Serializable {
 	
 	/**
@@ -17,9 +19,7 @@ public class UserModel implements Serializable {
 	 */
 	private static final long serialVersionUID = 7934526701176815705L;
 	private String _name;
-	private int _level;
 	private GameModel _game;
-	private boolean isCustomWordlist;
 	private ArrayList<String> _music = new ArrayList<>();
 	private ArrayList<Boolean> _activated = new ArrayList<>();
 	private String _currentSoundtrack = "None";
@@ -27,35 +27,40 @@ public class UserModel implements Serializable {
 	private int _currency; //currency called betalpha
 	private GameType _mode;
 
-	//EXPERIENCE REQUIRED: base (100) * 1.2 ^ (level-1)
-	
+	//Default user uses the built-in word-list
 	public UserModel(String name, GameType mode) throws IOException {
-		this(name, "resources/nzcer-wordlist.txt", mode);
+		this(name, "resources/voxwords.txt", mode);
 	}
 	
-	
+	//Initializes the users
 	public UserModel(String name, String filename, GameType mode) throws IOException {
 		_name = name;
-		_level = 1;
 		_currency = 25;
 		_game = new GameModel(filename);
-		isCustomWordlist = true;
 		_mode = mode;
 		setUpMusic();
 	}
 	
+	//Get the game mode that the User is in.
 	public GameType getGameType() {
 		return _mode;
 	}
 	
+	//Get the full name of the current-playing soundtrack
 	public String getCurrentSoundtrack() {
 		return _currentSoundtrack;
 	}
 	
+	//Get the short name of the current-playing soundtrack
+	// (This is the one without file extension)
 	public String getDisplaySoundtrack() {
 		return _displaySoundtrack;
 	}
 	
+	/**
+	 * Updates the current playing soundtrack
+	 * @param s short name of the soundtrack
+	 */
 	public void setCurrentSoundtrack(String s) {
 		if (s.equals("None")) {
 			_currentSoundtrack = s;	
@@ -66,58 +71,70 @@ public class UserModel implements Serializable {
 		_displaySoundtrack = s;
 	}
 	
+	/**
+	 * Check if a level is available for playing
+	 * @param pos The position the level is in the ArrayList of levels
+	 * @return whether the user can play
+	 */
 	public boolean getCanPlay(int pos) {
 		return _activated.get(pos);
 	}
 	
+	/**
+	 * Activates ability to play
+	 * @param pos The position the level is in the ArrayList
+	 */
 	public void setCanPlay(int pos) {
 		_activated.set(pos, true);
 	}
 	
+	/**
+	 * Grabs all the music from the resource folder and loads it into
+	 * the user (and disables them
+	 */
 	private void setUpMusic() {
 		for (File f: new File("resources/soundtrack/").listFiles()) {
 			_music.add(f.getName());
 			_activated.add(false);
 		}
-//		System.out.println(_music);
 	}
 	
+	/**
+	 * Getter method for all the music available for the user
+	 * @return ArrayList of music names
+	 */
 	public ArrayList<String> getMusicList() {
 		return _music;
 	}
 	
-	public ArrayList<Boolean> getAvailableMusic() {
-		return _activated;
-	}
-	
-	public boolean getIsCustomWordlist() {
-		return isCustomWordlist;
-	}
-	
+	/**
+	 * Returns the game object associated with the user
+	 * @return a GameModel
+	 */
 	public GameModel getGame() {
 		return _game;
 	}
 	
+	/**
+	 * Returns the amount of credits the user has
+	 * @return Credit amount
+	 */
 	public int getCurrency() {
 		return _currency;
 	}
 	
+	/**
+	 * Updates the user's currency amount
+	 * @param gain The amount to be added (negative to subtract)
+	 */
 	public void gainCurrency(int gain) {
 		_currency += gain;
-//		update();
 	}
 	
-	
-	
-	public int getLevel(){ 
-		return _level;
-	}
-	
-	
-//	public void update() {
-//		MainApp.instance().getHUD().update();
-//	}
-	
+	/**
+	 * Returns name of the User
+	 */
+	@Override
 	public String toString() {
 		return _name;
 	}

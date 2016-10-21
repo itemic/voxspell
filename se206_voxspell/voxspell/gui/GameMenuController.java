@@ -26,129 +26,126 @@ import voxspell.util.TextToSpeech;
 public class GameMenuController implements Initializable {
 
 	private QuizModel _quiz;
-	
-    @FXML
-    private Label levelLabel;
 
-    @FXML
-    private Label allTimeLabel; // this level's accuracy
+	@FXML
+	private Label levelLabel;
 
-    @FXML
-    private Label progressLabel;
-    
-    @FXML
-    private Label levelAccuracyLabel; // this current game's accuracy
-    
-    @FXML
-    private TextField inputField;
+	@FXML
+	private Label allTimeLabel; // this level's accuracy
 
-    @FXML
-    private Button replayBtn;
+	@FXML
+	private Label progressLabel;
 
-    @FXML
-    private Button hintBtn;
-    
-    @FXML
-    private Button leaveQuizBtn;
+	@FXML
+	private Label levelAccuracyLabel; // this current game's accuracy
 
-    @FXML
-    private Button submitBtn;
+	@FXML
+	private TextField inputField;
 
-    private Alert alert = new Alert(AlertType.CONFIRMATION);
-    
-    private ArrayList<Node> disable = new ArrayList<>();
+	@FXML
+	private Button replayBtn;
 
-    @FXML
-    void replayPressed(ActionEvent event) {
-    	TextToSpeech.access().speak(_quiz.getCurrentWord(), disable);
-    }
+	@FXML
+	private Button leaveQuizBtn;
 
-    @FXML
-    void submitPressed(ActionEvent event) {
-    	String guess = inputField.getText();
-    	if (guess.trim() != "") {
-    		boolean isSpelledCorrectly = _quiz.checkWord(guess);
-        	if (isSpelledCorrectly) {
-        		TextToSpeech.access().speak("You got it right.", disable);
-        	} else {
-        		TextToSpeech.access().speak("Incorrect.", disable);
-        	}
-        	update();
-        	inputField.clear();
-        	boolean levelHasMore = _quiz.loadNext();
-        	MainApp.instance().save(); //save on every click?
-        	if (!levelHasMore) {
-        		try {
-            		TextToSpeech.access().speak("Round over.", disable);
-        			int quizXP = _quiz.getCurrencyGain();
-        			MainApp.instance().getUser().gainCurrency(quizXP);
-        			MediaHandler.stop();
-            		FXMLLoader loader = new FXMLLoader();
-            		loader.setLocation(MainApp.class.getResource("LevelCompleteMenu.fxml"));
-            		BorderPane levelSelectPane = (BorderPane)loader.load();
-            		LevelCompleteMenuController controller = loader.<LevelCompleteMenuController>getController();
-            		controller.init(_quiz);
-            		BorderPane root = MainApp.getRoot();
-            		root.setCenter(levelSelectPane);
-            	} catch (IOException e) {
-            		e.printStackTrace();
-            	}
-        	} else {
-//        		System.out.println("Spell " + _quiz.getCurrentWord());
-        		TextToSpeech.access().speak("Spell " + _quiz.getCurrentWord(), disable);
-        	}
-        	inputField.requestFocus();
-    	}
-    	
+	@FXML
+	private Button submitBtn;
 
-    	//TEMP CODE TO TEST DUMMY
-    	
-    }
+	private Alert alert = new Alert(AlertType.CONFIRMATION);
 
-    void loadGame(LevelModel level) {
-    	_quiz = new QuizModel(level);
-    	TextToSpeech.access().speak("Round starting. Spell " + _quiz.getCurrentWord(), disable);
-    	update();
-    	//used to pass in necessary stuff
-    }
-    
-    void update() {
-    	levelLabel.setText(_quiz.getLevel().toString());
-    	levelAccuracyLabel.setText(_quiz.quizAccuracy());
-    	allTimeLabel.setText(_quiz.getLevel().levelAccuracy());
-    	progressLabel.setText(_quiz.getCurrentWordPosition() + "/" + _quiz.getQuizSize());
-    }
-    
-    @FXML
-    void quitEarly() {
-    	alert.setTitle("In A Hurry?");
-    	alert.setHeaderText("Are you sure you want to leave early?");
-    	alert.setContentText("You won't get any credits if you leave now.");
-    	Optional<ButtonType> result = alert.showAndWait();
-    	if (result.get() == ButtonType.OK) {
-    		try {
-        		FXMLLoader loader = new FXMLLoader();
-        		loader.setLocation(MainApp.class.getResource("HomeMenu.fxml"));
-        		BorderPane levelSelectPane = (BorderPane)loader.load();
-        		
-        		BorderPane root = MainApp.getRoot();
-        		root.setCenter(levelSelectPane);
-        	} catch (IOException e) {
-        		e.printStackTrace();
-        	}
-    	} else {
-    		
-    	}
-    }
+	private ArrayList<Node> disable = new ArrayList<>(); // all the buttons that
+															// should be stopped
+															// during Festival
+
+	@FXML //when the user presses the replay button
+	void replayPressed(ActionEvent event) {
+		TextToSpeech.access().speak(_quiz.getCurrentWord(), disable);
+	}
+
+	@FXML //when the user checks their answer
+	void submitPressed(ActionEvent event) {
+		String guess = inputField.getText();
+		if (!guess.trim().isEmpty()) { //disable empty lines
+			boolean isSpelledCorrectly = _quiz.checkWord(guess);
+			if (isSpelledCorrectly) {
+				TextToSpeech.access().speak("You got it right.", disable);
+			} else {
+				TextToSpeech.access().speak("Incorrect.", disable);
+			}
+			update();
+			inputField.clear();
+			boolean levelHasMore = _quiz.loadNext();
+			MainApp.instance().save(); // save on every click
+			
+			//if it is the last word, end the round
+			if (!levelHasMore) {
+				try {
+					TextToSpeech.access().speak("Round over.", disable);
+					//update the user's credit amount
+					int quizCurrencyGain = _quiz.getCurrencyGain();
+					MainApp.instance().getUser().gainCurrency(quizCurrencyGain);
+					MediaHandler.stop(); //stop soundtrack
+					FXMLLoader loader = new FXMLLoader();
+					loader.setLocation(MainApp.class.getResource("LevelCompleteMenu.fxml"));
+					BorderPane levelSelectPane = (BorderPane) loader.load();
+					LevelCompleteMenuController controller = loader.<LevelCompleteMenuController>getController();
+					controller.initQuiz(_quiz);
+					BorderPane root = MainApp.getRoot();
+					root.setCenter(levelSelectPane);
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+			} else {
+				TextToSpeech.access().speak("Spell " + _quiz.getCurrentWord(), disable);
+			}
+			inputField.requestFocus();
+		}
+
+	}
+
+	//Sets up a quiz with the selected level (and start speaking)
+	void initGame(LevelModel level) {
+		_quiz = new QuizModel(level);
+		TextToSpeech.access().speak("Round starting. Spell " + _quiz.getCurrentWord(), disable);
+		update();
+	}
+
+	// Update all the relevant labels
+	void update() {
+		levelLabel.setText(_quiz.getLevel().toString());
+		levelAccuracyLabel.setText(_quiz.quizAccuracy());
+		allTimeLabel.setText(_quiz.getLevel().levelAccuracy());
+		progressLabel.setText(_quiz.getCurrentWordPosition() + "/" + _quiz.getQuizSize());
+	}
+
+	@FXML //code to stop the game when the user quits
+	void quitEarly() {
+		alert.setTitle("In A Hurry?");
+		alert.setHeaderText("Are you sure you want to leave early?");
+		alert.setContentText("You won't get any credits if you leave now.");
+		Optional<ButtonType> result = alert.showAndWait();
+		if (result.get() == ButtonType.OK) {
+			try {
+				FXMLLoader loader = new FXMLLoader();
+				loader.setLocation(MainApp.class.getResource("HomeMenu.fxml"));
+				BorderPane levelSelectPane = (BorderPane) loader.load();
+
+				BorderPane root = MainApp.getRoot();
+				root.setCenter(levelSelectPane);
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
+	}
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
+		// setup the controls that should be disabled during Festival TTS
 		disable.add(inputField);
 		disable.add(replayBtn);
 		disable.add(submitBtn);
 		disable.add(leaveQuizBtn);
-		
+
 	}
 
 }
-

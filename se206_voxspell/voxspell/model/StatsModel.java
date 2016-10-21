@@ -1,13 +1,10 @@
 package voxspell.model;
 
-import java.util.ArrayList;
-
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
-import voxspell.gui.MainApp;
 
+//This model is a wrapper for the other models because
+//Properties cannot be serializable
 public class StatsModel {
 	//EMULATES WORD BUT NOT SERIALIZABLE
 	//NOT SURE IF THERES A BETTER WAY FOR THIS
@@ -24,6 +21,9 @@ public class StatsModel {
 		accuracy = new SimpleStringProperty(w.getAccuracy() + "");
 		lastTried = new SimpleStringProperty(w.getLastTriedStr() + ""); //try to format later 
 	}
+	
+	//Getters, setters, and StringProperty getters are below
+	
 	
 	public String getWord() {
 		return word.get();

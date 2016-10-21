@@ -1,12 +1,7 @@
 package voxspell.gui;
 
 import java.io.IOException;
-import java.net.URL;
 import java.util.ArrayList;
-import java.util.ResourceBundle;
-
-import javafx.beans.property.ReadOnlyStringWrapper;
-import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
@@ -14,7 +9,6 @@ import javafx.collections.transformation.SortedList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
@@ -65,7 +59,7 @@ public class StatisticsMenuController {
     
     
     @FXML
-    void goBack(ActionEvent event) {
+    void goBack(ActionEvent event) { // go back to main menu
     	try {
     		FXMLLoader loader = new FXMLLoader();
     		loader.setLocation(MainApp.class.getResource("HomeMenu.fxml"));
@@ -78,7 +72,8 @@ public class StatisticsMenuController {
     	}
     }
     
-    public void fromMenu() {
+    public void initStats() {
+    	// set up the title and populate the stats table
     	titleLabel.setText(MainApp.instance().getUser().toString().toUpperCase()+"'S STATS");
     	for (LevelModel level: MainApp.instance().getUser().getGame().getLevels()) {
     		_levels.add(level.toString());
@@ -100,7 +95,7 @@ public class StatisticsMenuController {
 			s.add(new StatsModel(w));
 		}
 	
-		
+		//sets up the columns
 		wordsTable.setItems(s);
 		wordColumn.setCellValueFactory(cellData -> cellData.getValue().wordProperty());
 		accuracyColumn.setCellValueFactory(cellData -> cellData.getValue().accuracyProperty());
@@ -111,6 +106,7 @@ public class StatisticsMenuController {
 		
 		wordsTable.scrollTo(0);
 		
+		//following code used for the search function
 		FilteredList<StatsModel> filter = new FilteredList<>(s, p -> true);
 		//CODE REFERENCE: http://code.makery.ch/blog/javafx-8-tableview-sorting-filtering/
 		searchField.textProperty().addListener((observable, oldValue, newValue) -> {

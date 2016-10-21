@@ -1,8 +1,6 @@
 package voxspell.util;
 
 import java.io.File;
-import java.util.ArrayList;
-
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.scene.media.MediaPlayer.Status;

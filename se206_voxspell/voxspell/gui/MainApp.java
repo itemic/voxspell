@@ -1,27 +1,17 @@
 package voxspell.gui;
 
-import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.util.ArrayList;
-
 import javafx.application.Application;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
-import javafx.scene.image.Image;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.media.MediaPlayer;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import voxspell.model.GameType;
 import voxspell.model.UserModel;
-import voxspell.model.WordModel;
-import voxspell.util.FileHandler;
 import voxspell.util.Save;
 
 public class MainApp extends Application {
@@ -29,29 +19,19 @@ public class MainApp extends Application {
 	private static MainApp _instance;
 	private Stage _primaryStage;
 	private UserModel _user;
-	private StatusHUDController _hud;
 	private Save _s;
-	private MediaPlayer _media;
 	
+	//Code for draggable window
+    private static double _xOffset = 0;
+    private static double _yOffset = 0;
 	
-	public MediaPlayer getMediaPlayer() {
-		return _media;
-	}
-	
-	
-	
-	
-	public StatusHUDController getHUD() {
-		return _hud;
-	}
-	public UserModel getUser() {
-		return _user;
-	}
-	
+
+	// Reference to this application for the other classes to use
 	public static MainApp instance() {
 		return _instance;
 	}
 	
+	//////////// FILE HANDLING (SAVE/LOAD) ////////////
 	public void save() {
 		_s.save();
 	}
@@ -72,55 +52,17 @@ public class MainApp extends Application {
 		}
 	}
 	
-	
-	public void start(Stage primaryStage) throws Exception {
-		_instance = this;
-
-		
-	
-		this._primaryStage = primaryStage;
-		this._primaryStage.setTitle("VOXSpell 1.0");
-		profileSelect();
-		displayLayout();
-	}
-	
-	public void changeWindowTitle(String str) {
-		this._primaryStage.setTitle(str);
-	}
-	public static BorderPane getRoot() {
-		return _root;
-	}
-	
-	public Stage getStage() {
-		return _primaryStage;
-	}
-	
-	public void profileSelect() {
-		try {
-			FXMLLoader loader = new FXMLLoader();
-			loader.setLocation(MainApp.class.getResource("UserSelectionMenu.fxml"));
-			BorderPane profiles = (BorderPane) loader.load();
-			UserSelectionMenuController controller = loader.<UserSelectionMenuController>getController();
-    		controller.setup();
-			_root.setCenter(profiles);
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-	}
-	
-	
+	/**
+	 * Code to set up the actual game after the player loads a user
+	 */
 	public void startApp() {
 		try {
 			FXMLLoader loader = new FXMLLoader();			
 			loader.setLocation(MainApp.class.getResource("HomeMenu.fxml"));
 			BorderPane menu = (BorderPane) loader.load();
 			loader = new FXMLLoader();
-//			loader.setLocation(MainApp.class.getResource("StatusHUD.fxml"));
-//			BorderPane status = (BorderPane)loader.load();
 			_root.setCenter(menu);
-//			_root.setTop(status);
-//    		_hud = loader.<StatusHUDController>getController();
-    		if (getUser().getGameType().equals(GameType.CHALLENGE)) {
+    		if (getUser().getGameType().equals(GameType.CHALLENGE)) { //sets title bar based on game mode
     			this._primaryStage.setTitle("VOXSpell 1.0 - " + getUser().toString() + " (Challenge)");
     		} else {
     			this._primaryStage.setTitle("VOXSpell 1.0 - " + getUser().toString() + " (Free Play)");
@@ -130,32 +72,76 @@ public class MainApp extends Application {
 			e.printStackTrace();
 		}
 	}
-    private static double xOffset = 0;
-    private static double yOffset = 0;
-    public void testCode() {
+	
+	/**
+	 * Sets up the whole application to the profile selection screen
+	 */
+	public void start(Stage primaryStage) throws Exception {
+		_instance = this;
+		this._primaryStage = primaryStage;
+		this._primaryStage.setTitle("VOXSpell 1.0");
+		profileSelect();
+		displayLayout();
+	}
+	
+	/**
+	 * Allows other classes to change the title bar text
+	 * @param str The string to set it to
+	 */
+	public void changeWindowTitle(String str) {
+		this._primaryStage.setTitle(str);
+	}
+
+	/**
+	 * Code to set up the controller for the profile selection screen.
+	 */
+	public void profileSelect() {
+		try {
+			FXMLLoader loader = new FXMLLoader();
+			loader.setLocation(MainApp.class.getResource("UserSelectionMenu.fxml"));
+			BorderPane profiles = (BorderPane) loader.load();
+			UserSelectionMenuController controller = loader.<UserSelectionMenuController>getController();
+    		controller.initProfile();
+			_root.setCenter(profiles);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	
+
+
+	/**
+	 * Code to allow the entire stage to be draggable
+	 */
+    public void enableDraggableWindow() {
     	//http://stackoverflow.com/questions/18173956/how-to-drag-undecorated-window //offset too
     	
 		_root.setOnMousePressed(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent event) {
-            	xOffset = _primaryStage.getX() - event.getScreenX();
-                yOffset = _primaryStage.getY() - event.getScreenY();
+            	_xOffset = _primaryStage.getX() - event.getScreenX();
+                _yOffset = _primaryStage.getY() - event.getScreenY();
             }
         });
         _root.setOnMouseDragged(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent event) {
-            	_primaryStage.setX(event.getScreenX() + xOffset);
-                _primaryStage.setY(event.getScreenY() + yOffset);
+            	_primaryStage.setX(event.getScreenX() + _xOffset);
+                _primaryStage.setY(event.getScreenY() + _yOffset);
             }
         });
 	}
+    
+    /**
+     * Sets up the stylesheets and the stage of the application
+     */
 	public void displayLayout() {
 		Scene scene = new Scene(_root, 800, 600);
 		scene.getStylesheets().add(getClass().getResource("voxstyle.css").toExternalForm());
 		scene.getStylesheets().add("https://fonts.googleapis.com/css?family=Righteous");
 		scene.getStylesheets().add("https://fonts.googleapis.com/css?family=Roboto:400,700");
-		testCode();
+		enableDraggableWindow();
 		_primaryStage.setScene(scene);
 		_primaryStage.initStyle(StageStyle.UNDECORATED);
 		_primaryStage.setResizable(false);
@@ -165,5 +151,18 @@ public class MainApp extends Application {
 	
 	public static void main(String[] args) {
 		launch(args);
+	}
+	
+	////////// GETTER METHODS //////////
+	public static BorderPane getRoot() {
+		return _root;
+	}
+
+	public UserModel getUser() {
+		return _user;
+	}
+	
+	public Stage getStage() {
+		return _primaryStage;
 	}
 }

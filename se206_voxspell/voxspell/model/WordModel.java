@@ -9,10 +9,14 @@ import java.util.Date;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 
+/**
+ * Class associated with an individual word. Tracks how many times
+ * a word has been spelled (incl. correct) and its "score".
+ * @author terran
+ *
+ */
 public class WordModel implements Serializable {
-	/**
-	 * 
-	 */
+
 	private static final long serialVersionUID = 6323087623510671956L;
 	public String _word;
 	private int _correct;
@@ -20,7 +24,7 @@ public class WordModel implements Serializable {
 	private LevelModel _level; //level if you will
 	private LocalDate _lastTried; //to be considered (NOT IN CONSTRUCTORS YET)
 	private int _wordScore; // 0-100 based on user's performance
-	private int _experience; // experience points earned
+	private int _credits; // experience points earned
 	
 	
 	public WordModel(String word, LevelModel level) {
@@ -30,13 +34,16 @@ public class WordModel implements Serializable {
 		_level = level;
 		_lastTried = null;
 		_wordScore = 50; //middle ground for new words (neutral)
-		_experience = word.length(); //experience proportional to word length
+		_credits = word.length(); //experience proportional to word length
 		
 	}
 	
-	public int size() {
-		return _word.length();
-	}
+	/**
+	 * Checks if the user input is correct, and adjusts the stats and
+	 * "score" associated with it if the user gets it right/wrong.
+	 * @param input
+	 * @return
+	 */
 	public boolean isCorrect(String input) {
 		//checks if a word is correct and alters stats based on it
 		boolean userCorrect = (input.trim().equals(_word.toLowerCase()));
@@ -70,13 +77,17 @@ public class WordModel implements Serializable {
 				_wordScore = 0;
 			}
 		}
-		_lastTried = LocalDate.now();
+		_lastTried = LocalDate.now(); //update the last tried date
 		return userCorrect;
 	}
 	
-	public LocalDate getLastTried() {
-		return _lastTried;
-	}
+////////// ACCESSOR METHODS //////////
+	
+	/**
+	 * Gets a String representation of when the user last tried this word
+	 * A String is used because the user may have not tried the word (ie null)
+	 * @return Date cast to a String
+	 */
 	public String getLastTriedStr() {
 		if (_lastTried == null) {
 			return "not practiced";
@@ -85,10 +96,19 @@ public class WordModel implements Serializable {
 		}
 	}
 	
+	/**
+	 * Getter for the word itself
+	 * @return
+	 */
 	public String getWord() {
 		return _word;
 	}
 	
+	/**
+	 * Gets the accuracy represented as a String (because of --% if it has
+	 * not been tried yet).
+	 * @return
+	 */
 	public String getAccuracy() {
 		if (_attempts == 0) {
 			return "--%"; // no value yet
@@ -98,7 +118,7 @@ public class WordModel implements Serializable {
 			return percentage + "%";
 		}
 	}
-	
+
 	public int getTimesCorrect() {
 		return _correct;
 	}
@@ -115,17 +135,10 @@ public class WordModel implements Serializable {
 		return _word;
 	}
 	
-	public int getXP() {
-		return _experience;
+	public int getCredits() {
+		return _credits;
 	}
 	
-	public boolean equals(Object obj){
-		if (obj == null) {
-			return false;
-		}
-		
-		return this.toString().equals(obj.toString());
-		
-	}
+
 		
 }

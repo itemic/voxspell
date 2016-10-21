@@ -8,9 +8,7 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.concurrent.ThreadLocalRandom;
 
-import voxspell.gui.MainApp;
 import voxspell.util.MediaHandler;
-import voxspell.util.TextToSpeech;
 
 public class QuizModel implements Serializable {
 
@@ -138,7 +136,7 @@ public class QuizModel implements Serializable {
 		if (isCorrect) { //ensure case insensitivity
 			_correct++;
 			_attempts++;
-			_currencyGain += word.getXP(); //gain credits if the user gets it right
+			_currencyGain += word.getCredits(); //gain credits if the user gets it right
 		} else {
 			_attempts++;
 		}
@@ -185,6 +183,10 @@ public class QuizModel implements Serializable {
 		return _level;
 	}
 	
+	/**
+	 * Get the number of words correct in the quiz
+	 * @return
+	 */
 	public int getCorrect() {
 		return _correct;
 	}

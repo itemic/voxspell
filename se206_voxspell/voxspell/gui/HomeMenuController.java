@@ -2,8 +2,6 @@ package voxspell.gui;
 
 import java.io.IOException;
 import java.net.URL;
-import java.nio.file.Files;
-import java.nio.file.Paths;
 import java.util.ResourceBundle;
 
 import javafx.event.ActionEvent;
@@ -14,7 +12,6 @@ import javafx.scene.control.Button;
 import javafx.scene.layout.BorderPane;
 import voxspell.model.GameType;
 import voxspell.util.MediaHandler;
-import voxspell.util.Save;
 
 public class HomeMenuController implements Initializable {
 
@@ -37,15 +34,14 @@ public class HomeMenuController implements Initializable {
     private Button shopBtn;
     
     @FXML
-    void backToUserSelection(ActionEvent event) {
+    void backToUserSelection(ActionEvent event) { //switch users
     	try {
     		FXMLLoader loader = new FXMLLoader();
 			loader.setLocation(MainApp.class.getResource("UserSelectionMenu.fxml"));
 			BorderPane profiles = (BorderPane) loader.load();
 			UserSelectionMenuController controller = loader.<UserSelectionMenuController>getController();
-    		controller.setup();
+    		controller.initProfile();
 			MainApp.getRoot().setCenter(profiles);
-			MainApp.getRoot().setTop(null);
 			MainApp.instance().changeWindowTitle("VOXSpell 1.0");
     		} catch (IOException e) {
     			e.printStackTrace();
@@ -53,7 +49,7 @@ public class HomeMenuController implements Initializable {
     }
     
     @FXML
-    void startGame(ActionEvent event) {
+    void startGame(ActionEvent event) { //start a game, show the level selection menu
     	try {
     		
     		FXMLLoader loader = new FXMLLoader();
@@ -76,7 +72,7 @@ public class HomeMenuController implements Initializable {
     		loader.setLocation(MainApp.class.getResource("StatisticsMenu.fxml"));
     		BorderPane stats = (BorderPane)loader.load();
     		StatisticsMenuController controller = loader.<StatisticsMenuController>getController();
-    		controller.fromMenu(); //code to initialize 
+    		controller.initStats(); //code to initialize statistics
     		
     		BorderPane root = MainApp.getRoot();
     		root.setCenter(stats);
@@ -92,7 +88,7 @@ public class HomeMenuController implements Initializable {
     		loader.setLocation(MainApp.class.getResource("SettingsMenu.fxml"));
     		BorderPane settings = (BorderPane)loader.load();
     		SettingsMenuController controller = loader.<SettingsMenuController>getController();
-    		controller.setUpSettings(); //code to initialize 
+    		controller.initSettings(); //code to initialize settings
     		
     		BorderPane root = MainApp.getRoot();
     		root.setCenter(settings);
@@ -108,7 +104,7 @@ public class HomeMenuController implements Initializable {
     		loader.setLocation(MainApp.class.getResource("LevelEditor.fxml"));
     		BorderPane editor = (BorderPane)loader.load();
     		LevelEditorController controller = loader.<LevelEditorController>getController();
-    		controller.fromMenu(); //code to initialize 
+    		controller.initEditor(); //code to initialize level editor 
     		
     		BorderPane root = MainApp.getRoot();
     		root.setCenter(editor);
@@ -122,12 +118,12 @@ public class HomeMenuController implements Initializable {
     	try {
     		FXMLLoader loader = new FXMLLoader();
     		loader.setLocation(MainApp.class.getResource("ShopMenu.fxml"));
-    		BorderPane editor = (BorderPane)loader.load();
+    		BorderPane shop = (BorderPane)loader.load();
     		ShopMenuController controller = loader.<ShopMenuController>getController();
-    		controller.fromMenu(); //code to initialize 
+    		controller.initShop(); //code to initialize the shop
     		
     		BorderPane root = MainApp.getRoot();
-    		root.setCenter(editor);
+    		root.setCenter(shop);
     	} catch (IOException e) {
     		e.printStackTrace();
     	}
@@ -137,20 +133,20 @@ public class HomeMenuController implements Initializable {
 	public void initialize(URL location, ResourceBundle resources) {
 		String user = MainApp.instance().getUser().toString();
 		if (MainApp.instance().getUser().getGameType().equals(GameType.CHALLENGE)) {
-			// no editor
+			// no editor in Challenge mode
 			editorBtn.setManaged(false);
 			MainApp.instance().changeWindowTitle("VOXSpell 1.0 - " + user + " (Challenge)");
 
 		} else {
-			// no shop
+			// no shop in Free Play mode
 			shopBtn.setManaged(false);
 			MainApp.instance().changeWindowTitle("VOXSpell 1.0 - " + user + " (Free Play)");
 
 		}
 		
 		
-		MainApp.instance().save();
-		MediaHandler.stop();
+		MainApp.instance().save(); //always autosave at home menu
+		MediaHandler.stop(); //disable all playing music
 	}
 
 }

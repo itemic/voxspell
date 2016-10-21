@@ -5,8 +5,6 @@ import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.util.ArrayList;
 
-import voxspell.gui.MainApp;
-
 public class LevelModel implements Serializable {
 
 	private static final long serialVersionUID = 8876244034319084689L;

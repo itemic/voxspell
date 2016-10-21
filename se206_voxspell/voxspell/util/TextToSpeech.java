@@ -1,19 +1,12 @@
 package voxspell.util;
 
 import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.io.OutputStream;
-import java.io.PrintWriter;
-import java.io.Serializable;
 import java.util.ArrayList;
-
 import javafx.concurrent.Task;
 import javafx.scene.Node;
-import javafx.scene.control.Control;
 
 /**
  * <h1>TextToSpeech</h1> This class is responsible for taking text, synthesising
@@ -186,29 +179,6 @@ public class TextToSpeech {
 		}
 	}
 	
-	private class ConcurrentSpeech extends Task {
-		private ArrayList<String> _cmd;
-		private ArrayList<? extends Control> _disable;
-
-		public ConcurrentSpeech(ArrayList<String> cmd, ArrayList<? extends Control> disable) {
-			_cmd = cmd;
-			_disable = disable;
-		}
-		@Override
-		protected Object call() throws Exception {
-			// TODO Auto-generated method stub
-			ProcessBuilder pb = new ProcessBuilder(_cmd);
-			for (Control o: _disable) {
-				o.setDisable(true);
-			}
-			pb.start().waitFor();
-			for (Control o: _disable) {
-				o.setDisable(false);
-			}
-			return null;
-		}
-		
-	}
 
 	/***
 	 * <h1>Speech</h1> This class is a one time use that speaks one piece of

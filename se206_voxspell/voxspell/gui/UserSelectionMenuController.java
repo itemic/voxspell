@@ -8,13 +8,12 @@ import java.util.ResourceBundle;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
+import javafx.concurrent.Task;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
-import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.RadioButton;
@@ -89,25 +88,37 @@ public class UserSelectionMenuController implements Initializable {
     @FXML
     private ToggleGroup playMode;
     
-    Alert alert = new Alert(AlertType.ERROR);
+    private Alert alert = new Alert(AlertType.ERROR);
 
 
-    void setup() {
+    void initProfile() {
     	MediaHandler.stop();
     	_files.clear();
     	_filenames.clear();
-    	for (File f: FileHandler.findProfiles()) {
-    		_files.add(f);
-    		_filenames.add(f.getName());
-    	}
-    	if (_files.size() == 0) {
-    		//no files so myeh
-    		loadUserPlayBtn.setVisible(false);
-    	} else {
-    	_ob = FXCollections.observableArrayList(_filenames);
-    	loadProfileComboBox.getItems().addAll(_ob);
-    	loadProfileComboBox.getSelectionModel().select(0);
-    	}
+    	//populate the profile combobox with a separate thread
+    	Task<Void> task = new Task<Void>() {
+
+			@Override
+			protected Void call() throws Exception {
+				for (File f: FileHandler.findProfiles()) { //find profiles
+		    		_files.add(f);
+		    		_filenames.add(f.getName());
+		    	}
+		    	if (_files.size() == 0) {
+		    		//no files so don't show the load button
+		    		loadUserPlayBtn.setVisible(false);
+		    	} else {
+		    	_ob = FXCollections.observableArrayList(_filenames);
+		    	loadProfileComboBox.getItems().addAll(_ob);
+		    	loadProfileComboBox.getSelectionModel().select(0);
+		    	}
+				return null;
+			}
+    		
+    	};
+    	
+    	new Thread(task).start();
+    	
     }
     @FXML
     void showCustom() {
@@ -133,7 +144,7 @@ public class UserSelectionMenuController implements Initializable {
     //TODO further file validation
     
     @FXML
-    void add() throws IOException {
+    void add() throws IOException { // the user is loading their own wordlist
     	String filename = Save.DIRECTORY + userTextField.getText().trim() + Save.EXTENSION;
 		RadioButton rbWordlist = (RadioButton)wordlist.getSelectedToggle();
 		RadioButton rbMode = (RadioButton)playMode.getSelectedToggle();
@@ -166,15 +177,15 @@ public class UserSelectionMenuController implements Initializable {
     	} else {
     		Save s;
     		if (rbWordlist.getText().equals("Default Wordlist")) {
+    			//User uses default word list
     			if (rbMode.getText().equals("Challenge Mode")) {
                 	s = new Save(new UserModel(userTextField.getText(), GameType.CHALLENGE));
     			} else {
                 	s = new Save(new UserModel(userTextField.getText(), GameType.FREEPLAY));
     			}
-    			//DEFAULT
 
     		} else {
-    			//CUSTOM
+    			//Custom Word List provided
     			if (rbMode.getText().equals("Challenge Mode")) {
     				s = new Save(new UserModel(userTextField.getText(), customFilePath, GameType.CHALLENGE));	
     			} else {
@@ -193,7 +204,7 @@ public class UserSelectionMenuController implements Initializable {
 
     
     @FXML
-    void filePick() {
+    void filePick() { //show file picker and update custom word list
     	File file = chooser.showOpenDialog(new Stage());
     	if (file != null) {
         	customFilePath = file.getAbsolutePath();
@@ -204,7 +215,6 @@ public class UserSelectionMenuController implements Initializable {
     }
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-//		setup();
 		MainApp.instance().changeWindowTitle("VOXSpell 1.0");
 		hideCustom();
 		showNewUser();
@@ -216,7 +226,7 @@ public class UserSelectionMenuController implements Initializable {
     
 	
    @FXML
-    void showExistingUser() {
+    void showExistingUser() { //hide the buttons to add new profile if set to load profiles
 	   existingUserVbox.setVisible(true);
 	   newUserVbox.setVisible(false);
 	   existingUserVbox.setManaged(true);
@@ -226,6 +236,10 @@ public class UserSelectionMenuController implements Initializable {
 	   loadUserPlayBtn.setVisible(true);
 	   addUserPlayBtn.setManaged(false);
 	   loadUserPlayBtn.setManaged(true);
+	   
+	   if (loadProfileComboBox.getItems().isEmpty()) {
+		   loadUserPlayBtn.setVisible(false); // don't allow loading of profiles if there are none
+	   }
     }
 
     @FXML

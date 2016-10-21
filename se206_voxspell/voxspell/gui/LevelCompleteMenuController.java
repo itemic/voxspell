@@ -1,6 +1,5 @@
 package voxspell.gui;
 
-import java.io.File;
 import java.io.IOException;
 
 import javafx.event.ActionEvent;
@@ -12,7 +11,6 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
-import javafx.scene.media.MediaPlayer;
 import voxspell.model.GameType;
 import voxspell.model.QuizModel;
 import voxspell.util.MediaHandler;
@@ -64,10 +62,9 @@ public class LevelCompleteMenuController {
     }
     
     
-    public void init(QuizModel quiz) {
+    public void initQuiz(QuizModel quiz) {
     	if (MainApp.instance().getUser().getGameType().equals(GameType.FREEPLAY)) {
-    		//no experience in this mode
-    		creditVbox.setManaged(false);
+    		//no experience in this mode so hide the credits gained
     		creditVbox.setManaged(false);
     	}
     	
@@ -77,9 +74,11 @@ public class LevelCompleteMenuController {
     	Image image = new Image("resources/levelcomplete.png");
     	Image plus = new Image("resources/voxcoingain.png");
     	Image score;
-    	if (quiz.getCorrect() > 8) {
+    	//Shows a different icon based on the user's performance
+    	double quizPercentage = (double)quiz.getCorrect() / (double)quiz.getQuizSize();
+    	if (quizPercentage >= 0.8) {
     		score = new Image("resources/goodscore.png");
-    	} else if (quiz.getCorrect() > 6) {
+    	} else if (quizPercentage >= 0.6) {
     		score = new Image("resources/decentscore.png");
     	} else {
     		score = new Image("resources/badscore.png");
@@ -89,10 +88,6 @@ public class LevelCompleteMenuController {
     	scoreImage.setImage(score);
     }
 
-    @FXML
-    void showReward(ActionEvent event) {
-
-    }
 
 }
 

@@ -24,8 +24,7 @@ public class HelpScreenController implements Initializable {
     		loader.setLocation(MainApp.class.getResource("SettingsMenu.fxml"));
     		BorderPane settings = (BorderPane)loader.load();
     		SettingsMenuController controller = loader.<SettingsMenuController>getController();
-    		controller.setUpSettings(); //code to initialize 
-    		
+    		controller.initSettings(); //code to initialize settings once we return to it
     		BorderPane root = MainApp.getRoot();
     		root.setCenter(settings);
     	} catch (IOException e) {
@@ -33,7 +32,7 @@ public class HelpScreenController implements Initializable {
     	}
     }
 
-	@Override
+	@Override //ensures the music stops playing from settings screen
 	public void initialize(URL location, ResourceBundle resources) {
 		// TODO Auto-generated method stub
 		MediaHandler.stop();
