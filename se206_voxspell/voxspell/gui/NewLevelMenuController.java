@@ -38,7 +38,12 @@ public class NewLevelMenuController {
 		// http://stackoverflow.com/questions/14632071/textarea-is-it-possible-to-get-the-number-of-lines
 		String allText = levelWordsArea.getText();
 		String[] words = allText.split(System.getProperty("line.separator"));
-		ArrayList<String> wordlist = new ArrayList<>(Arrays.asList(words));
+		ArrayList<String> wordlist = new ArrayList<>();
+		for (String word: words) {
+			if (!word.trim().equals("")) { //don't want empty words
+				wordlist.add(word.trim());
+			}
+		}
 		if (levelName.equals("") || allText.trim().isEmpty()) {
 			if (levelName.equals("")) {
 				// no level name

@@ -162,11 +162,11 @@ public class LevelEditorController {
 		addWordDialog.setContentText("Word:");
 
 		Optional<String> result = addWordDialog.showAndWait();
-		if (result.isPresent() && !result.get().equals("")) { // make sure the
+		if (result.isPresent() && !result.get().trim().equals("")) { // make sure the
 																// word isn't
 																// empty or
 																// repeated
-			selectedLevel.addWord(result.get());
+			selectedLevel.addWord(result.get().trim());
 			updateList();
 		}
 	}

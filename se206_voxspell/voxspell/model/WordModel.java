@@ -81,6 +81,15 @@ public class WordModel implements Serializable {
 		return userCorrect;
 	}
 	
+	public boolean equals(Object obj){
+		if (obj == null) {
+			return false;
+		}
+
+		return this.toString().equals(obj.toString());
+
+	}
+	
 ////////// ACCESSOR METHODS //////////
 	
 	/**
