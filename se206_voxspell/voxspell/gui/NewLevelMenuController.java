@@ -2,8 +2,6 @@ package voxspell.gui;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Arrays;
-
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;

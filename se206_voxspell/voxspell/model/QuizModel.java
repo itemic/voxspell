@@ -8,7 +8,6 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.concurrent.ThreadLocalRandom;
 
-import javafx.concurrent.Task;
 import voxspell.util.MediaHandler;
 
 public class QuizModel implements Serializable {
