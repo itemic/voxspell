@@ -108,6 +108,7 @@ public class LevelCompleteMenuController {
     	if (MainApp.instance().getUser().getGameType().equals(GameType.FREEPLAY)) {
     		//no experience in this mode so hide the credits gained
     		creditVbox.setManaged(false);
+    		creditVbox.setVisible(false);
     	}
     	
     	xpLabel.setText("β$" + quiz.getCurrencyGain());
