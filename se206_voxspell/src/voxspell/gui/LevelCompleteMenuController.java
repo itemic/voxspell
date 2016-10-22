@@ -1,5 +1,6 @@
 package voxspell.gui;
 
+import java.io.File;
 import java.io.IOException;
 
 import javafx.event.ActionEvent;
@@ -113,18 +114,18 @@ public class LevelCompleteMenuController {
     	
     	xpLabel.setText("β$" + quiz.getCurrencyGain());
     	scoreLabel.setText(quiz.getCorrect() + "/" + quiz.getQuizSize());
-    	
-    	Image image = new Image("resources/levelcomplete.png");
-    	Image plus = new Image("resources/voxcoingain.png");
+
+    	Image image = new Image(new File("resources/levelcomplete.png").toURI().toString());
+    	Image plus = new Image(new File("resources/voxcoingain.png").toURI().toString());
     	Image score;
     	//Shows a different icon based on the user's performance
     	double quizPercentage = (double)quiz.getCorrect() / (double)quiz.getQuizSize();
     	if (quizPercentage >= 0.8) {
-    		score = new Image("resources/goodscore.png");
+    		score = new Image(new File("resources/goodscore.png").toURI().toString());
     	} else if (quizPercentage >= 0.6) {
-    		score = new Image("resources/decentscore.png");
+    		score = new Image(new File("resources/decentscore.png").toURI().toString());
     	} else {
-    		score = new Image("resources/badscore.png");
+    		score = new Image(new File("resources/badscore.png").toURI().toString());
     	}
     	completeImage.setImage(image);
     	gainImage.setImage(plus);

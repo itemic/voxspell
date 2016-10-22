@@ -1,5 +1,6 @@
 package voxspell.gui;
 
+import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
@@ -147,7 +148,7 @@ public class ShopMenuController implements Initializable {
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-		Image coin = new Image("resources/voxcoin.png");
+		Image coin = new Image(new File("resources/voxcoin.png").toURI().toString());
 		shopImage.setImage(coin);
 		buyBtn.setVisible(false);
 		soundtrackBtn.setVisible(false);
