@@ -236,6 +236,8 @@ public class UserSelectionMenuController implements Initializable {
 	   loadUserPlayBtn.setVisible(true);
 	   addUserPlayBtn.setManaged(false);
 	   loadUserPlayBtn.setManaged(true);
+	  
+	   loadUserPlayBtn.setDefaultButton(true); //so you can ENTER
 	   
 	   if (loadProfileComboBox.getItems().isEmpty()) {
 		   loadUserPlayBtn.setVisible(false); // don't allow loading of profiles if there are none
@@ -253,6 +255,8 @@ public class UserSelectionMenuController implements Initializable {
 		loadUserPlayBtn.setVisible(false);
 		addUserPlayBtn.setManaged(true);
 		loadUserPlayBtn.setManaged(false);
+		
+		addUserPlayBtn.setDefaultButton(true);
     }
 
     

@@ -126,7 +126,7 @@ public class GameMenuController implements Initializable {
 	void quitEarly() {
 		alert.setTitle("In A Hurry?");
 		alert.setHeaderText("Are you sure you want to leave early?");
-		alert.setContentText("You won't get any credits if you leave now.");
+		alert.setContentText("You won't get any VOXCoins if you leave now.");
 		Optional<ButtonType> result = alert.showAndWait();
 		if (result.get() == ButtonType.OK) {
 			try {
