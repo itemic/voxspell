@@ -39,6 +39,7 @@
                   <Insets left="15.0" right="15.0" top="15.0" />
                </padding>
             </HBox>
+            <Label fx:id="levelAccuracyLabel" text="Level Accuracy: " />
             <TableView fx:id="wordsTable">
                <columns>
                   <TableColumn fx:id="wordColumn" editable="false" minWidth="125.0" prefWidth="-1.0" sortable="false" text="Word" />

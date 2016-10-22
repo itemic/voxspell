@@ -31,6 +31,9 @@ public class StatisticsMenuController {
     
     @FXML
     private Label titleLabel;
+    
+    @FXML
+    private Label levelAccuracyLabel;
 
     @FXML
     private ComboBox<String> levelComboBox;
@@ -88,7 +91,7 @@ public class StatisticsMenuController {
     @FXML
     void changeView() {
     	LevelModel selectedLevel = _lvModel.get(levelComboBox.getSelectionModel().getSelectedIndex());
-
+    	levelAccuracyLabel.setText("Level Accuracy: " + selectedLevel.levelAccuracy());
 		ObservableList<StatsModel> s = FXCollections.observableArrayList();
 
 		for (WordModel w: selectedLevel.getWords()) {
