@@ -12,6 +12,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
 import voxspell.model.GameType;
+import voxspell.model.LevelModel;
 import voxspell.model.QuizModel;
 import voxspell.util.MediaHandler;
 
@@ -26,12 +27,15 @@ public class LevelCompleteMenuController {
     @FXML
     private Label rewardLabel;
 
-    @FXML
-    private Button rewardBtn;
 
     @FXML
     private Button menuBtn;
     
+    @FXML
+    private Button replayLevelBtn;
+    
+    @FXML
+    private Button newGameBtn;
 
     @FXML
     private ImageView completeImage;
@@ -44,6 +48,8 @@ public class LevelCompleteMenuController {
     
     @FXML
     private VBox creditVbox;
+    
+    private LevelModel currentLevel;
 
     @FXML
     void backToMenu(ActionEvent event) {
@@ -61,8 +67,44 @@ public class LevelCompleteMenuController {
     	}
     }
     
+    @FXML
+    void playNewGame() {
+    	try { //same code as HomeMenu new game (same functionality too)
+    		FXMLLoader loader = new FXMLLoader();
+    		loader.setLocation(MainApp.class.getResource("LevelSelectMenu.fxml"));
+    		BorderPane levelSelectPane = (BorderPane)loader.load();
+    		LevelSelectMenuController controller = loader.<LevelSelectMenuController>getController();
+    		controller.fromMenu(); //code to initialize level select
+
+    		BorderPane root = MainApp.getRoot();
+    		root.setCenter(levelSelectPane);
+    	} catch (IOException e) {
+    		e.printStackTrace();
+    	}
+    }
     
-    public void initQuiz(QuizModel quiz) {
+    @FXML
+    void replayLevel() {
+		try {
+			if (!MainApp.instance().getUser().getDisplaySoundtrack().equals("None")) {
+				// if there is a soundtrack selected, start playing it
+				MediaHandler.play(MainApp.instance().getUser().getCurrentSoundtrack());
+			}
+			FXMLLoader loader = new FXMLLoader();
+			loader.setLocation(MainApp.class.getResource("GameMenu.fxml"));
+			BorderPane gamePane = (BorderPane) loader.load();
+			GameMenuController controller = loader.<GameMenuController>getController();
+			controller.initGame(currentLevel);
+
+			BorderPane root = MainApp.getRoot();
+			root.setCenter(gamePane);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}    	
+    }
+    
+    public void initComplete(QuizModel quiz) {
+    	currentLevel = quiz.getLevel();
     	if (MainApp.instance().getUser().getGameType().equals(GameType.FREEPLAY)) {
     		//no experience in this mode so hide the credits gained
     		creditVbox.setManaged(false);

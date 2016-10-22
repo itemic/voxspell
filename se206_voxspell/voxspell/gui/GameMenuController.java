@@ -89,7 +89,7 @@ public class GameMenuController implements Initializable {
 					loader.setLocation(MainApp.class.getResource("LevelCompleteMenu.fxml"));
 					BorderPane levelSelectPane = (BorderPane) loader.load();
 					LevelCompleteMenuController controller = loader.<LevelCompleteMenuController>getController();
-					controller.initQuiz(_quiz);
+					controller.initComplete(_quiz);
 					BorderPane root = MainApp.getRoot();
 					root.setCenter(levelSelectPane);
 				} catch (IOException e) {
