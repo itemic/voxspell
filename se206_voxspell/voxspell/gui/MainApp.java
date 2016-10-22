@@ -22,8 +22,8 @@ public class MainApp extends Application {
 	private Save _s;
 	
 	//Code for draggable window
-    private static double _xOffset = 0;
-    private static double _yOffset = 0;
+//    private static double _xOffset = 0;
+//    private static double _yOffset = 0;
 	
 
 	// Reference to this application for the other classes to use
@@ -111,27 +111,27 @@ public class MainApp extends Application {
 	
 
 
-	/**
-	 * Code to allow the entire stage to be draggable
-	 */
-    public void enableDraggableWindow() {
-    	//http://stackoverflow.com/questions/18173956/how-to-drag-undecorated-window //offset too
-    	
-		_root.setOnMousePressed(new EventHandler<MouseEvent>() {
-            @Override
-            public void handle(MouseEvent event) {
-            	_xOffset = _primaryStage.getX() - event.getScreenX();
-                _yOffset = _primaryStage.getY() - event.getScreenY();
-            }
-        });
-        _root.setOnMouseDragged(new EventHandler<MouseEvent>() {
-            @Override
-            public void handle(MouseEvent event) {
-            	_primaryStage.setX(event.getScreenX() + _xOffset);
-                _primaryStage.setY(event.getScreenY() + _yOffset);
-            }
-        });
-	}
+//	/**
+//	 * Code to allow the entire stage to be draggable
+//	 */
+//    public void enableDraggableWindow() {
+//    	//http://stackoverflow.com/questions/18173956/how-to-drag-undecorated-window //offset too
+//    	
+//		_root.setOnMousePressed(new EventHandler<MouseEvent>() {
+//            @Override
+//            public void handle(MouseEvent event) {
+//            	_xOffset = _primaryStage.getX() - event.getScreenX();
+//                _yOffset = _primaryStage.getY() - event.getScreenY();
+//            }
+//        });
+//        _root.setOnMouseDragged(new EventHandler<MouseEvent>() {
+//            @Override
+//            public void handle(MouseEvent event) {
+//            	_primaryStage.setX(event.getScreenX() + _xOffset);
+//                _primaryStage.setY(event.getScreenY() + _yOffset);
+//            }
+//        });
+//	}
     
     /**
      * Sets up the stylesheets and the stage of the application
@@ -141,9 +141,9 @@ public class MainApp extends Application {
 		scene.getStylesheets().add(getClass().getResource("voxstyle.css").toExternalForm());
 		scene.getStylesheets().add("https://fonts.googleapis.com/css?family=Righteous");
 		scene.getStylesheets().add("https://fonts.googleapis.com/css?family=Roboto:400,700");
-		enableDraggableWindow();
+//		enableDraggableWindow();
 		_primaryStage.setScene(scene);
-		_primaryStage.initStyle(StageStyle.UNDECORATED);
+		_primaryStage.initStyle(StageStyle.DECORATED);
 		_primaryStage.setResizable(false);
 		_primaryStage.sizeToScene(); // prevents border from setResizable
 		_primaryStage.show();
