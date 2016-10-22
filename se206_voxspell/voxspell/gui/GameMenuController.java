@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
+import javafx.concurrent.Task;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -38,6 +39,9 @@ public class GameMenuController implements Initializable {
 
 	@FXML
 	private Label levelAccuracyLabel; // this current game's accuracy
+	
+	@FXML
+	private Label promptLabel; // Spell what you hear...
 
 	@FXML
 	private TextField inputField;
@@ -63,7 +67,7 @@ public class GameMenuController implements Initializable {
 	}
 
 	@FXML //when the user checks their answer
-	void submitPressed(ActionEvent event) {
+	void submitPressed(ActionEvent event) throws InterruptedException {
 		String guess = inputField.getText();
 		if (!guess.trim().isEmpty()) { //disable empty lines
 			boolean isSpelledCorrectly = _quiz.checkWord(guess);

@@ -16,7 +16,7 @@
    <center>
       <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" spacing="10.0" BorderPane.alignment="CENTER">
          <children>
-            <Label alignment="CENTER" text="Spell what you hear..." />
+            <Label fx:id="promptLabel" alignment="CENTER" text="Spell what you hear..." />
             <TextField id="quiz" fx:id="inputField" />
             <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="15.0">
                <children>

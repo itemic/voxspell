@@ -8,6 +8,7 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.concurrent.ThreadLocalRandom;
 
+import javafx.concurrent.Task;
 import voxspell.util.MediaHandler;
 
 public class QuizModel implements Serializable {
@@ -41,21 +42,24 @@ public class QuizModel implements Serializable {
 	 * @return
 	 */
 	public ArrayList<WordModel> generateQuizWords() {
+		
 		ArrayList<WordModel> generatedWords = new ArrayList<>();
+		ArrayList<WordModel> localAllWords = new ArrayList<>();
 		int bias = 0; 
 		for (WordModel w: _allWords){
 			bias += (100 - w.getWordScore());
+			localAllWords.add(w);
 		}
 		
-		if (_allWords.size() < quizSize) {
+		if (localAllWords.size() <= quizSize) {
 			//just shuffle the words if there are fewer words 
 			//in this level than the number of words for a quiz
-			Collections.shuffle(_allWords);
-			generatedWords.addAll(_allWords);
-			quizSize = _allWords.size(); //update wordcount
+			Collections.shuffle(localAllWords);
+			generatedWords.addAll(localAllWords);
+			quizSize = localAllWords.size(); //update wordcount
 		} else {
 			//Sort the words from worst to best in terms of wordscore
-			Collections.sort(_allWords, new Comparator<WordModel>() {
+			Collections.sort(localAllWords, new Comparator<WordModel>() {
 
 				@Override
 				public int compare(WordModel o1, WordModel o2) {
@@ -69,10 +73,12 @@ public class QuizModel implements Serializable {
 				//randomly choose an integer and use rejection sampling to choose
 				//the words to add to the quiz
 				int chosen = ThreadLocalRandom.current().nextInt(0, bias);
-				int selectedWord = (int) (((double)chosen/bias) * (_allWords.size()-1));
-				WordModel candidate = _allWords.get(selectedWord);
+				int selectedWord = (int) (((double)chosen/bias) * (localAllWords.size()-1));
+				WordModel candidate = localAllWords.get(selectedWord);
 				if (!generatedWords.contains(candidate)) {
 					generatedWords.add(candidate);
+					localAllWords.remove(candidate);
+					bias -= (100 - candidate.getWordScore());
 				} else {
 					i--;
 				}
