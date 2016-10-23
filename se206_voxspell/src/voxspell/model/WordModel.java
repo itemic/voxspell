@@ -52,7 +52,7 @@ public class WordModel implements Serializable {
 				_wordScore += 10;
 			} else if (_wordScore < 75) {
 				_wordScore += 15;
-			} else if (_wordScore < 100) {
+			} else if (_wordScore <= 100) {
 				_wordScore += 20;
 			}
 			
@@ -66,11 +66,11 @@ public class WordModel implements Serializable {
 				_wordScore -= 30;
 			} else if (_wordScore > 50) {
 				_wordScore -= 20;
-			} else if (_wordScore > 0) {
+			} else if (_wordScore >= 0) {
 				_wordScore -= 15;
 			}
 			
-			if (_wordScore < 0) {
+			if (_wordScore <= 0) {
 				_wordScore = 0;
 			}
 		}
