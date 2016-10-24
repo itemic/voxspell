@@ -20,6 +20,11 @@ import voxspell.model.LevelModel;
 import voxspell.model.StatsModel;
 import voxspell.model.WordModel;
 
+/**
+ * Controller class for Statistics
+ * @author terran
+ *
+ */
 public class StatisticsMenuController {
 	
 	private ObservableList<String> _ob;
@@ -61,6 +66,10 @@ public class StatisticsMenuController {
     
     
     
+    /**
+     * Button action to go back
+     * @param event
+     */
     @FXML
     void goBack(ActionEvent event) { // go back to main menu
     	try {
@@ -75,6 +84,9 @@ public class StatisticsMenuController {
     	}
     }
     
+    /**
+     * Populates the stats table with the first level
+     */
     public void initStats() {
     	// set up the title and populate the stats table
     	titleLabel.setText(MainApp.instance().getUser().toString().toUpperCase()+"'S STATS");
@@ -88,6 +100,11 @@ public class StatisticsMenuController {
     	levelComboBox.getSelectionModel().select(0);
     	changeView();
     }
+    
+    /**
+     * Action when the user chooses a different level from the dropdown
+     * Repopulate the table
+     */
     @FXML
     void changeView() {
     	LevelModel selectedLevel = _lvModel.get(levelComboBox.getSelectionModel().getSelectedIndex());
@@ -116,10 +133,11 @@ public class StatisticsMenuController {
 			filter.setPredicate(word -> {
 				if (newValue == null || newValue.isEmpty()) {
 					return true;
+					//Show all words if the text box is empty
 				}
 				
 				String wordFilter = newValue.toLowerCase();
-				if (word.getWord().toLowerCase().contains(wordFilter)) {
+				if (word.getWord().toLowerCase().contains(wordFilter)) { // no case sensitivity
 					return true;
 				}
 				return false;

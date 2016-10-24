@@ -12,6 +12,11 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.layout.BorderPane;
 
+/**
+ * Controller class for the Add New Level screen 
+ * @author terran
+ *
+ */
 public class NewLevelMenuController {
 
 	@FXML
@@ -29,6 +34,10 @@ public class NewLevelMenuController {
 	private Alert noName = new Alert(AlertType.WARNING);
 	private Alert noWords = new Alert(AlertType.WARNING);
 
+	/**
+	 * Button action to take the user input to make it into a level
+	 * @param event
+	 */
 	@FXML // grabs all the text and makes a level out of it
 	void addLevelConfirm(ActionEvent event) {
 
@@ -62,11 +71,18 @@ public class NewLevelMenuController {
 		}
 	}
 
+	/**
+	 * Button action to cancel the new level action
+	 * @param event
+	 */
 	@FXML
 	void cancel(ActionEvent event) {
 		backToEditor();
 	}
 
+	/**
+	 * Code to return to the editor screen
+	 */
 	void backToEditor() {
 		try {
 			FXMLLoader loader = new FXMLLoader();

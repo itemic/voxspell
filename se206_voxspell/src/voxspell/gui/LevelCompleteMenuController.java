@@ -17,6 +17,11 @@ import voxspell.model.LevelModel;
 import voxspell.model.QuizModel;
 import voxspell.util.MediaHandler;
 
+/**
+ * Controller class to show the Level Complete screen
+ * @author terran
+ *
+ */
 public class LevelCompleteMenuController {
 
     @FXML
@@ -52,6 +57,10 @@ public class LevelCompleteMenuController {
     
     private LevelModel currentLevel;
 
+    /**
+     * Button action to go back to menu
+     * @param event
+     */
     @FXML
     void backToMenu(ActionEvent event) {
     	try {
@@ -68,6 +77,9 @@ public class LevelCompleteMenuController {
     	}
     }
     
+    /**
+     * Button action to start a new game by going to level select
+     */
     @FXML
     void playNewGame() {
     	try { //same code as HomeMenu new game (same functionality too)
@@ -84,6 +96,9 @@ public class LevelCompleteMenuController {
     	}
     }
     
+    /**
+     * Button action to replay the level
+     */
     @FXML
     void replayLevel() {
 		try {
@@ -104,6 +119,12 @@ public class LevelCompleteMenuController {
 		}    	
     }
     
+    /**
+     * Code that sets up several parts of the screen
+     * by disabling the VOXCredit gain if in FreePlay, and showing the 
+     * score image
+     * @param quiz
+     */
     public void initComplete(QuizModel quiz) {
     	currentLevel = quiz.getLevel();
     	if (MainApp.instance().getUser().getGameType().equals(GameType.FREEPLAY)) {

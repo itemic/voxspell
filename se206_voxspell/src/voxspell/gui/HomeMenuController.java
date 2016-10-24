@@ -11,8 +11,14 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.layout.BorderPane;
 import voxspell.model.GameType;
+import voxspell.model.LevelModel;
 import voxspell.util.MediaHandler;
 
+/**
+ * Controller class for the MainMenu
+ * @author terran
+ *
+ */
 public class HomeMenuController implements Initializable {
 
     @FXML
@@ -33,6 +39,10 @@ public class HomeMenuController implements Initializable {
     @FXML
     private Button shopBtn;
     
+    /**
+     * Button action for going back to the user selection screen
+     * @param event
+     */
     @FXML
     void backToUserSelection(ActionEvent event) { //switch users
     	try {
@@ -48,6 +58,10 @@ public class HomeMenuController implements Initializable {
     		}
     }
     
+    /**
+     * Button action to start a game to show the level selection menu
+     * @param event
+     */
     @FXML
     void startGame(ActionEvent event) { //start a game, show the level selection menu
     	try {
@@ -65,6 +79,10 @@ public class HomeMenuController implements Initializable {
     	}
     }
     
+    /**
+     * Button action to load the statistics screen
+     * @param event
+     */
     @FXML
     void goToStats(ActionEvent event) {
     	try {
@@ -81,6 +99,10 @@ public class HomeMenuController implements Initializable {
     	}
     }
 
+    /**
+     * Button action to load the settings screen
+     * @param event
+     */
     @FXML
     void goToSettings(ActionEvent event) {
     	try {
@@ -97,6 +119,10 @@ public class HomeMenuController implements Initializable {
     	}
     }
     
+    /**
+     * Button action to load the editor screen
+     * @param event
+     */
     @FXML
     void goToEditor(ActionEvent event) {
     	try {
@@ -113,6 +139,10 @@ public class HomeMenuController implements Initializable {
     	}
     }
     
+    /**
+     * Button action to load the store
+     * @param event
+     */
     @FXML
     void goToShop(ActionEvent event) {
     	try {
@@ -129,6 +159,10 @@ public class HomeMenuController implements Initializable {
     	}
     }
 
+    /**
+     * Method that automatically runs when this screen is initialized
+     * Detects which game mode the user is in and disables the other button
+     */
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		String user = MainApp.instance().getUser().toString();
@@ -144,6 +178,22 @@ public class HomeMenuController implements Initializable {
 
 		}
 		
+		//Disables the "Play" if there are no levels available
+		boolean canPlay = false;
+		for (LevelModel level: MainApp.instance().getUser().getGame().getLevels()) {
+			if (level.canPlayLevel() || MainApp.instance().getUser().getGameType().equals(GameType.FREEPLAY)) {
+				canPlay = true;
+				break;
+			}
+		}
+		
+		if (!canPlay) {
+			playBtn.setDisable(true);
+			playBtn.setText("No Levels (Add some or visit VOXStore)");
+		} else {
+			playBtn.setDisable(false);
+			playBtn.setText("New Game");
+		}
 		
 		MainApp.instance().save(); //always autosave at home menu
 		MediaHandler.stop(); //disable all playing music

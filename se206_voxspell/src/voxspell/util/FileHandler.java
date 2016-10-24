@@ -3,6 +3,11 @@ package voxspell.util;
 import java.io.File;
 import java.util.ArrayList;
 
+/**
+ * Singleton class to find the save files and create them.
+ * @author terran
+ *
+ */
 public class FileHandler {
 	private static FileHandler _instance = null;
 	private static String directory = Save.DIRECTORY;
@@ -12,7 +17,7 @@ public class FileHandler {
 	
 	/**
 	 * Singleton instance method
-	 * @return
+	 * @return the instance of the FileHandler
 	 */
 	public static FileHandler getInstance() {
 		if (_instance == null) {
@@ -23,7 +28,7 @@ public class FileHandler {
 	
 	/**
 	 * Gets the list of all the profile savegames
-	 * @return
+	 * @return List of all profiles
 	 */
 	public static ArrayList<File> findProfiles() {
 		ensureDirectory();

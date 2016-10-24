@@ -13,8 +13,9 @@ import javafx.scene.Node;
  * speech from it and then immediately playing it on the speakers
  * <p>
  * This happens on another thread so that the GUI doesn't freeze
+ * Implementation from shared prototype. 
  * 
- * @version 0.2.1
+ * @version 0.4
  * @author tkro003 (primary)
  * @author mkem114 (secondary)
  * @since 2016-09-03
@@ -39,7 +40,6 @@ public class TextToSpeech {
 	 * The location of festival in UG4
 	 */
 	public static final String festivalLocation = "/usr/share/festival/voices/english";
-	public static final String scmStr = "./.voice.scm";
 
 	private static TextToSpeech _instance = null;
 	private static OS _os;
@@ -114,7 +114,13 @@ public class TextToSpeech {
 		return _instance;
 	}
 
-	
+	/**
+	 * Calls the text-to-speech process to speak the string that is provided,
+	 * while disabling all the controls that could change the flow of the game.
+	 * Some implementation done by Michael.
+	 * @param speak The string to speak
+	 * @param controls The controls to disable
+	 */
 	public void speak(String speak, ArrayList<Node> controls) {
 		ArrayList<String> cmd = new ArrayList<>();
 		if (_os == OS.OSX) {
@@ -122,6 +128,7 @@ public class TextToSpeech {
 			cmd.add("-c");
 			cmd.add("say -v " + _voices.get(_selectedVoiceInt) + " " + speak);
 		} else if (_os == OS.LINUX) {
+			//Instead of using bash, directly call the Festival command
 			cmd.add("/usr/bin/festival");
 			cmd.add("(Parameter.set 'Duration_Stretch 1.2)");
 			cmd.add("(voice_" + selectedVoice() + ")");
@@ -137,7 +144,9 @@ public class TextToSpeech {
 
 	}
 
-
+	/**
+	 * Find the list of available voices depending on the user's operating system
+	 */
 	private void makeVoices() {
 		String cmd = null;
 		if (_os == OS.OSX) {
@@ -185,8 +194,9 @@ public class TextToSpeech {
 	 * text, it links with what's to be said before it so that speaking doesn't
 	 * occur simultaneously and queues up
 	 * 
-	 * @version 1.0
+	 * @version 1.6
 	 * @author mkem114
+	 * @author tkro003 (updated with control disable functionality)
 	 * @since 2016-09-19
 	 */
 	@SuppressWarnings("rawtypes")

@@ -3,8 +3,12 @@ package voxspell.model;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 
-//This model is a wrapper for the other models because
-//Properties cannot be serializable
+/**
+ * Wrapper class for handling statistics because StringProperties
+ * and ObservableLists cannot be Serialized
+ * @author terran
+ *
+ */
 public class StatsModel {
 	//EMULATES WORD BUT NOT SERIALIZABLE
 	//NOT SURE IF THERES A BETTER WAY FOR THIS
@@ -23,7 +27,9 @@ public class StatsModel {
 	}
 	
 	//Getters, setters, and StringProperty getters are below
-	
+	//General table related content referenced from
+	//http://code.makery.ch/blog/javafx-8-tableview-sorting-filtering/
+	//http://code.makery.ch/library/javafx-8-tutorial/part2/
 	
 	public String getWord() {
 		return word.get();

@@ -5,6 +5,12 @@ import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.util.ArrayList;
 
+/**
+ * Class to represent the Level, which contains all the words
+ * in a given "level". Also handles statistics.
+ * @author terran
+ *
+ */
 public class LevelModel implements Serializable {
 
 	private static final long serialVersionUID = 8876244034319084689L;

@@ -29,6 +29,11 @@ import voxspell.util.FileHandler;
 import voxspell.util.MediaHandler;
 import voxspell.util.Save;
 
+/**
+ * Controller class for profile selection
+ * @author terran
+ *
+ */
 public class UserSelectionMenuController implements Initializable {
 
     private ObservableList<String> _ob;
@@ -91,6 +96,9 @@ public class UserSelectionMenuController implements Initializable {
     private Alert alert = new Alert(AlertType.ERROR);
 
 
+    /**
+     * Sets up the profile screens
+     */
     void initProfile() {
     	MediaHandler.stop();
     	_files.clear();
@@ -120,11 +128,18 @@ public class UserSelectionMenuController implements Initializable {
     	new Thread(task).start();
     	
     }
+    /**
+     * Radio button action to show load custom wordlist
+     */
     @FXML
     void showCustom() {
     	loadCustomBtn.setVisible(true);
     	customLabel.setVisible(true);
     }
+    
+    /**
+     * Hide the custom wordlist button
+     */
     @FXML
     void hideCustom() {
     	loadCustomBtn.setVisible(false);
@@ -133,6 +148,9 @@ public class UserSelectionMenuController implements Initializable {
     	customLabel.setVisible(false);
     }
     
+    /**
+     * Load the selected user and start a game
+     */
     @FXML
     void load() {
     	String filename = Save.DIRECTORY + loadProfileComboBox.getSelectionModel().getSelectedItem();
@@ -141,8 +159,11 @@ public class UserSelectionMenuController implements Initializable {
     	MainApp.instance().startApp();
     }
     
-    //TODO further file validation
-    
+    /**
+     * Adds a new User after ensuring that the user has supplied sufficient
+     * information needed
+     * @throws IOException
+     */
     @FXML
     void add() throws IOException { // the user is loading their own wordlist
     	String filename = Save.DIRECTORY + userTextField.getText().trim() + Save.EXTENSION;
@@ -157,6 +178,7 @@ public class UserSelectionMenuController implements Initializable {
     	//Did the user specify a username?
     	boolean fileNameEmpty = userTextField.getText().trim().isEmpty();
     	
+    	//show the appropriate error
     	if (fileExists || noCustomFile || fileNameEmpty) {
     		if (fileExists) {
     			alert.setTitle("User exists");
@@ -202,7 +224,9 @@ public class UserSelectionMenuController implements Initializable {
     }
     
 
-    
+    /**
+     * Show the file picker
+     */
     @FXML
     void filePick() { //show file picker and update custom word list
     	File file = chooser.showOpenDialog(new Stage());
@@ -213,6 +237,9 @@ public class UserSelectionMenuController implements Initializable {
     	}
 
     }
+    /**
+     * Default behavior: show new user screen instead of load user
+     */
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		MainApp.instance().changeWindowTitle("VOXSpell 1.0");
@@ -225,7 +252,10 @@ public class UserSelectionMenuController implements Initializable {
 	}
     
 	
-   @FXML
+	/**
+	 * If the user wishes to laod a profile, hide the buttons to add new profile
+	 */
+	@FXML
     void showExistingUser() { //hide the buttons to add new profile if set to load profiles
 	   existingUserVbox.setVisible(true);
 	   newUserVbox.setVisible(false);
@@ -244,6 +274,9 @@ public class UserSelectionMenuController implements Initializable {
 	   }
     }
 
+	/**
+	 * If the user wishes to add new profile, hide the load profile section
+	 */
     @FXML
     void showNewUser() {
 		existingUserVbox.setVisible(false);

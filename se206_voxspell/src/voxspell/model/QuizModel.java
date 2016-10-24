@@ -10,6 +10,12 @@ import java.util.concurrent.ThreadLocalRandom;
 
 import voxspell.util.MediaHandler;
 
+/**
+ * Model class for a Quiz, which has up to 10 words. Words are
+ * randomly generated when a new Quiz is made.
+ * @author terran
+ *
+ */
 public class QuizModel implements Serializable {
 
 	private static final long serialVersionUID = -1958232043783152292L;

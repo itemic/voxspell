@@ -23,6 +23,11 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 import voxspell.model.LevelModel;
 
+/**
+ * Controller class for the VOXStore
+ * @author terran
+ *
+ */
 public class ShopMenuController implements Initializable {
 
 	private final int MUSIC_PRICE = 100;
@@ -52,6 +57,10 @@ public class ShopMenuController implements Initializable {
 	@FXML
 	private ImageView shopImage;
 
+	/**
+	 * Button action to go back
+	 * @param event
+	 */
 	@FXML
 	void goBack(ActionEvent event) {
 		try {
@@ -66,6 +75,9 @@ public class ShopMenuController implements Initializable {
 		}
 	}
 
+	/**
+	 * Code to populate the store
+	 */
 	void initShop() {
 		// set up shop with the two purchasable categories
 		_selections.add("Levels");
@@ -77,6 +89,9 @@ public class ShopMenuController implements Initializable {
 		updateList();
 	}
 
+	/**
+	 * Updates the list depending on what the shop selection is
+	 */
 	@FXML
 	void updateList() {
 		salesListView.getItems().clear();
@@ -99,13 +114,17 @@ public class ShopMenuController implements Initializable {
 
 	}
 
+	/**
+	 * Button action when a user tries to buy an item from the store
+	 * @param evt
+	 */
 	@FXML
 	void buyItem(ActionEvent evt) {
 		int currentCurrency = MainApp.instance().getUser().getCurrency();
 		String selected = shopTypeCombo.getSelectionModel().getSelectedItem();
-		if (selected == null) {
+		if (selected == null) { //do nothing if nothing is selected
 
-		} else if (selected.equals("Levels")) {
+		} else if (selected.equals("Levels")) { //if the user wants to buy a level
 			LevelModel selectedLevel = (LevelModel) salesListView.getSelectionModel().getSelectedItem();
 			if (currentCurrency >= LEVEL_PRICE) {
 				MainApp.instance().getUser().gainCurrency(-LEVEL_PRICE); // spend the money needed
@@ -139,6 +158,9 @@ public class ShopMenuController implements Initializable {
 		}
 	}
 
+	/**
+	 * Button to set the soundtrack
+	 */
 	@FXML
 	void setSoundtrack() {
 		String sound = (String) salesListView.getSelectionModel().getSelectedItem();
@@ -146,6 +168,9 @@ public class ShopMenuController implements Initializable {
 		soundtrackBtn.setDisable(true);
 	}
 
+	/**
+	 * Sets up the image for VOXCoin and selection listeners
+	 */
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		Image coin = new Image(new File("resources/voxcoin.png").toURI().toString());
@@ -166,6 +191,7 @@ public class ShopMenuController implements Initializable {
 				if (selected.equals("Levels")) {
 					LevelModel lv = (LevelModel) salesListView.getSelectionModel().getSelectedItem();
 					if (lv != null) {
+						//if a level is selected  prompt the user to buy it (if they can)
 						buyBtn.setText("Buy (β$" + LEVEL_PRICE + ")");
 						buyBtn.setVisible(true);
 						buyBtn.setManaged(true);
@@ -211,6 +237,7 @@ public class ShopMenuController implements Initializable {
 							}
 
 							if (sound.equals(MainApp.instance().getUser().getDisplaySoundtrack())) {
+								//don't allow the user to "set" the soundtrack to what is already set
 								soundtrackBtn.setDisable(true);
 							} else {
 								soundtrackBtn.setDisable(false);

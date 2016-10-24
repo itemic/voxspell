@@ -12,11 +12,20 @@ import javafx.scene.control.Button;
 import javafx.scene.layout.BorderPane;
 import voxspell.util.MediaHandler;
 
+/**
+ * Controller class for the About page
+ * @author terran
+ *
+ */
 public class HelpScreenController implements Initializable {
 
     @FXML
     private Button backBtn;
 
+    /**
+     * Button action for the user to go back to Settings
+     * @param event
+     */
     @FXML
     void goBack(ActionEvent event) {
     	try {
@@ -32,7 +41,10 @@ public class HelpScreenController implements Initializable {
     	}
     }
 
-	@Override //ensures the music stops playing from settings screen
+    /**
+     * Ensures that whatever music was playing stops once you enter this screen.
+     */
+	@Override 
 	public void initialize(URL location, ResourceBundle resources) {
 		// TODO Auto-generated method stub
 		MediaHandler.stop();

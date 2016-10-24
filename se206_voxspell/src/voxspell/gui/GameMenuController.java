@@ -22,6 +22,11 @@ import voxspell.model.QuizModel;
 import voxspell.util.MediaHandler;
 import voxspell.util.TextToSpeech;
 
+/**
+ * Controller class for the Spelling Quiz
+ * @author terran
+ *
+ */
 public class GameMenuController implements Initializable {
 
 	private QuizModel _quiz;
@@ -59,12 +64,24 @@ public class GameMenuController implements Initializable {
 															// should be stopped
 															// during Festival
 
-	@FXML //when the user presses the replay button
+	/**
+	 * Result of user pressing the Replay button, which would replay
+	 * the current word.
+	 * @param event
+	 */
+	@FXML
 	void replayPressed(ActionEvent event) {
 		TextToSpeech.access().speak(_quiz.getCurrentWord(), disable);
 	}
 
-	@FXML //when the user checks their answer
+	/**
+	 * Event when the user submits their guess.
+	 * Checks whether the word is spelled correctly and whether
+	 * there are other words left in the quiz.
+	 * @param event
+	 * @throws InterruptedException
+	 */
+	@FXML
 	void submitPressed(ActionEvent event) throws InterruptedException {
 		String guess = inputField.getText();
 		if (!guess.trim().isEmpty()) { //disable empty lines
@@ -83,10 +100,13 @@ public class GameMenuController implements Initializable {
 			if (!levelHasMore) {
 				try {
 					TextToSpeech.access().speak("Round over.", disable);
+					
 					//update the user's credit amount
 					int quizCurrencyGain = _quiz.getCurrencyGain();
 					MainApp.instance().getUser().gainCurrency(quizCurrencyGain);
 					MediaHandler.stop(); //stop soundtrack
+					
+					//Go to the level complete screen
 					FXMLLoader loader = new FXMLLoader();
 					loader.setLocation(MainApp.class.getResource("LevelCompleteMenu.fxml"));
 					BorderPane levelSelectPane = (BorderPane) loader.load();
@@ -100,19 +120,24 @@ public class GameMenuController implements Initializable {
 			} else {
 				TextToSpeech.access().speak("Spell " + _quiz.getCurrentWord(), disable);
 			}
-			inputField.requestFocus();
+			inputField.requestFocus(); //easier for the user to continue typing
 		}
 
 	}
 
-	//Sets up a quiz with the selected level (and start speaking)
+	/**
+	 * Sets up a new spelling quiz. This happens when the user enters this screen.
+	 * @param level
+	 */
 	void initGame(LevelModel level) {
 		_quiz = new QuizModel(level);
 		TextToSpeech.access().speak("Round starting. Spell " + _quiz.getCurrentWord(), disable);
 		update();
 	}
 
-	// Update all the relevant labels
+	/**
+	 * Update all the labels with relevant information
+	 */
 	void update() {
 		levelLabel.setText(_quiz.getLevel().toString());
 		levelAccuracyLabel.setText(_quiz.quizAccuracy());
@@ -120,11 +145,15 @@ public class GameMenuController implements Initializable {
 		progressLabel.setText(_quiz.getCurrentWordPosition() + "/" + _quiz.getQuizSize());
 	}
 
+	/**
+	 * Calls an alert if the user tries to leave early
+	 */
 	@FXML //code to stop the game when the user quits
 	void quitEarly() {
 		alert.setTitle("In A Hurry?");
 		alert.setHeaderText("Are you sure you want to leave early?");
 		alert.setContentText("You won't get any VOXCoins if you leave now.");
+		//ref: http://code.makery.ch/blog/javafx-dialogs-official/
 		Optional<ButtonType> result = alert.showAndWait();
 		if (result.get() == ButtonType.OK) {
 			try {
@@ -140,6 +169,9 @@ public class GameMenuController implements Initializable {
 		}
 	}
 
+	/**
+	 * Sets up the buttons to be disabled when loaded
+	 */
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		// setup the controls that should be disabled during Festival TTS

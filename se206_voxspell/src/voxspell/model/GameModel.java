@@ -6,6 +6,12 @@ import java.util.ArrayList;
 
 import voxspell.util.WordListReader;
 
+/**
+ * Data model to represent a Game which contains all
+ * the words available.
+ * @author terran
+ *
+ */
 public class GameModel implements Serializable {
 
 	private static final long serialVersionUID = 8437363611385886849L;
@@ -13,7 +19,7 @@ public class GameModel implements Serializable {
 
 	
 	/**
-	 * Creates a Game objcet based on the wordlist provided
+	 * Creates a Game object based on the wordlist provided
 	 * @param wordList
 	 * @throws IOException
 	 */

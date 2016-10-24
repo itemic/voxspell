@@ -6,9 +6,14 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 
+/**
+ * Class to read a wordlist textfile if it is provided
+ * (Otherwise read the default one)
+ * @author terran
+ *
+ */
 public class WordListReader {
 
-	//Will ignore concurrency temporarily
 	private static final String DEFAULT_WORDLIST = "resources/voxwords.txt";
 	private BufferedReader _fileReader;
 	private ArrayList<String> _levelNames = new ArrayList<>();
@@ -19,7 +24,6 @@ public class WordListReader {
 	
 	public WordListReader(String filename) throws FileNotFoundException {
 		_fileReader = new BufferedReader(new FileReader(filename));
-		//extend to other file lists
 	}
 	
 	/**

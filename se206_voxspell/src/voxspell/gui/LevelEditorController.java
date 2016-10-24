@@ -23,6 +23,11 @@ import javafx.stage.FileChooser.ExtensionFilter;
 import voxspell.model.LevelModel;
 import voxspell.model.WordModel;
 
+/**
+ * Controller class for Level Editor
+ * @author terran
+ *
+ */
 public class LevelEditorController {
 
 	@FXML
@@ -59,8 +64,10 @@ public class LevelEditorController {
 	private ObservableList<LevelModel> _ob;
 	private ArrayList<LevelModel> _lvModel = new ArrayList<>();
 
+	/**
+	 * Code to populate the combo boxes and lists when this screen is displayed
+	 */
 	void initEditor() {
-		// populate all the combo boxes and lists
 		_lvModel.clear();
 		levelCombo.getItems().clear();
 
@@ -74,7 +81,10 @@ public class LevelEditorController {
 		updateList();
 	}
 
-	@FXML // update the list after a new level is selected from combo box
+	/**
+	 * Code to update the list if a new level is selected from the combo box
+	 */
+	@FXML
 	void updateList() {
 		wordListView.getItems().clear();
 		LevelModel selectedLevel = levelCombo.getSelectionModel().getSelectedItem();
@@ -96,10 +106,14 @@ public class LevelEditorController {
 				wordListView.getItems().add(w);
 			}
 		}
-		wordListView.scrollTo(0);
+		wordListView.scrollTo(0); //scroll to top
 		MainApp.instance().save();
 	}
 
+	/**
+	 * Button action to go back to main menu
+	 * @param event
+	 */
 	@FXML
 	void backToMenu(ActionEvent event) {
 		try {
@@ -114,6 +128,9 @@ public class LevelEditorController {
 		}
 	}
 
+	/**
+	 * Action button to create a new level
+	 */
 	@FXML
 	void newLevel() {
 		try {
@@ -129,6 +146,9 @@ public class LevelEditorController {
 		}
 	}
 
+	/**
+	 * Action button to delete the selected word
+	 */
 	@FXML
 	void deleteWord() {
 		LevelModel selectedLevel = levelCombo.getSelectionModel().getSelectedItem();
@@ -153,6 +173,9 @@ public class LevelEditorController {
 
 	}
 
+	/**
+	 * Button action to add a new word by calling an alert dialog
+	 */
 	@FXML
 	void addWord() { // adds a word to the current level by calling a dialog
 		LevelModel selectedLevel = levelCombo.getSelectionModel().getSelectedItem();
@@ -171,6 +194,10 @@ public class LevelEditorController {
 		}
 	}
 
+	/**
+	 * Button action to call the file chooser to allow importing of
+	 * a custom list
+	 */
 	@FXML
 	void importList() {
 		chooser.getExtensionFilters().addAll(new ExtensionFilter("Text Files", "*.txt"),
@@ -188,6 +215,9 @@ public class LevelEditorController {
 		updateList();
 	}
 
+	/**
+	 * Button action to delete a level
+	 */
 	@FXML
 	void deleteLevel() {
 		LevelModel selectedLevel = levelCombo.getSelectionModel().getSelectedItem();

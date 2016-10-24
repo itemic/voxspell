@@ -12,6 +12,13 @@ import java.nio.file.Paths;
 
 import voxspell.model.UserModel;
 
+/**
+ * Class involved in saving all the Serializable classes
+ * for future use
+ * @author terran
+ * @author michael kemp (original version)
+ *
+ */
 public class Save {
 	public static final String DEFAULT_FILE_NAME = "voxsave";
 	public static final String EXTENSION = ".vxs";
@@ -115,8 +122,10 @@ public class Save {
 		return null; // TODO Come up with something better than returning null
 	}
 	
-	//michael's implementation
-	//deletes save file so it isn't overridden
+	/**
+	 * Delets the save file to prevent it from being overridden.
+	 * Implementation by Michael Kemp
+	 */
 	public void deleteSaveFile() {
 		try {
 			Files.deleteIfExists(Paths.get(_filename));
@@ -124,14 +133,20 @@ public class Save {
 			e.printStackTrace();
 		}
 	}
-	
-	//michael's implementation from savegame
-	//checks if the save file exists already
+
+	/**
+	 * Checks whether the save file exists.
+	 * Michael's implementation from the prototype (from SaveGame.class)
+	 * @return whether the file exists
+	 */
 	public boolean ensureSaveExists() {
 		return (new File(_filename).isFile());
 	}
 	
-	//getter for the filename
+	/**
+	 * Accessor for the filename
+	 * @return Filename
+	 */
 	public String getFileName() {
 		return _filename;
 	}

@@ -15,6 +15,11 @@ import voxspell.model.GameType;
 import voxspell.model.LevelModel;
 import voxspell.util.MediaHandler;
 
+/**
+ * Controller class for the level select screen
+ * @author terran
+ *
+ */
 public class LevelSelectMenuController {
 
 	@FXML
@@ -36,6 +41,10 @@ public class LevelSelectMenuController {
 	private ArrayList<String> _levels = new ArrayList<>();
 	private ArrayList<LevelModel> _lvModel = new ArrayList<>();
 
+	/**
+	 * Button action to start a new Quiz
+	 * @param event
+	 */
 	@FXML
 	void goAndPlay(ActionEvent event) {
 		LevelModel selectedLevel = _lvModel.get(levelSelectComboBox.getSelectionModel().getSelectedIndex());
@@ -57,6 +66,10 @@ public class LevelSelectMenuController {
 		}
 	}
 
+	/**
+	 * Button action to go back to the menu
+	 * @param event
+	 */
 	@FXML
 	void returnToMenu(ActionEvent event) {
 		try {
@@ -71,6 +84,10 @@ public class LevelSelectMenuController {
 		}
 	}
 
+	/**
+	 * Code to initialize several things when this menu is displayed, by
+	 * populating the boxes
+	 */
 	void fromMenu() {
 
 		for (LevelModel level : MainApp.instance().getUser().getGame().getLevels()) {

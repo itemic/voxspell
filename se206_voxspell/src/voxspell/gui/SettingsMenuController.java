@@ -29,6 +29,11 @@ import voxspell.util.MediaHandler;
 import voxspell.util.Save;
 import voxspell.util.TextToSpeech;
 
+/**
+ * Controller class for Settings
+ * @author terran
+ *
+ */
 public class SettingsMenuController implements Initializable {
 
 	private ObservableList<String> obVoices = FXCollections.observableArrayList(TextToSpeech.access().voices());
@@ -61,6 +66,10 @@ public class SettingsMenuController implements Initializable {
 
 	private ArrayList<Node> allControls = new ArrayList<>();
 
+	/**
+	 * Button action to go back to menu
+	 * @param event
+	 */
 	@FXML
 	void backToMenu(ActionEvent event) {
 		MainApp.instance().save(); // save settings
@@ -75,11 +84,18 @@ public class SettingsMenuController implements Initializable {
 		}
 	}
 
+	/**
+	 * Button action to preview the TTS voice
+	 * @param event
+	 */
 	@FXML
 	void previewVoice(ActionEvent event) { // previews the TTS voice
 		TextToSpeech.access().speak("Hi, my name is " + TextToSpeech.access().selectedVoice(), allControls);
 	}
 
+	/**
+	 * Button action to show the About screen
+	 */
 	@FXML
 	void showAbout() { // opens the about screen
 		try {
@@ -94,6 +110,10 @@ public class SettingsMenuController implements Initializable {
 		}
 	}
 
+	/**
+	 * Button action to start the reset game action
+	 * @param event
+	 */
 	@FXML
 	void resetGame(ActionEvent event) {
 		// confirms that the user wants to delete user
@@ -103,6 +123,7 @@ public class SettingsMenuController implements Initializable {
 				+ " will be deleted, along with all its statistics. There's no going back.");
 		Optional<ButtonType> result = alert.showAndWait();
 		if (result.get() == ButtonType.OK) {
+			//Try and delete the user if they confirm
 			try {
 				Files.deleteIfExists(
 						Paths.get(Save.DIRECTORY + MainApp.instance().getUser().toString() + Save.EXTENSION));
@@ -119,6 +140,9 @@ public class SettingsMenuController implements Initializable {
 		}
 	}
 
+	/**
+	 * Code to populate soundtracks
+	 */
 	public void initSettings() {
 		ArrayList<String> availMusic = new ArrayList<>();
 		availMusic.add("None"); // "no soundtrack"
@@ -137,30 +161,43 @@ public class SettingsMenuController implements Initializable {
 		voiceComboBox.getSelectionModel().select(TextToSpeech.access().selectedVoiceNum());
 	}
 
+	/**
+	 * Changes the current default soundtrack
+	 */
 	public void changeTrack() {
 		MediaHandler.stop();
 		MainApp.instance().getUser().setCurrentSoundtrack(soundtrackComboBox.getSelectionModel().getSelectedItem());
 	}
 
-	public void changeVoice() { // changes the voice of the TTS service
+	/**
+	 * Changes the TTS voice
+	 */
+	public void changeVoice() { 
 		TextToSpeech.access().chooseVoice(voiceComboBox.getSelectionModel().getSelectedIndex());
 	}
 
+	/**
+	 * Start playing the current soundtrack as a preview
+	 */
 	@FXML
 	void previewTrack() {
 		MediaHandler.stop();
-		MediaHandler.play(MainApp.instance().getUser().getCurrentSoundtrack()); // lets
-																				// user
-																				// preview
-																				// soundtrack
+		MediaHandler.play(MainApp.instance().getUser().getCurrentSoundtrack());
 	}
 
+	/**
+	 * Change the volume of the soundtrack (with slider)
+	 */
 	@FXML
-	void setVolume() { // slider to change soundtrack volume
+	void setVolume() {
 		double volValue = soundtrackVolumeBar.getValue();
 		MediaHandler.setVolume(volValue);
 	}
 
+	/**
+	 * Set up the buttons that should be disabled when TTS is active
+	 * as well as the listener so that the volume is changed when the slider is moved
+	 */
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		// add all the controls to be disabled when TTS is active

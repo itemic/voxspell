@@ -56,7 +56,7 @@ public class WordModel implements Serializable {
 				_wordScore += 20;
 			}
 			
-			if (_wordScore > 100) {
+			if (_wordScore > 100) { //ensures range of wordscore less= than 100
 				_wordScore = 100;
 			}
 		} else {
@@ -70,7 +70,7 @@ public class WordModel implements Serializable {
 				_wordScore -= 15;
 			}
 			
-			if (_wordScore <= 0) {
+			if (_wordScore <= 0) { //ensures range of wordscore greater= than 10
 				_wordScore = 0;
 			}
 		}
@@ -78,6 +78,10 @@ public class WordModel implements Serializable {
 		return userCorrect;
 	}
 	
+	/**
+	 * Overrides equals() method so that only the word is considered to
+	 * prevent duplicate words
+	 */
 	public boolean equals(Object obj){
 		if (obj == null) {
 			return false;
