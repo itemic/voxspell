@@ -253,6 +253,12 @@ public class UserSelectionMenuController implements Initializable {
 		chooser.getExtensionFilters().addAll(new ExtensionFilter("Text Files", "*.txt"),
 											 new ExtensionFilter("All Files", "*"));
 		
+		if (System.getProperty("os.name").matches("Mac OS X")) {
+			helpBtn.setManaged(true);
+		} else {
+			helpBtn.setManaged(false);
+		}
+		
 	}
     
 	
