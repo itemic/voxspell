@@ -777,6 +777,67 @@ design
 obtained
 restricted
 conduct
+%Academic 3
+comments
+convention
+published
+framework
+implies
+negative
+dominant
+illustrated
+outcomes
+constant
+shift
+deduction
+ensure
+specified
+justification
+funds
+reliance
+physical
+partnership
+location
+link
+coordination
+alternative
+initial
+validity
+task
+techniques
+excluded
+consent
+proportion
+demonstrate
+reaction
+criteria
+minorities
+technology
+philosophy
+removed
+sex
+compensation
+sequence
+corresponding
+maximum
+circumstances
+instance
+considerable
+sufficient
+corporate
+interaction
+contribution
+immigration
+component
+constraints
+technical
+emphasis
+scheme
+layer
+volume
+document
+registered
+core
 %Days of the Week
 Sunday
 Monday
@@ -1100,3 +1161,143 @@ textbook
 university
 college
 homework
+%Commonly Misspelled 1
+accommodate
+achieve
+across
+aggressive
+apparently
+appearance
+argument
+assassination
+basically
+beginning
+believe
+bizarre
+business
+calendar
+Caribbean
+cemetery
+chauffeur
+colleague
+coming
+committee
+%Commonly Misspelled 2
+completely
+conscious
+curiosity
+definitely
+dilemma
+disappear
+disappoint
+ecstasy
+embarrass
+environment
+existence
+Fahrenheit
+familiar
+finally
+fluorescent
+foreign
+foreseeable
+forty
+forward
+friend
+further
+gist
+glamorous
+government
+guard
+happened
+harass
+%Commonly Misspelled 3
+honorary
+humorous
+idiosyncrasy
+immediately
+incidentally
+independent
+interrupt
+irresistible
+knowledge
+liaison
+lollipop
+millenium
+necessary
+noticeable
+occasion
+occurred
+occurrence
+pavilion
+persistent
+pharaoh
+piece
+politician
+possession
+preferred
+propaganda
+publicly
+really
+receive
+referred
+%Commonly Misspelled 4
+religious
+remember
+resistance
+sense
+separate
+siege
+successful
+supersede
+surprise
+tattoo
+tendency
+therefore
+threshold
+tomorrow
+tongue
+truly
+unforseen
+unfortunately
+until
+weird
+wherever
+which
+%Transitions
+furthermore
+moreover
+in addition
+also
+further
+besides
+last
+finally
+while
+meanwhile
+during
+simultaneously
+subsequently
+for example
+to illustrate
+for instance
+to demonstrate
+specifically
+likewise
+similarly
+in the same way
+however
+yet
+nonetheless
+in constrast
+on the contrary
+on the other hand
+nevertheless
+otherwise
+notwithstanding
+therefore
+consequently
+accordintly
+in conclusion
+in summary
+to summarize
+in short
