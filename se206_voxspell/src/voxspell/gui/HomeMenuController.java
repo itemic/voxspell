@@ -190,9 +190,11 @@ public class HomeMenuController implements Initializable {
 		if (!canPlay) {
 			playBtn.setDisable(true);
 			playBtn.setText("No Levels (Add some or visit VOXStore)");
+			shopBtn.requestFocus();
 		} else {
 			playBtn.setDisable(false);
 			playBtn.setText("New Game");
+			playBtn.requestFocus();
 		}
 		
 		MainApp.instance().save(); //always autosave at home menu
