@@ -1,5 +1,6 @@
 package voxspell.gui;
 
+import java.awt.Desktop;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
@@ -41,7 +42,7 @@ public class UserSelectionMenuController implements Initializable {
     private ArrayList<File> _files = new ArrayList<>();
 	private FileChooser chooser = new FileChooser();
 	private String customFilePath;
-    
+	
     @FXML
     private TextField userTextField;
 
@@ -65,6 +66,9 @@ public class UserSelectionMenuController implements Initializable {
     
     @FXML
     private Button loadCustomBtn;
+    
+    @FXML
+    private Button helpBtn;
 
     @FXML
     private RadioButton newUserRadio;
@@ -292,6 +296,22 @@ public class UserSelectionMenuController implements Initializable {
 		addUserPlayBtn.setDefaultButton(true);
     }
 
+    /**
+     * Opens the User Manual in the user's default PDF viewer
+     */
+    @FXML
+    void getHelp() {
+    	if (Desktop.isDesktopSupported()) {
+    	    try {
+    	    	//CODE REFERENCED: http://stackoverflow.com/questions/18207116/displaying-pdf-in-javafx
+    	        File myFile = new File("resources/vox-manual.pdf");
+    	        Desktop.getDesktop().open(myFile);
+    	    } catch (IOException ex) {
+    	        // no application registered for PDFs
+    	    }
+    	}
+    	
+    }
     
 
 }
