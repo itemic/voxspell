@@ -60,6 +60,7 @@ public class MainApp extends Application {
     		} else {
     			this._primaryStage.setTitle("VOXSpell 1.0 - " + getUser().toString() + " (Free Play)");
     		}
+    		
 
 		} catch (IOException e) {
 			e.printStackTrace();

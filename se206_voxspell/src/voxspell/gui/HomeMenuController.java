@@ -8,6 +8,8 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.layout.BorderPane;
 import voxspell.model.GameType;
@@ -38,6 +40,10 @@ public class HomeMenuController implements Initializable {
 
     @FXML
     private Button shopBtn;
+    
+    private boolean firstLaunch = true;
+    
+    private Alert helpGuide = new Alert(AlertType.INFORMATION);
     
     /**
      * Button action for going back to the user selection screen
@@ -197,8 +203,29 @@ public class HomeMenuController implements Initializable {
 			playBtn.requestFocus();
 		}
 		
+		initHelp();
+
+		
 		MainApp.instance().save(); //always autosave at home menu
 		MediaHandler.stop(); //disable all playing music
 	}
 
+	/**
+	 * Show the intro screen if it's the user's first time
+	 */
+	public void initHelp() {
+		//Show preliminary intro screen if the user hasn't used it before
+		if (firstLaunch) {
+			helpGuide.setTitle("First Launch");
+			helpGuide.setHeaderText("Welcome to VOXSpell!");
+			if (MainApp.instance().getUser().getGameType().equals(GameType.FREEPLAY)) {
+				helpGuide.setContentText("You're in Free Play Mode – so just press New Game, select a level, and start playing!");
+			} else {
+				helpGuide.setContentText("Welcome to Challenge Mode – you'll want to buy a level from the VOXStore before starting. After that"
+						+ ", press New Game, select a level, and start playing!");
+			}
+			firstLaunch = !firstLaunch;
+			helpGuide.showAndWait();
+		}
+	}
 }
